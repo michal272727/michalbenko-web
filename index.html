@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Michal Benko — transparentná správa Google Ads pre B2B</title>
-<meta name="description" content="Transparentná správa Google Ads kampaní pre B2B firmy na Slovensku a v Česku. Bezplatný audit účtu, automatizovaný reporting, výsledky, ktoré vidíte.">
+<title>Michal Benko — Google Ads správa, ktorá prináša dopyty</title>
+<meta name="description" content="Transparentná správa Google Ads kampaní pre firmy na Slovensku a v Česku, ktoré chcú viac dopytov. Bezplatný audit účtu, automatizovaný reporting, výsledky, ktoré vidíte.">
 <meta name="theme-color" content="#0E2247">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sk_SK">
 <meta property="og:url" content="https://michalbenko.sk/">
-<meta property="og:title" content="Michal Benko — transparentná správa Google Ads pre B2B">
-<meta property="og:description" content="Transparentná správa Google Ads kampaní pre B2B firmy na Slovensku a v Česku. Bezplatný audit účtu, automatizovaný reporting, výsledky, ktoré vidíte.">
+<meta property="og:title" content="Michal Benko — Google Ads správa, ktorá prináša dopyty">
+<meta property="og:description" content="Transparentná správa Google Ads kampaní pre firmy na Slovensku a v Česku, ktoré chcú viac dopytov. Bezplatný audit účtu, automatizovaný reporting, výsledky, ktoré vidíte.">
 <meta property="og:image" content="https://michalbenko.sk/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Michal Benko — transparentná správa Google Ads pre B2B">
-<meta name="twitter:description" content="Transparentná správa Google Ads kampaní pre B2B firmy na Slovensku a v Česku. Bezplatný audit účtu zdarma.">
+<meta name="twitter:title" content="Michal Benko — Google Ads správa, ktorá prináša dopyty">
+<meta name="twitter:description" content="Transparentná správa Google Ads kampaní pre firmy na Slovensku a v Česku, ktoré chcú viac dopytov. Bezplatný audit účtu zdarma.">
 <meta name="twitter:image" content="https://michalbenko.sk/og-image.png">
 <link rel="canonical" href="https://michalbenko.sk/">
 <meta name="robots" content="index, follow">
@@ -43,7 +43,7 @@
       "name": "Je to viazané zmluvou na dlhé obdobie?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nie — a to je zámerná garancia. Spolupráca beží na mesačnej báze bez dlhej výpovednej lehoty: transparentnosť platí aj pre podmienky spolupráce, nielen pre reporting."
+        "text": "Nie. Spoluprácu viete ukončiť kedykoľvek k ďalšiemu mesiacu. Ak vám správa neprináša hodnotu, nemá zmysel vás držať zmluvou."
       }
     },
     {
@@ -59,7 +59,7 @@
       "name": "Spravujete aj Meta Ads alebo len Google Ads?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Táto značka sa venuje výhradne Google Ads — to je zámer, nie obmedzenie. Špecializácia na jeden kanál znamená viac hĺbky namiesto povrchnej správy viacerých platforiem naraz."
+        "text": "Táto značka sa venuje výhradne Google Ads. Vďaka tomu mu viem dať plnú pozornosť namiesto rozdelenej medzi viacero platforiem naraz."
       }
     },
     {
@@ -80,7 +80,7 @@
   "name": "Michal Benko — Google Ads",
   "url": "https://michalbenko.sk/",
   "areaServed": ["SK", "CZ"],
-  "description": "Transparentná správa Google Ads kampaní pre B2B firmy na Slovensku a v Česku.",
+  "description": "Transparentná správa Google Ads kampaní pre firmy na Slovensku a v Česku, ktoré chcú viac dopytov.",
   "founder": {
     "@type": "Person",
     "name": "Michal Benko"
@@ -230,6 +230,7 @@
   html,body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);}
   a{color:inherit; text-decoration:none;}
   h1,h2,h3{font-family:var(--serif); font-weight:700; margin:0; text-wrap:balance;}
+  h2{font-size:clamp(1.7rem,3.4vw,2.2rem); line-height:1.15;}
   p{margin:0; color:var(--ink-soft); line-height:1.6;}
   .tabular{font-variant-numeric:tabular-nums;}
   img,svg{display:block;}
@@ -437,11 +438,27 @@
   @keyframes stampBob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);} }
   @media (max-width:639px){ .sticky-stamp{display:none;} }
   .btn{
-    font-family:var(--mono); font-weight:600; font-size:.8rem; letter-spacing:.04em; text-transform:uppercase;
-    padding:.9em 1.5em; border:1px solid var(--accent); background:var(--accent); color:var(--accent-ink);
-    cursor:pointer; display:inline-flex; align-items:center; gap:9px; transition:background .2s ease, color .2s ease;
+    font-family:var(--mono); font-weight:600; font-size:1rem; letter-spacing:.03em; text-transform:uppercase;
+    padding:1em 1.8em; min-height:54px; border:1px solid var(--accent); background:var(--accent); color:var(--accent-ink);
+    cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px; transition:background .2s ease, color .2s ease;
   }
   .btn:hover{background:transparent; color:var(--accent);}
+
+  /* ---- mobile sticky CTA bar ---- */
+  .mobile-sticky-cta{display:none;}
+  @media (max-width:639px){
+    .back-to-top{display:none;}
+    .mobile-sticky-cta{
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      position:fixed; left:0; right:0; bottom:0; z-index:60;
+      background:var(--accent); color:var(--accent-ink); text-decoration:none;
+      font-family:var(--mono); font-weight:600; font-size:.85rem; letter-spacing:.02em; text-transform:uppercase;
+      padding:15px 16px calc(15px + env(safe-area-inset-bottom));
+      border-top:1px solid var(--ink);
+      transform:translateY(100%); transition:transform .3s ease;
+    }
+    .mobile-sticky-cta.visible{transform:translateY(0);}
+  }
   .link-line{border-bottom:1px solid var(--ink); font-size:.9rem; transition:color .2s ease, border-color .2s ease;}
   .link-line:hover, .link-line:focus-visible{color:var(--accent); border-color:var(--accent);}
 
@@ -483,6 +500,10 @@
   .usp-card svg{width:24px; height:24px; stroke:var(--ink);}
   .usp-card h3{font-size:1rem;}
   .usp-card p{font-size:.92rem;}
+  .info-list{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:16px; max-width:68ch;}
+  .info-list li{padding-left:30px; position:relative; font-size:.95rem; line-height:1.55;}
+  .info-list li::before{content:'✓'; position:absolute; left:0; top:1px; color:var(--accent); font-family:var(--mono); font-weight:600;}
+  .info-list.cross li::before{content:'—'; color:var(--ink-faint);}
 
   /* ---- case file tabs ---- */
   .file-tabs{display:flex; flex-wrap:wrap; margin-top:8px;}
@@ -560,7 +581,7 @@
 
   /* ---- GDPR checkbox ---- */
   .checkbox-field{display:flex; align-items:flex-start; gap:10px; margin-top:4px;}
-  .checkbox-field input{width:auto; margin-top:3px; accent-color:var(--accent);}
+  .checkbox-field input{width:22px; height:22px; flex:none; margin-top:2px; accent-color:var(--accent); cursor:pointer;}
   .checkbox-field label{font-size:.82rem; opacity:.85; font-family:var(--sans); letter-spacing:normal;}
   .checkbox-field a{text-decoration:underline; color:var(--invert-ink);}
   .checkbox-field a:hover, .checkbox-field a:focus-visible{color:var(--accent-soft);}
@@ -597,13 +618,15 @@
   .field{display:grid; gap:6px; margin-bottom:14px;}
   .field label{font-size:.76rem; color:var(--invert-ink); opacity:.7; font-family:var(--mono); letter-spacing:.03em;}
   .field .req{opacity:.55;}
-  .field input:not([type="checkbox"]), .field textarea{
+  .field input:not([type="checkbox"]), .field textarea, .field select{
     background:transparent; border:1px solid rgba(241,244,249,.35); padding:.75em .9em;
     color:var(--invert-ink); font-family:var(--sans); font-size:.94rem; width:100%;
   }
-  .field input:focus-visible, .field textarea:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .field select{cursor:pointer;}
+  .field select option{color:#111;}
+  .field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   .field textarea{resize:vertical; min-height:96px;}
-  .field.has-error input:not([type="checkbox"]), .field.has-error textarea{border-color:#FF8A80;}
+  .field.has-error input:not([type="checkbox"]), .field.has-error textarea, .field.has-error select{border-color:#FF8A80;}
   .field .error-msg{font-family:var(--mono); font-size:.72rem; color:#FF8A80; display:none;}
   .field.has-error .error-msg{display:block;}
   .intake .btn{background:var(--invert-ink); color:var(--invert-bg); border-color:var(--invert-ink);}
@@ -724,28 +747,27 @@
     <a href="#faq">FAQ</a>
     <a href="#audit">Audit<span class="nav-pulse" aria-hidden="true"></span></a>
   </nav>
-  <div class="rail-foot">Spis založený 2026</div>
 </div>
 <a href="#top" class="back-to-top" id="backToTop" aria-label="Späť na vrch stránky"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
 
 <div class="shell">
   <div class="wrap hero">
-    <p class="kicker">Google Ads pre B2B firmy · SK &amp; CZ</p>
+    <p class="kicker">Google Ads pre firmy, ktoré chcú dopyty · SK &amp; CZ</p>
     <div class="stamp">Diagnostika účtu<br>zdarma, bez záväzkov</div>
     <h1>Google Reklamy, ktoré prinášajú <span class="annot annot-underline">reálne dopyty<svg class="annot-svg" viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,14 C40,4 90,20 130,10 C160,3 195,17 217,9"/></svg></span>.</h1>
-    <p class="lede">Pozriem sa na váš účet a ukážem, čo mu chýba k tomu, aby dopyty naozaj chodili — bez agentúrnych fráz. <span class="lede-more">Transparentná správa Google Ads postavená na dátach a automatizácii, nie na sľuboch.</span></p>
+    <p class="lede">Pozriem sa na váš Google Ads účet a ukážem, kde odchádzajú peniaze bez dopytov a čo s tým. <span class="lede-more">Konkrétne, s číslami z vášho účtu, aj s tým, čo si viete opraviť sami.</span></p>
     <div class="cta-row">
       <a class="btn" href="#audit"><svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg>Chcem bezplatný audit účtu</a>
       <a class="link-line" href="#proces">Pozrieť, ako to funguje</a>
     </div>
-    <p class="micro-trust">Bez záväzkov · odpoviem do 24 hodín</p>
-    <p class="micro-trust hero-scarcity"><span class="nav-pulse p2" aria-hidden="true"></span>Momentálne preberám max 3 klientov mesačne</p>
+    <p class="micro-trust">Bez záväzkov · Odpoviem do 24 hodín</p>
+    <p class="micro-trust hero-scarcity"><span class="nav-pulse p2" aria-hidden="true"></span>Preberám max 3 nových klientov mesačne</p>
   </div>
 
   <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee-track">
-      <span>DOPYTY NECHODIA · </span><span>UKÁŽEM VÁM PREČO · </span><span>TRANSPARENTNÉ REPORTY · </span><span>VÝSLEDKY, KTORÉ VIDÍTE · </span>
-      <span>DOPYTY NECHODIA · </span><span>UKÁŽEM VÁM PREČO · </span><span>TRANSPARENTNÉ REPORTY · </span><span>VÝSLEDKY, KTORÉ VIDÍTE · </span>
+      <span>20+ SPRAVOVANÝCH ÚČTOV · </span><span>DENNÁ KONTROLA ÚČTU · </span><span>MESAČNÝ REPORT S KOMENTÁROM · </span><span>BEZ VIAZANOSTI · </span>
+      <span>20+ SPRAVOVANÝCH ÚČTOV · </span><span>DENNÁ KONTROLA ÚČTU · </span><span>MESAČNÝ REPORT S KOMENTÁROM · </span><span>BEZ VIAZANOSTI · </span>
     </div>
   </div>
 
@@ -753,10 +775,10 @@
     <div class="section-inner">
     <h2>Poznáte niektorý z týchto príznakov?</h2>
     <div style="margin-top:24px;">
-      <div class="exhibit reveal"><span class="tag">Dôkaz A</span><p>Míňate mesačne rozpočet, ale kvalitných dopytov <span class="annot annot-circle annot-warn">chodí málo<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span> — alebo vôbec.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Dôkaz B</span><p>Nemáte prehľad, kam presne peniaze v účte idú a prečo sa tak rozhodlo.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Dôkaz C</span><p>Kampane vám spravuje niekto iný, no reporty sú všeobecné a ťažko sa v nich hľadá zmysel.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Dôkaz D</span><p>Zmeny v účte prichádzajú pomaly, bez vysvetlenia a bez merateľného dopadu.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
+      <div class="exhibit reveal"><span class="tag">Príznak 1</span><p>Míňate mesačne rozpočet, ale kvalitných dopytov <span class="annot annot-circle annot-warn">chodí málo<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span> — alebo vôbec.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
+      <div class="exhibit reveal"><span class="tag">Príznak 2</span><p>Nemáte prehľad, kam presne peniaze v účte idú a prečo sa tak rozhodlo.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
+      <div class="exhibit reveal"><span class="tag">Príznak 3</span><p>Kampane vám spravuje niekto iný, no reporty sú všeobecné a ťažko sa v nich hľadá zmysel.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
+      <div class="exhibit reveal"><span class="tag">Príznak 4</span><p>Zmeny v účte prichádzajú pomaly, bez vysvetlenia a bez merateľného dopadu.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
     </div>
     <div class="cost-callout reveal">
       <span class="tag">Cena nečinnosti</span>
@@ -788,12 +810,12 @@
       <div class="usp-card reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
         <h3>Transparentnosť</h3>
-        <p>Vidíte presne, kam idú peniaze a prečo — nie sľub, ale dôkaz, ktorý si viete sami overiť.</p>
+        <p>Vidíte presne, kam idú peniaze a prečo — dáta si viete kedykoľvek overiť sami.</p>
       </div>
       <div class="usp-card reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M21 12a9 9 0 11-3.5-7.1"/><path d="M21 3v6h-6"/></svg>
         <h3>Automatizácia</h3>
-        <p>Reporting a notifikácie bežia automaticky — vy nemusíte nič dolovať, len sledovať výsledky.</p>
+        <p>Účet mi každé ráno automaticky skontroluje systém a raz mesačne dostanete zrozumiteľný report — nie tabuľku bez komentára.</p>
       </div>
       <div class="usp-card reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg>
@@ -805,18 +827,44 @@
     <div class="margin-mark reveal" style="top:20%; left:14px; width:26px; height:26px; transform:rotate(8deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 28 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.4" d="M14,2 L14,26 M4,7 L24,21 M24,7 L4,21"/></svg></div>
   </section>
 
+  <section id="starostlivost" class="bg-alt">
+    <div class="section-inner">
+    <h2>Ako sa starám o váš účet</h2>
+    <ul class="info-list reveal">
+      <li>Každý pracovný deň ráno mi systém skontroluje váš účet: pokles výkonu oproti poslednému mesiacu, výrazy, za ktoré platíte zbytočne, zamietnuté reklamy, silu reklám, lokality a zariadenia. Problém tak nečaká na koniec mesiaca.</li>
+      <li>Raz mesačne dostanete report s vysvetlením — čo sa stalo, prečo a čo robím ďalej. Žiadna tabuľka bez komentára.</li>
+      <li>Mesačné reporty s komentárom robím pravidelne pre viac ako 20 klientov, formát je overený.</li>
+    </ul>
+    </div>
+  </section>
+
+  <section id="pre-koho">
+    <div class="section-inner">
+    <h2>Pre koho to je / nie je</h2>
+    <p style="margin-top:10px;">Spolupráca dáva zmysel, ak:</p>
+    <ul class="info-list reveal">
+      <li>už máte Google Ads, alebo ste pripravení investovať aspoň 500 € mesačne do kreditu</li>
+      <li>máte funkčný web a službu či produkt, ktorý sa predáva</li>
+      <li>chcete vidieť, za čo platíte, a rozhodovať podľa čísel</li>
+    </ul>
+    <p style="margin-top:20px; max-width:60ch;">Ak zatiaľ hľadáte niekoho na jednorazové „nastavenie a zabudnutie“, pravdepodobne si nesadneme.</p>
+    </div>
+  </section>
+
   <section id="pripady" class="bg-alt">
     <div class="section-inner">
-    <h2>Ako to vyzerá v číslach</h2>
-    <p style="margin-top:10px;">Takto bude vyzerať dôkaz, nie sľub — formát nižšie doplním reálnymi číslami hneď, ako mi ich klienti odsúhlasia zverejniť. Kliknite na spis nižšie.</p>
-    <div class="file-tabs reveal" id="fileTabs" role="tablist" aria-label="Prípadové štúdie"></div>
-    <div class="file-panel reveal" id="filePanel"></div>
-    <div class="quote reveal">
-      <blockquote>„Konečne viem, za čo presne platím a prečo sa kampane menia tak, ako sa menia.“</blockquote>
-      <cite>— majiteľ B2B firmy, výroba</cite>
-      <p class="vzor">VZOR — nahradiť reálnou referenciou klienta (meno/firma len so súhlasom)</p>
-    </div>
-    <p class="inline-cta reveal"><a href="#audit">Chcem podobný výsledok<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
+    <h2>Čo dostanete v audite</h2>
+    <p style="margin-top:10px; max-width:62ch;">Účet prejdem ručne a dostanete zoznam zistení zoradený podľa toho, koľko peňazí vás stojí. Pozerám najmä:</p>
+    <ul class="info-list reveal">
+      <li>Meranie konverzií — či účet optimalizuje na skutočné dopyty, alebo na kliky a zobrazenia stránky</li>
+      <li>Vyhľadávacie výrazy — za aké hľadania reálne platíte a koľko ide na nerelevantné</li>
+      <li>Štruktúru kampaní a stratégiu cenových ponúk — či zodpovedá cieľu a rozpočtu</li>
+      <li>Performance Max — kam míňa a či neberie konverzie, ktoré by prišli aj tak</li>
+      <li>Reklamy a vstupné stránky — či sľub v reklame sedí so stránkou</li>
+      <li>Nastavenia, ktoré sa ľahko prehliadnu — lokality, zariadenia, partnerské siete, obsah zobrazovaný v aplikáciách</li>
+    </ul>
+    <p style="margin-top:18px; max-width:62ch;">Ku každému zisteniu dostanete, čo s tým spraviť. Časť si viete opraviť aj sami.</p>
+    <p class="inline-cta reveal"><a href="#audit">Chcem tento audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
     <div class="margin-mark reveal" style="top:72%; right:14px; width:30px; height:26px; transform:rotate(-4deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 30 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" d="M4,14 C3,6 14,2 20,7 C27,12 25,22 16,23 C8,24 3,18 6,13 C9,9 15,8 17,12"/></svg></div>
   </section>
@@ -831,7 +879,7 @@
       </details>
       <details class="faq-item reveal" data-index="02">
         <summary>Je to viazané zmluvou na dlhé obdobie?<span class="plus">+</span></summary>
-        <p>Nie — a to je zámerná garancia. Spolupráca beží na mesačnej báze bez dlhej výpovednej lehoty: transparentnosť platí aj pre podmienky spolupráce, nielen pre reporting.</p>
+        <p>Nie. Spoluprácu viete ukončiť kedykoľvek k ďalšiemu mesiacu. Ak vám správa neprináša hodnotu, nemá zmysel vás držať zmluvou.</p>
       </details>
       <details class="faq-item reveal" data-index="03">
         <summary>Ako rýchlo uvidím prvé výsledky?<span class="plus">+</span></summary>
@@ -839,7 +887,7 @@
       </details>
       <details class="faq-item reveal" data-index="04">
         <summary>Spravujete aj Meta Ads alebo len Google Ads?<span class="plus">+</span></summary>
-        <p>Táto značka sa venuje výhradne Google Ads — to je zámer, nie obmedzenie. Špecializácia na jeden kanál znamená viac hĺbky namiesto povrchnej správy viacerých platforiem naraz.</p>
+        <p>Táto značka sa venuje výhradne Google Ads. Vďaka tomu mu viem dať plnú pozornosť namiesto rozdelenej medzi viacero platforiem naraz.</p>
       </details>
       <details class="faq-item reveal" data-index="05">
         <summary>Pod vlastným menom pôsobíte na trhu krátko — prečo vám mám veriť?<span class="plus">+</span></summary>
@@ -856,22 +904,18 @@
     <h2>Kto sa bude pozerať na váš účet</h2>
     <div class="about reveal" style="margin-top:24px;">
       <div class="photo-tag">
-        <span class="file-label">Príloha</span>
+        <span class="file-label">Kto som</span>
         <div class="frame">
           <svg class="clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-          <img src="data:image/jpeg;base64,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" alt="Michal Benko" width="190" height="190">
+          <span>MB</span>
         </div>
         <small>Michal Benko</small>
       </div>
       <div class="about-copy">
-        <p>Volám sa <strong style="color:var(--ink)">Michal Benko</strong>. Google Ads spravujem už niekoľko rokov pre B2B aj e-commerce klientov na slovenskom a českom trhu.</p>
+        <p>Volám sa <strong style="color:var(--ink)">Michal Benko</strong>. Google Ads spravujem už niekoľko rokov. Denne pracujem s viac ako 20 účtami Google Ads — od e-shopov po firmy, ktoré zbierajú dopyty — s mesačnými rozpočtami od 500 € do 10 000 €.</p>
+        <p>Pod vlastným menom beriem len toľko klientov, koľkým sa viem venovať osobne. Na váš účet sa pozerám ja, komunikujete priamo so mnou.</p>
         <p>Za tie roky som si všimol opakujúci sa vzorec: väčšina účtov, ktoré prevezmem, má zle nastavené meranie, minutý rozpočet bez zodpovedajúceho výkonu a málo skutočnej aktivity v samotnej správe kampaní. Presne preto každú spoluprácu začínam auditom, nie predajnou prezentáciou — a pozerám sa nielen na kampane, ale aj na to, či stránka, kam vedú, vôbec dokáže návštevníka premeniť na dopyt.</p>
         <p>Namiesto ručnej práce na všetkom staviam na automatizácii — reporting, notifikácie aj časť optimalizácie bežia bez toho, aby som musel sedieť pri účte 24 hodín denne.</p>
-        <!-- TODO: nahraď skutočným embeddable Google Partner badge (z partnerského profilu na Google Partners), keď bude k dispozícii -->
-        <span class="partner-mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-          Google Partner
-        </span>
       </div>
     </div>
     </div>
@@ -885,7 +929,7 @@
     <p class="guarantee-badge reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Garancia: žiadna viazanosť, kedykoľvek zrušíte</p>
     <p class="micro-trust">Momentálne preberám max 3 nových klientov mesačne.</p>
     <div class="intake-wrap reveal">
-      <div class="intake-tab">Nový spis</div>
+      <div class="intake-tab">Bezplatný audit</div>
       <form class="intake" id="auditForm" novalidate>
         <div class="field hp-field" aria-hidden="true">
           <label for="f-website">Nechajte toto pole prázdne</label>
@@ -909,9 +953,8 @@
             <span class="error-msg">Zadajte, prosím, platný e-mail.</span>
           </div>
           <div class="field" id="field-phone">
-            <label for="f-phone">Telefón <span class="req">*</span></label>
-            <input type="tel" id="f-phone" name="phone" autocomplete="tel" required>
-            <span class="error-msg">Zadajte, prosím, telefónne číslo.</span>
+            <label for="f-phone">Telefón</label>
+            <input type="tel" id="f-phone" name="phone" autocomplete="tel">
           </div>
         </div>
         <div class="field" id="field-site">
@@ -919,9 +962,17 @@
           <input type="url" id="f-site" name="site" placeholder="https://vasa-firma.sk" autocomplete="url" required>
           <span class="error-msg">Zadajte, prosím, adresu vašej webovej stránky.</span>
         </div>
-        <div class="field" id="field-message">
-          <label for="f-message">Čo je hlavný problém?</label>
-          <textarea id="f-message" name="message" placeholder="napr. nedostatok dopytov, vysoká cena za dopyt..."></textarea>
+        <div class="field" id="field-budget">
+          <label for="f-budget">Mesačný rozpočet v Google Ads <span class="req">*</span></label>
+          <select id="f-budget" name="budget" required>
+            <option value="" disabled selected>Vyberte rozpočet</option>
+            <option value="do-500">do 500 €</option>
+            <option value="500-1500">500 € – 1 500 €</option>
+            <option value="1500-5000">1 500 € – 5 000 €</option>
+            <option value="nad-5000">nad 5 000 €</option>
+            <option value="este-nemam">zatiaľ nemám Google Ads</option>
+          </select>
+          <span class="error-msg">Vyberte, prosím, mesačný rozpočet.</span>
         </div>
         <div class="field" id="field-consent">
           <div class="checkbox-field">
@@ -938,7 +989,7 @@
       </form>
       <div id="confirm">
         <h3>Ďakujem za žiadosť.</h3>
-        <p>Ozvem sa vám v priebehu 1–2 pracovných dní s prvými zisteniami.</p>
+        <p>Ozvem sa vám do 24 hodín s prvými zisteniami.</p>
       </div>
     </div>
     </div>
@@ -947,7 +998,7 @@
 </div>
 
 <footer>
-  <p>Michal Benko — transparentná správa Google Ads pre B2B firmy na SK/CZ trhu.<br>© 2026 Michal Benko</p>
+  <p>Michal Benko — transparentná správa Google Ads pre firmy na SK/CZ trhu.<br>© 2026 Michal Benko</p>
   <div class="fcols">
     <a href="#riesime">Riešime</a>
     <a href="#proces">Proces</a>
@@ -960,6 +1011,7 @@
 </footer>
 
 <a href="#audit" class="sticky-stamp" id="stickyStamp"><span class="stamp-bob">Diagnostika<br>zdarma →</span></a>
+<a href="#audit" class="mobile-sticky-cta" id="mobileStickyCta">Chcem bezplatný audit účtu →</a>
 
 <div class="cookie-bar" id="cookieBar" role="dialog" aria-label="Nastavenia cookies">
   <div class="cookie-bar-inner">
@@ -977,13 +1029,12 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
     <h3 id="privacyModalTitle">Zásady ochrany osobných údajov</h3>
-    <p><em>Toto je pracovný návrh textu — pred spustením webu ho nechaj skontrolovať právnikom / GDPR špecialistom. Dve polia nižšie (IČO a adresa sídla) sú zámerne ponechané prázdne — doplň ich, len ty ich poznáš.</em></p>
-    <p><strong>Prevádzkovateľ:</strong> Michal Benko, IČO: [doplniť], so sídlom [doplniť adresu sídla]. Kontaktný e-mail: michal.benko@piarpro.sk <em>(over, či pre túto značku chceš použiť iný kontakt)</em>.</p>
-    <p><strong>Aké údaje spracúvam:</strong> meno a priezvisko, e-mail, telefón, názov firmy a obsah správy, ktoré vyplníte vo formulári žiadosti o audit.</p>
+    <p><strong>Prevádzkovateľ:</strong> Michal Benko, IČO: [doplniť], so sídlom [doplniť adresu sídla]. Kontaktný e-mail: info@michalbenko.sk.</p>
+    <p><strong>Aké údaje spracúvam:</strong> meno a priezvisko, e-mail, telefón, názov firmy a mesačný rozpočet, ktoré vyplníte vo formulári žiadosti o audit.</p>
     <p><strong>Účel spracovania:</strong> vybavenie vašej žiadosti o bezplatný audit Google Ads účtu a následná komunikácia ohľadom ponuky spolupráce.</p>
     <p><strong>Právny základ:</strong> váš súhlas (čl. 6 ods. 1 písm. a) GDPR) udelený zaškrtnutím políčka pri odoslaní formulára.</p>
-    <p><strong>Doba uchovávania:</strong> 12 mesiacov od poslednej vzájomnej komunikácie, pokiaľ medzitým nevznikne zmluvný vzťah — v takom prípade sa údaje uchovávajú po dobu trvania spolupráce a následne podľa zákonných lehôt (napr. účtovných a daňových predpisov). <em>Uprav, ak vo svojej praxi používaš inú lehotu.</em></p>
-    <p><strong>Vaše práva:</strong> máte právo na prístup k údajom, ich opravu, výmaz, obmedzenie spracovania a na odvolanie súhlasu kedykoľvek — napíšte na michal.benko@piarpro.sk.</p>
+    <p><strong>Doba uchovávania:</strong> 12 mesiacov od poslednej vzájomnej komunikácie, pokiaľ medzitým nevznikne zmluvný vzťah — v takom prípade sa údaje uchovávajú po dobu trvania spolupráce a následne podľa zákonných lehôt (napr. účtovných a daňových predpisov).</p>
+    <p><strong>Vaše práva:</strong> máte právo na prístup k údajom, ich opravu, výmaz, obmedzenie spracovania a na odvolanie súhlasu kedykoľvek — napíšte na info@michalbenko.sk.</p>
     <p><strong>Cookies a analytika:</strong> táto stránka používa Google Analytics (GA4) na meranie návštevnosti a vyhodnocovanie, ktoré časti webu fungujú. Analytické cookies sa ukladajú len vtedy, ak s tým súhlasíte kliknutím na "Prijať" v cookie lište — bez tohto súhlasu sa do Google Analytics neodosielajú žiadne dáta spájateľné s vašou návštevou. Súhlas môžete kedykoľvek zmeniť tlačidlom "Nastavenia cookies" v päte stránky. Fonty použité na stránke sú self-hosted, takže sa pri ich načítaní neprenáša vaša IP adresa na servery tretích strán.</p>
     <p><strong>Sťažnosť:</strong> ak sa domnievate, že vaše osobné údaje spracúvam v rozpore s GDPR, máte právo podať sťažnosť na Úrad na ochranu osobných údajov Slovenskej republiky (dataprotection.gov.sk).</p>
   </div>
@@ -1006,82 +1057,6 @@ document.body.classList.remove('no-js');
       toggle.setAttribute('aria-expanded', 'false');
     });
   });
-})();
-
-/* ---------- case-file tabs (+ count-up stat) ---------- */
-(function(){
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cases = [
-    { tag:'B2B · Výroba', statPrefix:'+', statValue:42, statDecimals:0, statSuffix:' %', label:'Nárast kvalifikovaných dopytov za 3 mesiace', detail:'Po prevzatí správy účtu a prenastavení konverzií na skutočné dopyty namiesto kliknutí na telefónne číslo.' },
-    { tag:'B2B · Služby', statPrefix:'−', statValue:28, statDecimals:0, statSuffix:' %', label:'Nižšia cena za dopyt', detail:'Reštrukturalizácia kampaní podľa zámeru vyhľadávania a nasadenie automatizovaného reportingu.' },
-    { tag:'B2B · SaaS', statPrefix:'', statValue:3.1, statDecimals:1, statSuffix:'×', label:'Viac dopytov pri rovnakom rozpočte', detail:'Do 6 mesiacov spolupráce, bez navýšenia mesačnej investície do Google Ads.' }
-  ];
-  var tabsEl = document.getElementById('fileTabs');
-  var panelEl = document.getElementById('filePanel');
-  var active = 0;
-  var panelVisible = false;
-
-  function animateCount(el, c){
-    if (reduceMotion){
-      el.textContent = c.statPrefix + c.statValue.toFixed(c.statDecimals).replace('.', ',') + c.statSuffix;
-      return;
-    }
-    var duration = 900, start = null;
-    function step(ts){
-      if (!start) start = ts;
-      var p = Math.min(1, (ts - start) / duration);
-      var eased = 1 - Math.pow(1 - p, 3);
-      var val = c.statValue * eased;
-      el.textContent = c.statPrefix + val.toFixed(c.statDecimals).replace('.', ',') + c.statSuffix;
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function renderTabs(){
-    tabsEl.innerHTML = '';
-    cases.forEach(function(c, i){
-      var btn = document.createElement('button');
-      btn.className = 'file-tab';
-      btn.type = 'button';
-      btn.textContent = 'Spis ' + String(i + 1).padStart(2, '0');
-      btn.setAttribute('role', 'tab');
-      btn.setAttribute('aria-pressed', i === active ? 'true' : 'false');
-      btn.setAttribute('aria-selected', i === active ? 'true' : 'false');
-      btn.addEventListener('click', function(){ active = i; render(); });
-      tabsEl.appendChild(btn);
-    });
-  }
-  function renderPanel(){
-    var c = cases[active];
-    panelEl.innerHTML =
-      '<div><span class="tag2">' + c.tag + '</span><span class="annot annot-circle" style="display:inline-block;"><div class="stat tabular" id="statNum">0</div><svg class="annot-svg" viewBox="0 0 220 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M10,55 C5,22 55,7 110,8 C175,6 214,24 210,56 C216,88 165,102 110,101 C50,104 6,84 10,56 Z"/></svg></span></div>' +
-      '<div class="detail"><span class="tag2">Zistenie</span><p>' + c.label + '. ' + c.detail + '</p></div>' +
-      '<div class="vzor">VZOR — nahradiť reálnym prípadom klienta</div>';
-    var statEl = document.getElementById('statNum');
-    if (panelVisible){
-      animateCount(statEl, c);
-    } else {
-      statEl.textContent = c.statPrefix + c.statValue.toFixed(c.statDecimals).replace('.', ',') + c.statSuffix;
-    }
-  }
-  function render(){ renderTabs(); renderPanel(); }
-  render();
-
-  if (typeof IntersectionObserver !== 'undefined'){
-    var panelIo = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting && !panelVisible){
-          panelVisible = true;
-          renderPanel();
-          panelIo.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    panelIo.observe(panelEl);
-  } else {
-    panelVisible = true;
-  }
 })();
 
 /* ---------- scroll-driven brand animations (parallax, progress rail, sticky stamp, marquee speed) ---------- */
@@ -1124,13 +1099,15 @@ document.body.classList.remove('no-js');
   }
 
   var stickyStamp = document.getElementById('stickyStamp');
+  var mobileStickyCta = document.getElementById('mobileStickyCta');
   var auditSection = document.getElementById('audit');
   function updateStickyStamp(){
-    if (!stickyStamp || !hero || !auditSection) return;
+    if (!hero || !auditSection) return;
     var heroBottom = hero.getBoundingClientRect().bottom;
     var auditTop = auditSection.getBoundingClientRect().top;
     var show = heroBottom < 0 && auditTop > window.innerHeight * 0.6;
-    stickyStamp.classList.toggle('visible', show);
+    if (stickyStamp) stickyStamp.classList.toggle('visible', show);
+    if (mobileStickyCta) mobileStickyCta.classList.toggle('visible', show);
   }
 
   var backToTop = document.getElementById('backToTop');
@@ -1306,11 +1283,11 @@ function trackEvent(name, params){
 
 /* ---------- audit form ---------- */
 (function(){
-  // TODO: doména je vybraná (michalbenko.sk) — ešte treba: 1) zriadiť schránku audit@michalbenko.sk,
-  // 2) doplniť ENDPOINT_URL (napr. Make.com webhook), inak formulár spolieha len na mailto fallback nižšie,
-  // ktorý sa v časti prehliadačov vôbec neotvorí.
-  var ENDPOINT_URL = '';                     // napr. Make.com webhook / Formspree endpoint
-  var CONTACT_EMAIL = 'audit@michalbenko.sk'; // záložný e-mail pre mailto odoslanie
+  // TODO: formulár zatiaľ posiela cez mailto fallback (otvorí e-mailového klienta používateľa).
+  // Skutočné odoslanie na pozadí príde cez /api/audit-submit (SMTP cez Websupport) —
+  // po jeho nasadení sem doplniť ENDPOINT_URL.
+  var ENDPOINT_URL = '';                    // napr. '/api/audit-submit' po nasadení backendu
+  var CONTACT_EMAIL = 'info@michalbenko.sk'; // kam chodia dopyty z formulára
 
   var form = document.getElementById('auditForm');
   var status = document.getElementById('formStatus');
@@ -1321,17 +1298,53 @@ function trackEvent(name, params){
     field.classList.toggle('has-error', hasError);
   }
 
+  var BUDGET_LABELS = {
+    'do-500': 'do 500 €',
+    '500-1500': '500 € – 1 500 €',
+    '1500-5000': '1 500 € – 5 000 €',
+    'nad-5000': 'nad 5 000 €',
+    'este-nemam': 'zatiaľ nemá Google Ads'
+  };
+
   function validate(data){
     var ok = true;
     if (!data.name){ setError('field-name', true); ok = false; } else { setError('field-name', false); }
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
     if (!emailOk){ setError('field-email', true); ok = false; } else { setError('field-email', false); }
-    if (!data.phone){ setError('field-phone', true); ok = false; } else { setError('field-phone', false); }
     var siteOk = !!data.site && /\./.test(data.site);
     if (!siteOk){ setError('field-site', true); ok = false; } else { setError('field-site', false); }
+    if (!data.budget){ setError('field-budget', true); ok = false; } else { setError('field-budget', false); }
     if (!data.consent){ setError('field-consent', true); ok = false; } else { setError('field-consent', false); }
     return ok;
   }
+
+  /* live per-field validation on blur, so errors clear as soon as the visitor fixes them */
+  function checkSingleField(el){
+    if (!el || !el.name) return;
+    switch (el.name){
+      case 'name':
+        setError('field-name', el.value.trim() === '');
+        break;
+      case 'email':
+        setError('field-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+        break;
+      case 'site':
+        setError('field-site', el.value.trim() === '' || !/\./.test(el.value.trim()));
+        break;
+      case 'budget':
+        if (el.value !== '') setError('field-budget', false);
+        break;
+      case 'consent':
+        if (el.checked) setError('field-consent', false);
+        break;
+    }
+  }
+  ['name','email','site'].forEach(function(n){
+    var el = form.elements[n];
+    if (el) el.addEventListener('blur', function(){ checkSingleField(el); });
+  });
+  if (form.elements['budget']) form.elements['budget'].addEventListener('change', function(){ checkSingleField(this); });
+  if (form.elements['consent']) form.elements['consent'].addEventListener('change', function(){ checkSingleField(this); });
 
   function openMailFallback(data){
     var subject = encodeURIComponent('Žiadosť o audit Google Ads účtu' + (data.company ? ' — ' + data.company : ''));
@@ -1341,7 +1354,7 @@ function trackEvent(name, params){
       'E-mail: ' + data.email + '\n' +
       'Telefón: ' + (data.phone || '-') + '\n' +
       'Web: ' + (data.site || '-') + '\n' +
-      'Problém: ' + (data.message || '-')
+      'Mesačný rozpočet: ' + (BUDGET_LABELS[data.budget] || data.budget || '-')
     );
     window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
   }
@@ -1368,7 +1381,7 @@ function trackEvent(name, params){
       email: form.email.value.trim(),
       phone: form.phone.value.trim(),
       site: form.site.value.trim(),
-      message: form.message.value.trim(),
+      budget: form.budget.value,
       consent: form.consent.checked
     };
     if (!validate(data)){
