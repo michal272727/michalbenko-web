@@ -365,6 +365,8 @@
   .nav-pulse.p2{background:var(--accent2); animation-name:navPulseDot2;}
   @keyframes navPulseDot2{ 0%,100%{box-shadow:0 0 0 0 var(--accent2-soft);} 50%{box-shadow:0 0 0 5px var(--accent2-soft);} }
   .hero-scarcity{display:none;}
+  .hero-stats{display:none;}
+  .hero-scroll-cue{display:none;}
 
   /* ---- back to top ---- */
   .back-to-top{
@@ -676,8 +678,8 @@
     footer{margin-left:0;}
     .stamp{display:none;}
     .hero{
-      min-height:calc(100svh - var(--bar-h)); padding-block:20px;
-      display:flex; flex-direction:column; justify-content:center;
+      min-height:calc(100svh - var(--bar-h)); padding-block:28px 22px;
+      display:flex; flex-direction:column; justify-content:flex-start;
     }
     .hero h1{max-width:none; margin-top:12px; font-size:clamp(1.9rem,8vw,2.6rem);}
     .hero .lede{margin-top:16px; font-size:.94rem;}
@@ -685,7 +687,22 @@
     .hero .cta-row{margin-top:24px;}
     .hero .cta-row .link-line{display:none;}
     .hero .micro-trust{margin-top:14px;}
-    .hero .hero-scarcity{display:flex; align-items:center; gap:7px; margin-top:6px; color:var(--accent2);}
+    .hero .hero-scarcity{display:none;}
+    .hero-stats{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+      margin-top:26px; padding-top:20px; border-top:1px solid var(--line);
+    }
+    .hero-stat{display:flex; flex-direction:column; gap:5px;}
+    .hero-stat-num{font-family:var(--serif); font-weight:700; font-size:1.35rem; color:var(--accent);}
+    .hero-stat:nth-child(3) .hero-stat-num{color:var(--accent2);}
+    .hero-stat-label{font-family:var(--mono); font-size:.62rem; line-height:1.3; letter-spacing:.02em; text-transform:uppercase; color:var(--ink-faint);}
+    .hero-scroll-cue{
+      display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:auto; padding-top:22px;
+      font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+      text-decoration:none;
+    }
+    .hero-scroll-cue svg{width:16px; height:16px; stroke:var(--ink-faint); animation:heroScrollBounce 1.6s ease-in-out infinite;}
+    @keyframes heroScrollBounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
     .marquee-wrap{display:none;}
     .usp-grid{grid-template-columns:1fr;}
     .file-panel{grid-template-columns:1fr;}
@@ -762,6 +779,12 @@
     </div>
     <p class="micro-trust">Bez záväzkov · Odpoviem do 24 hodín</p>
     <p class="micro-trust hero-scarcity"><span class="nav-pulse p2" aria-hidden="true"></span>Preberám max 3 nových klientov mesačne</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">20+</span><span class="hero-stat-label">spravovaných účtov</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">24&nbsp;h</span><span class="hero-stat-label">do prvej odpovede</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">max nových klientov / mesiac</span></div>
+    </div>
+    <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
   </div>
 
   <div class="marquee-wrap" aria-hidden="true">
