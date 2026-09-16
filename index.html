@@ -1283,11 +1283,10 @@ function trackEvent(name, params){
 
 /* ---------- audit form ---------- */
 (function(){
-  // TODO: formulár zatiaľ posiela cez mailto fallback (otvorí e-mailového klienta používateľa).
-  // Skutočné odoslanie na pozadí príde cez /api/audit-submit (SMTP cez Websupport) —
-  // po jeho nasadení sem doplniť ENDPOINT_URL.
-  var ENDPOINT_URL = '';                    // napr. '/api/audit-submit' po nasadení backendu
-  var CONTACT_EMAIL = 'info@michalbenko.sk'; // kam chodia dopyty z formulára
+  // Formulár posiela na /api/audit-submit (Vercel serverless funkcia, Gmail SMTP).
+  // Ak by odoslanie na pozadí zlyhalo, použije sa mailto fallback nižšie.
+  var ENDPOINT_URL = '/api/audit-submit';
+  var CONTACT_EMAIL = 'michalbenko3@gmail.com'; // kam chodia dopyty z formulára (fallback)
 
   var form = document.getElementById('auditForm');
   var status = document.getElementById('formStatus');
@@ -1396,7 +1395,8 @@ function trackEvent(name, params){
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-      }).then(function(){
+      }).then(function(res){
+        if (!res.ok) throw new Error('bad status');
         showConfirm();
       }).catch(function(){
         openMailFallback(data);
