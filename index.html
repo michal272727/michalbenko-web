@@ -367,6 +367,7 @@
   .hero-scarcity{display:none;}
   .hero-stats{display:none;}
   .hero-scroll-cue{display:none;}
+  .hero .guarantee-badge{display:none;}
 
   /* ---- back to top ---- */
   .back-to-top{
@@ -688,6 +689,10 @@
     .hero .cta-row .link-line{display:none;}
     .hero .micro-trust{margin-top:14px;}
     .hero .hero-scarcity{display:none;}
+    .hero .guarantee-badge{
+      display:inline-flex; align-self:flex-start; margin-top:20px;
+      animation:stampIn .5s ease-out .3s backwards;
+    }
     .hero-stats{
       display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
       margin-top:26px; padding-top:20px; border-top:1px solid var(--line);
@@ -779,10 +784,11 @@
     </div>
     <p class="micro-trust">Bez záväzkov · Odpoviem do 24 hodín</p>
     <p class="micro-trust hero-scarcity"><span class="nav-pulse p2" aria-hidden="true"></span>Preberám max 3 nových klientov mesačne</p>
+    <p class="guarantee-badge hero-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Žiadna viazanosť · kedykoľvek zrušíte</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-num">20+</span><span class="hero-stat-label">spravovaných účtov</span></div>
+      <div class="hero-stat"><span class="hero-stat-num"><span class="annot annot-underline">20+<svg class="annot-svg" viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,14 C40,4 90,20 130,10 C160,3 195,17 217,9"/></svg></span></span><span class="hero-stat-label">spravovaných účtov</span></div>
       <div class="hero-stat"><span class="hero-stat-num">24&nbsp;h</span><span class="hero-stat-label">do prvej odpovede</span></div>
-      <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">max nových klientov / mesiac</span></div>
+      <div class="hero-stat"><span class="hero-stat-num"><span class="annot annot-circle annot-warn">3<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span></span><span class="hero-stat-label">max nových klientov / mesiac</span></div>
     </div>
     <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
   </div>
