@@ -337,6 +337,49 @@
   .margin-mark svg{width:100%; height:100%; display:block;}
   @media (max-width:1399px){ .margin-mark{display:none;} }
 
+  /* ---- side visuals (desktop-only dashboard widgets filling the wide-screen margin) ---- */
+  .side-visual{display:none;}
+  .hero-photo{display:none;}
+  @media (min-width:1150px){
+    .section-split{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:56px; align-items:start;}
+    .section-split > .section-text{min-width:0;}
+    .side-visual{display:flex; justify-content:center; position:sticky; top:calc(var(--bar-h) + 32px);}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:56px; align-items:start;}
+    .hero-photo{display:block; margin-top:84px; justify-self:end;}
+    .hero-photo.photo-tag{width:240px;}
+    .hero-photo.photo-tag .frame{width:240px; height:240px;}
+  }
+  .widget-card{
+    width:100%; max-width:300px; border:1px solid var(--ink); background:var(--bg);
+    padding:24px 22px 22px; position:relative; transform:rotate(var(--tilt-a));
+    box-shadow:7px 7px 0 var(--line);
+  }
+  .widget-card .widget-clip{position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(var(--tilt-b)); width:24px; height:34px; stroke:var(--ink);}
+  .widget-label{
+    display:block; font-family:var(--mono); font-size:.64rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px;
+  }
+  .widget-stat{font-family:var(--serif); font-weight:700; font-size:2.2rem; color:var(--ink); line-height:1;}
+  .widget-stat.warn{color:var(--accent2);}
+  .widget-substat{font-family:var(--mono); font-size:.66rem; letter-spacing:.03em; color:var(--ink-faint); margin-top:6px; text-transform:uppercase; line-height:1.5;}
+  .widget-chart{width:100%; height:76px; margin-top:16px; display:block;}
+  .widget-chart .area{fill:var(--accent2-soft); stroke:none; opacity:.7;}
+  .widget-chart .line{fill:none; stroke:var(--accent2); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;}
+  .widget-rows{display:grid; gap:13px; margin-top:2px;}
+  .widget-row{display:flex; align-items:center; gap:10px; font-family:var(--sans); font-size:.86rem; color:var(--ink);}
+  .widget-row svg{width:16px; height:16px; flex:none; fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+  .widget-row.bad svg{stroke:var(--accent2);}
+  .widget-row .val{margin-left:auto; font-family:var(--mono); font-size:.78rem; color:var(--ink-faint);}
+  .widget-week{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:16px;}
+  .widget-day{display:grid; gap:7px; justify-items:center;}
+  .widget-day span{font-family:var(--mono); font-size:.58rem; color:var(--ink-faint); text-transform:uppercase;}
+  .widget-day svg{width:15px; height:15px; fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
+  .widget-day.alert svg{stroke:var(--accent2);}
+  .widget-tags{display:grid; gap:10px; margin-top:2px;}
+  .widget-tag{display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px solid var(--line); padding:9px 11px; font-family:var(--sans); font-size:.82rem; color:var(--ink);}
+  .widget-tag .lvl{font-family:var(--mono); font-size:.58rem; letter-spacing:.05em; text-transform:uppercase; padding:2px 7px; border:1px solid var(--accent2); color:var(--accent2); white-space:nowrap;}
+  .widget-tag .lvl.mid{border-color:var(--accent); color:var(--accent);}
+
   /* ---- rail / top bar ---- */
   .rail{
     position:fixed; left:0; top:0; bottom:0; width:68px; z-index:30;
@@ -780,6 +823,8 @@
 
 <div class="shell">
   <div class="wrap hero">
+    <div class="hero-grid">
+    <div class="hero-text">
     <p class="kicker">Google Ads pre firmy, ktoré chcú dopyty · SK &amp; CZ</p>
     <div class="stamp">Diagnostika účtu<br>zdarma, bez záväzkov</div>
     <h1>Google Reklamy, ktoré prinášajú <span class="annot annot-underline">reálne dopyty<svg class="annot-svg" viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,14 C40,4 90,20 130,10 C160,3 195,17 217,9"/></svg></span>.</h1>
@@ -796,6 +841,16 @@
       <div class="hero-stat"><span class="hero-stat-num"><span class="annot annot-circle annot-warn">3<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span></span><span class="hero-stat-label">max nových klientov / mesiac</span></div>
     </div>
     <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </div>
+    <div class="hero-photo photo-tag">
+      <span class="file-label">Google Ads špecialista</span>
+      <div class="frame">
+        <svg class="clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span>MB</span>
+      </div>
+      <small>Michal Benko</small>
+    </div>
+    </div>
   </div>
 
   <div class="marquee-wrap" aria-hidden="true">
@@ -808,6 +863,8 @@
   <section id="riesime">
     <div class="section-inner">
     <h2>Poznáte niektorý z týchto príznakov?</h2>
+    <div class="section-split">
+    <div class="section-text">
     <div style="margin-top:24px;">
       <div class="exhibit reveal"><span class="tag">Príznak 1</span><p>Míňate mesačne rozpočet, ale kvalitných dopytov <span class="annot annot-circle annot-warn">chodí málo<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span> — alebo vôbec.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
       <div class="exhibit reveal"><span class="tag">Príznak 2</span><p>Nemáte prehľad, kam presne peniaze v účte idú a prečo sa tak rozhodlo.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
@@ -821,12 +878,28 @@
     </div>
     <p class="inline-cta reveal"><a href="#audit">Poznávate sa v niektorom z nich? Chcem bezplatný audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
-    <div class="margin-mark mm-warn reveal" style="top:12%; right:14px; width:24px; height:170px; transform:rotate(2deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 20 160" preserveAspectRatio="none"><path pathLength="1" stroke-width="3" d="M4,4 C16,4 8,40 16,80 C8,120 16,150 4,156"/></svg></div>
+        <div class="side-visual reveal" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Typický účet pred auditom</span>
+        <div class="widget-stat warn">38&nbsp;%</div>
+        <div class="widget-substat">rozpočtu na nerelevantné kliky</div>
+        <svg class="widget-chart" viewBox="0 0 220 76" preserveAspectRatio="none" aria-hidden="true">
+          <path class="area" d="M0,22 L30,30 L60,20 L90,42 L120,36 L150,58 L180,50 L220,66 L220,76 L0,76 Z"/>
+          <path class="line" d="M0,22 L30,30 L60,20 L90,42 L120,36 L150,58 L180,50 L220,66"/>
+        </svg>
+      </div>
+    </div>
+    </div>
+    </div>
+<div class="margin-mark mm-warn reveal" style="top:12%; right:14px; width:24px; height:170px; transform:rotate(2deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 20 160" preserveAspectRatio="none"><path pathLength="1" stroke-width="3" d="M4,4 C16,4 8,40 16,80 C8,120 16,150 4,156"/></svg></div>
   </section>
 
   <section id="proces" class="bg-alt">
     <div class="section-inner">
     <h2>Ako to funguje</h2>
+    <div class="section-split">
+    <div class="section-text">
     <div class="stair">
       <div class="stair-item reveal"><span class="n">01</span><div><h3>Bezplatný audit účtu</h3><p>Prejdem štruktúru kampaní, nastavenie konverzií a alokáciu rozpočtu.</p></div></div>
       <div class="stair-item reveal"><span class="n">02</span><div><h3>Konkrétne zistenia</h3><p>Dostanete jasný prehľad, čo funguje, čo nefunguje a prečo — osobne, nie automaticky generovaný PDF.</p></div></div>
@@ -834,7 +907,20 @@
       <div class="stair-item reveal"><span class="n">04</span><div><h3>Priebežná optimalizácia</h3><p>Pravidelné úpravy podložené dátami — viete, kedy a prečo sa niečo zmenilo.</p></div></div>
     </div>
     </div>
-    <div class="margin-mark reveal" style="top:58%; right:14px; width:34px; height:28px; transform:rotate(-6deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 32 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="3.2" stroke-linejoin="round" d="M5,15 L13,23 L27,4"/></svg></div>
+        <div class="side-visual reveal" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Mesačný report</span>
+        <div class="widget-rows">
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Konverzie<span class="val">+18&nbsp;%</span></div>
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Cena za dopyt<span class="val">-11&nbsp;%</span></div>
+          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>Premrhaný rozpočet<span class="val">-64&nbsp;%</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+<div class="margin-mark reveal" style="top:58%; right:14px; width:34px; height:28px; transform:rotate(-6deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 32 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="3.2" stroke-linejoin="round" d="M5,15 L13,23 L27,4"/></svg></div>
   </section>
 
   <section>
@@ -864,17 +950,39 @@
   <section id="starostlivost" class="bg-alt">
     <div class="section-inner">
     <h2>Ako sa starám o váš účet</h2>
+    <div class="section-split">
+    <div class="section-text">
     <ul class="info-list reveal">
       <li>Každý pracovný deň ráno mi systém skontroluje váš účet: pokles výkonu oproti poslednému mesiacu, výrazy, za ktoré platíte zbytočne, zamietnuté reklamy, silu reklám, lokality a zariadenia. Problém tak nečaká na koniec mesiaca.</li>
       <li>Raz mesačne dostanete report s vysvetlením — čo sa stalo, prečo a čo robím ďalej. Žiadna tabuľka bez komentára.</li>
       <li>Mesačné reporty s komentárom robím pravidelne pre viac ako 20 klientov, formát je overený.</li>
     </ul>
     </div>
+    <div class="side-visual reveal" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Denný monitoring</span>
+        <div class="widget-week">
+          <div class="widget-day"><span>Po</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div class="widget-day"><span>Ut</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div class="widget-day"><span>St</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div class="widget-day alert"><span>Št</span><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+          <div class="widget-day"><span>Pi</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div class="widget-day"><span>So</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div class="widget-day"><span>Ne</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+        </div>
+        <div class="widget-substat" style="margin-top:14px;">Štvrtok: pokles CTR o 14&nbsp;% → vyriešené do rána</div>
+      </div>
+    </div>
+    </div>
+    </div>
   </section>
 
   <section id="pre-koho">
     <div class="section-inner">
     <h2>Pre koho to je / nie je</h2>
+    <div class="section-split">
+    <div class="section-text">
     <p style="margin-top:10px;">Spolupráca dáva zmysel, ak:</p>
     <ul class="info-list reveal">
       <li>už máte Google Ads, alebo ste pripravení investovať aspoň 500 € mesačne do kreditu</li>
@@ -883,11 +991,27 @@
     </ul>
     <p style="margin-top:20px; max-width:60ch;">Ak zatiaľ hľadáte niekoho na jednorazové „nastavenie a zabudnutie“, pravdepodobne si nesadneme.</p>
     </div>
+    <div class="side-visual reveal" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Rýchly test</span>
+        <div class="widget-rows">
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Rozpočet 500+&nbsp;€/mes.</div>
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Funkčný web a ponuka</div>
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Rozhodovanie podľa čísel</div>
+          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>„Nastav a zabudni“</div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
   </section>
 
   <section id="pripady" class="bg-alt">
     <div class="section-inner">
     <h2>Čo dostanete v audite</h2>
+    <div class="section-split">
+    <div class="section-text">
     <p style="margin-top:10px; max-width:62ch;">Účet prejdem ručne a dostanete zoznam zistení zoradený podľa toho, koľko peňazí vás stojí. Pozerám najmä:</p>
     <ul class="info-list reveal">
       <li>Meranie konverzií — či účet optimalizuje na skutočné dopyty, alebo na kliky a zobrazenia stránky</li>
@@ -900,7 +1024,21 @@
     <p style="margin-top:18px; max-width:62ch;">Ku každému zisteniu dostanete, čo s tým spraviť. Časť si viete opraviť aj sami.</p>
     <p class="inline-cta reveal"><a href="#audit">Chcem tento audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
-    <div class="margin-mark reveal" style="top:72%; right:14px; width:30px; height:26px; transform:rotate(-4deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 30 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" d="M4,14 C3,6 14,2 20,7 C27,12 25,22 16,23 C8,24 3,18 6,13 C9,9 15,8 17,12"/></svg></div>
+        <div class="side-visual reveal" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Výstup z auditu</span>
+        <div class="widget-tags">
+          <div class="widget-tag">Meranie konverzií<span class="lvl">Vysoká</span></div>
+          <div class="widget-tag">Performance Max<span class="lvl">Vysoká</span></div>
+          <div class="widget-tag">Štruktúra kampaní<span class="lvl mid">Stredná</span></div>
+          <div class="widget-tag">Vstupné stránky<span class="lvl mid">Stredná</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+<div class="margin-mark reveal" style="top:72%; right:14px; width:30px; height:26px; transform:rotate(-4deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 30 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" d="M4,14 C3,6 14,2 20,7 C27,12 25,22 16,23 C8,24 3,18 6,13 C9,9 15,8 17,12"/></svg></div>
   </section>
 
   <section id="faq">
