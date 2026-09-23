@@ -349,6 +349,26 @@
     .hero-photo.photo-tag{width:240px;}
     .hero-photo.photo-tag .frame{width:240px; height:240px;}
   }
+
+  /* ---- hero trust/urgency elements — also visible on desktop, not just mobile ---- */
+  @media (min-width:901px){
+    .hero-scarcity{display:block;}
+    .hero .guarantee-badge{display:inline-flex; align-self:flex-start; margin-top:20px;}
+    .hero-stats{
+      display:flex; flex-wrap:wrap; gap:28px; margin-top:26px; padding-top:20px; border-top:1px solid var(--line);
+    }
+    .hero-stat{display:flex; flex-direction:column; gap:5px;}
+    .hero-stat-num{font-family:var(--serif); font-weight:700; font-size:1.35rem; color:var(--accent);}
+    .hero-stat:nth-child(2) .hero-stat-num{color:var(--accent2);}
+    .hero-stat-label{font-family:var(--mono); font-size:.62rem; line-height:1.3; letter-spacing:.02em; text-transform:uppercase; color:var(--ink-faint);}
+    .hero-scroll-cue{
+      display:inline-flex; align-items:center; gap:8px; margin-top:22px;
+      font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+      text-decoration:none;
+    }
+    .hero-scroll-cue svg{width:16px; height:16px; stroke:var(--ink-faint);}
+  }
+
   .widget-card{
     width:100%; max-width:300px; border:1px solid var(--ink); background:var(--bg);
     padding:24px 22px 22px; position:relative; transform:rotate(var(--tilt-a));
@@ -815,7 +835,7 @@
   <nav class="rail-nav" id="railNav" aria-label="Hlavná navigácia">
     <a href="#riesime">Riešime</a>
     <a href="#proces">Proces</a>
-    <a href="#pripady">Prípady</a>
+    <a href="#pripady">Čo dostanete</a>
     <a href="#faq">FAQ</a>
     <a href="#audit">Audit<span class="nav-pulse" aria-hidden="true"></span></a>
   </nav>
@@ -1162,7 +1182,8 @@
       </form>
       <div id="confirm">
         <h3>Ďakujem za žiadosť.</h3>
-        <p>Ozvem sa vám do 24 hodín s prvými zisteniami.</p>
+        <p id="confirmMsgOk">Ozvem sa vám do 24 hodín s prvými zisteniami.</p>
+        <p id="confirmMsgFallback" style="display:none;">Skúsil som otvoriť váš e-mailový program s predvyplnenou správou — ak sa neotvoril, prosím, napíšte mi priamo na <a href="mailto:michalbenko3@gmail.com">michalbenko3@gmail.com</a>.</p>
       </div>
     </div>
     </div>
@@ -1175,7 +1196,7 @@
   <div class="fcols">
     <a href="#riesime">Riešime</a>
     <a href="#proces">Proces</a>
-    <a href="#pripady">Prípady</a>
+    <a href="#pripady">Čo dostanete</a>
     <a href="#faq">FAQ</a>
     <a href="#audit">Audit</a>
     <button type="button" id="privacyLinkFooter" style="text-decoration:underline; letter-spacing:normal; text-transform:none; font-family:var(--sans);">Ochrana osobných údajov</button>
@@ -1531,10 +1552,14 @@ function trackEvent(name, params){
     window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
   }
 
-  function showConfirm(){
+  function showConfirm(fallback){
     form.classList.add('hidden');
     confirmBox.style.display = 'block';
-    trackEvent('audit_form_submit', {});
+    var okMsg = document.getElementById('confirmMsgOk');
+    var fallbackMsg = document.getElementById('confirmMsgFallback');
+    if (okMsg) okMsg.style.display = fallback ? 'none' : '';
+    if (fallbackMsg) fallbackMsg.style.display = fallback ? '' : 'none';
+    trackEvent('audit_form_submit', { fallback: !!fallback });
   }
 
   form.addEventListener('submit', function(e){
@@ -1573,11 +1598,11 @@ function trackEvent(name, params){
         showConfirm();
       }).catch(function(){
         openMailFallback(data);
-        showConfirm();
+        showConfirm(true);
       });
     } else {
       openMailFallback(data);
-      showConfirm();
+      showConfirm(true);
     }
   });
 })();
