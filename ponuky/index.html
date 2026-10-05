@@ -225,6 +225,7 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .doc tr.tot td:last-child{color:var(--accent);font-size:1.15rem}
 .note{font-size:.8rem;color:var(--ink-faint);margin-top:12px}
 .res .btn{width:100%;margin-top:18px}
+.rok{display:none;margin-top:18px;padding:16px 18px;background:#E7F5EE;border-left:3px solid var(--ok);font-size:.95rem;line-height:1.5;color:var(--ink)}
 .again{display:block;margin:12px auto 0;background:none;border:0;text-decoration:underline;font-size:.86rem;color:var(--ink-soft)}
 
 /* sections */
@@ -383,7 +384,8 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
         <span class="time" id="rtime">Vybavené za 0 s</span>
         <div class="doc" id="rdoc"></div>
         <p class="note" id="rnote">Ak ju nevidíte, pozrite aj priečinok Promo alebo Spam.</p>
-        <a class="btn" href="#chcem" id="rcta">Chcem tento systém pre svoju firmu</a>
+        <button type="button" class="btn" id="rcta">Chcem tento systém pre svoju firmu</button>
+        <div class="rok" id="rok" role="status"></div>
         <button type="button" class="again" id="again">Skúsiť znova s inými rozmermi</button>
       </div>
     </div>
@@ -731,6 +733,23 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     })();
   }
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var last = null;
+  function sendInterest(payload){
+    if (location.protocol === 'file:') return Promise.resolve({ ok:true });
+    return fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); }).catch(function(){ return { ok:false }; });
+  }
+  function interestDone(ref){ track('interest_submit', { ref: ref || '' }); fb('SubmitApplication'); }
+  $('#rcta').addEventListener('click', function(){
+    if (!last) { $('#chcem').scrollIntoView({ behavior:'smooth' }); return; }
+    var b = this; b.disabled = true; b.textContent = 'Odosielam…';
+    var payload = last.t ? { type:'interest', t:last.t, via:'result' } : { type:'interest', name:last.name, contact:last.contact, ref:last.ref, via:'result' };
+    sendInterest(payload).then(function(r){
+      b.disabled = false; b.textContent = 'Chcem tento systém pre svoju firmu';
+      if (r && r.ok){ b.style.display = 'none'; var ok = $('#rok'); ok.innerHTML = '<b>Hotovo, mám to.</b> Ozvem sa vám do 24 hodín na ' + esc(last.email) + '. Medzitým si pripravte cenník, aj keď je len v Exceli.'; ok.style.display = 'block'; interestDone(last.ref); }
+      else { $('#chcem').scrollIntoView({ behavior:'smooth' }); }
+    });
+  });
   function showResult(q, cust, res, secs){
     $('#proc').classList.remove('on'); $('#res').classList.add('on');
     var no = (res && res.no) || ('P' + String(Date.now()).slice(-6));
@@ -745,7 +764,9 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
       $('#rtitle').textContent = 'Ponuka č. ' + no + ' je hotová';
       $('#rnote').textContent = 'E-mail sa teraz nepodarilo odoslať. Ponuku vidíte nižšie a ozvem sa vám aj osobne.';
     }
-    $('#rcta').href = '#chcem'; $('#lform').dataset.ref = no;
+    $('#lform').dataset.ref = no;
+    last = { t: res && res.t, name: cust.name, contact: [cust.email, cust.phone].filter(Boolean).join(' · '), email: cust.email, ref: no };
+    $('#rcta').style.display = ''; $('#rok').style.display = 'none';
     $('#rdoc').innerHTML =
       '<div class="doc-h"><div><div class="logo-ph" style="width:72px;height:34px;margin-bottom:8px">VAŠE LOGO</div><strong>Cenová ponuka</strong>' + esc(cust.name) + '</div><div class="mono">Č. ' + esc(no) + '<br>platná ' + P.VALID_DAYS + ' dní</div></div>' +
       '<p class="note" style="margin-top:10px">' + esc(q.materialLabel + ' · ' + q.glassLabel + ' · ' + q.colorLabel) + '</p>' +
@@ -760,7 +781,17 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   /* ---------- formulár "Chcem tento systém" ---------- */
   var params = new URLSearchParams(location.search);
   if (params.get('ref')) $('#lform').dataset.ref = params.get('ref');
-  if (params.get('chcem')) setTimeout(function(){ $('#chcem').scrollIntoView(); $('#ln').focus({ preventScroll:true }); }, 300);
+  if (params.get('t')) {
+    // klik z e-mailu s ponukou: kontakt už poznáme, záujem odošleme hneď (bez ďalšieho formulára)
+    var lf = $('#lform'), lok = $('#lok');
+    lf.style.display = 'none'; lok.style.display = 'block'; lok.innerHTML = 'Odosielam váš záujem…';
+    setTimeout(function(){ $('#chcem').scrollIntoView(); }, 200);
+    sendInterest({ type:'interest', t: params.get('t') }).then(function(r){
+      if (r && r.ok){ lok.innerHTML = '<b>Ďakujem, mám to.</b> Kontakt z ponuky už mám, ozvem sa vám do 24 hodín. Medzitým si pripravte cenník, aj keď je len v Exceli alebo na papieri.'; interestDone('email'); }
+      else { lok.style.display = 'none'; lf.style.display = ''; }
+      try { history.replaceState(null, '', location.pathname + '#chcem'); } catch(e){}
+    });
+  } else if (params.get('chcem')) setTimeout(function(){ $('#chcem').scrollIntoView(); $('#ln').focus({ preventScroll:true }); }, 300);
   $('#lform').addEventListener('submit', function(e){
     e.preventDefault();
     var f = e.target, err = $('#lerr');
