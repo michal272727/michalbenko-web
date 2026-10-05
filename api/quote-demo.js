@@ -187,6 +187,25 @@ module.exports = async function handler(req, res) {
       res.status(200).json({ ok: true }); return;
     }
 
+    if (data.type === 'details') {
+      if (limited('d:' + ip, 5, 10 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
+      const tk = data.t ? unseal(data.t) : null;
+      if (data.t && !tk) { res.status(400).json({ ok: false, error: 'bad_token' }); return; }
+      const name = tk ? clean(tk.n, 80) : clean(data.name, 80);
+      const email = tk ? clean(tk.e, 160) : '';
+      const phone = clean(data.phone, 40) || (tk ? clean(tk.p, 40) : '');
+      const contact = tk ? [email, phone].filter(Boolean).join(' · ') : [clean(data.contact, 120), clean(data.phone, 40)].filter(Boolean).join(' · ');
+      const web = clean(data.web, 160), company = clean(data.company, 120), volume = clean(data.volume, 20), call = clean(data.call, 40);
+      const ref = tk ? clean(tk.no, 30) : clean(data.ref, 30);
+      if (!name && !contact) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
+      if (!web && !company) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
+      const text = `Meno: ${name || '-'}\nKontakt: ${contact || '-'}\nFirma: ${company || '-'}\nWeb: ${web || '-'}\nDopytov mesačne: ${volume || '-'}\nZavolať: ${call || '-'}\nUkážková ponuka: ${ref || '-'}\n`;
+      await tx.sendMail({ from: '"michalbenko.sk" <' + gmailUser + '>', to: TO_EMAIL, replyTo: emailOk(email) ? email : undefined,
+        subject: '📞 Zavolať: ' + (company || web || name) + (call ? ' — ' + call : ''), text });
+      await forwardHook({ type: 'details', name, contact, company, web, volume, call, ref, at: new Date().toISOString() });
+      res.status(200).json({ ok: true }); return;
+    }
+
     // type: quote
     if (limited('q:' + ip, 3, 10 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
     const cust = { name: clean(data.name, 80), email: clean(data.email, 160), phone: clean(data.phone, 40) };
