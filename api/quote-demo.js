@@ -26,6 +26,20 @@ function limited(ip, max, windowMs) {
 }
 function clean(v, max) { return typeof v === 'string' ? v.replace(/[\r\n\t]+/g, ' ').replace(/[<>]/g, '').trim().slice(0, max || 200) : ''; }
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+const crypto = require('crypto');
+function key() { return crypto.createHash('sha256').update('quote-demo|' + (process.env.QUOTE_SECRET || process.env.GMAIL_APP_PASSWORD || '')).digest(); }
+function seal(obj) {
+  const iv = crypto.randomBytes(12), c = crypto.createCipheriv('aes-256-gcm', key(), iv);
+  const enc = Buffer.concat([c.update(JSON.stringify(obj), 'utf8'), c.final()]);
+  return Buffer.concat([iv, c.getAuthTag(), enc]).toString('base64url');
+}
+function unseal(tok) {
+  try {
+    const b = Buffer.from(String(tok), 'base64url'); if (b.length < 29) return null;
+    const d = crypto.createDecipheriv('aes-256-gcm', key(), b.subarray(0, 12)); d.setAuthTag(b.subarray(12, 28));
+    return JSON.parse(Buffer.concat([d.update(b.subarray(28)), d.final()]).toString('utf8'));
+  } catch (e) { return null; }
+}
 const emailOk = e => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
 const eur = PRICING.eur;
 function fmtDate(d) { return d.getDate() + '. ' + (d.getMonth() + 1) + '. ' + d.getFullYear(); }
@@ -109,8 +123,8 @@ function buildPdf(q, cust, no) {
   });
 }
 
-function quoteEmailHtml(q, cust, no) {
-  const cta = SITE + '/ponuky/?chcem=1&ref=' + encodeURIComponent(no) + '#chcem';
+function quoteEmailHtml(q, cust, no, tok) {
+  const cta = SITE + '/ponuky/?t=' + encodeURIComponent(tok || '') + '#chcem';
   const rows = q.lines.map(l => `<tr><td style="padding:8px 0;border-bottom:1px solid #EADFC8;font-size:14px;color:#0E1A30">${esc(l.label)}</td><td style="padding:8px 0;border-bottom:1px solid #EADFC8;font-size:14px;color:#0E1A30;text-align:right;white-space:nowrap">${esc(eur(l.total))}</td></tr>`).join('');
   return `<!doctype html><html><body style="margin:0;background:#F7F1E6;font-family:Arial,Helvetica,sans-serif">
 <div style="max-width:560px;margin:0 auto;padding:28px 18px">
@@ -130,7 +144,7 @@ function quoteEmailHtml(q, cust, no) {
     <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:21px;color:#0E1A30">Chcete, aby takto dostávali ponuky aj vaši zákazníci?</p>
     <p style="margin:0 0 18px;font-size:14px;color:#48556E;line-height:1.5">Nastavím vám to s vaším cenníkom a logom. Spustenie do 5 pracovných dní.</p>
     <a href="${cta}" style="display:inline-block;background:#2F6FED;color:#fff;text-decoration:none;font-weight:bold;font-size:16px;padding:15px 26px;border-radius:8px">Chcem tento systém pre svoju firmu</a>
-    <p style="margin:14px 0 0;font-size:13px;color:#6B7489">Alebo len odpovedzte na tento e-mail.</p>
+    <p style="margin:14px 0 0;font-size:13px;color:#6B7489">Jeden klik stačí, kontakt už mám. Alebo len odpovedzte na tento e-mail.</p>
   </div>
   <p style="margin:18px 0 0;font-size:12px;color:#8A93A6;text-align:center">Michal Benko · Google Ads a automatizácie · michalbenko.sk</p>
 </div></body></html>`;
@@ -158,10 +172,16 @@ module.exports = async function handler(req, res) {
   try {
     if (data.type === 'interest') {
       if (limited('i:' + ip, 5, 10 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
-      const name = clean(data.name, 80), company = clean(data.company, 120), contact = clean(data.contact, 120), web = clean(data.web, 160), ref = clean(data.ref, 30);
+      const tk = data.t ? unseal(data.t) : null;
+      if (data.t && !tk) { res.status(400).json({ ok: false, error: 'bad_token' }); return; }
+      const name = tk ? clean(tk.n, 80) : clean(data.name, 80);
+      const contact = tk ? [tk.e, tk.p].filter(Boolean).join(' · ') : clean(data.contact, 120);
+      const company = clean(data.company, 120), web = clean(data.web, 160);
+      const ref = tk ? clean(tk.no, 30) : clean(data.ref, 30);
+      const via = data.via === 'result' ? 'tlačidlo po ukážke' : (tk ? 'tlačidlo v e-maile' : 'formulár');
       if (!name || !contact) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
-      const text = `Meno: ${name}\nFirma: ${company || '-'}\nKontakt: ${contact}\nWeb: ${web || '-'}\nUkážková ponuka: ${ref || '-'}\n`;
-      await tx.sendMail({ from: '"michalbenko.sk" <' + gmailUser + '>', to: TO_EMAIL, replyTo: emailOk(contact) ? contact : undefined,
+      const text = `Meno: ${name}\nFirma: ${company || '-'}\nKontakt: ${contact}\nWeb: ${web || '-'}\nUkážková ponuka: ${ref || '-'}${tk && tk.g ? ' (' + eur(tk.g) + ')' : ''}\nZdroj: ${via}\n`;
+      await tx.sendMail({ from: '"michalbenko.sk" <' + gmailUser + '>', to: TO_EMAIL, replyTo: tk && emailOk(tk.e) ? tk.e : (emailOk(contact) ? contact : undefined),
         subject: '🔥 Záujem o automatické ponuky' + (company ? ' — ' + company : ''), text });
       await forwardHook({ type: 'interest', name, company, contact, web, ref, at: new Date().toISOString() });
       res.status(200).json({ ok: true }); return;
@@ -174,12 +194,13 @@ module.exports = async function handler(req, res) {
     const q = PRICING.calculate(data.config || {});
     const no = quoteNumber();
     const pdf = await buildPdf(q, cust, no);
+    const tok = seal({ n: cust.name, e: cust.email, p: cust.phone, no, g: q.gross, ts: Date.now() });
 
     await tx.sendMail({
       from: '"Vaša firma s.r.o. (ukážka)" <' + gmailUser + '>', to: cust.email, replyTo: TO_EMAIL,
       subject: 'Cenová ponuka č. ' + no + ' — okná a dvere (ukážka)',
-      html: quoteEmailHtml(q, cust, no),
-      text: 'Cenová ponuka č. ' + no + '\nSpolu s DPH: ' + eur(q.gross) + '\nPDF je v prílohe.\n\nChcete tento systém pre svoju firmu? ' + SITE + '/ponuky/?chcem=1&ref=' + no + '#chcem',
+      html: quoteEmailHtml(q, cust, no, tok),
+      text: 'Cenová ponuka č. ' + no + '\nSpolu s DPH: ' + eur(q.gross) + '\nPDF je v prílohe.\n\nChcete tento systém pre svoju firmu? ' + SITE + '/ponuky/?t=' + tok + '#chcem',
       attachments: [{ filename: 'Cenova-ponuka-' + no + '.pdf', content: pdf, contentType: 'application/pdf' }]
     });
     // upozornenie Michalovi (neblokuje odpoveď pri chybe)
@@ -187,7 +208,7 @@ module.exports = async function handler(req, res) {
       subject: 'Nová ukážka ponuky — ' + cust.name + ' (' + eur(q.gross) + ')',
       text: `Meno: ${cust.name}\nE-mail: ${cust.email}\nTelefón: ${cust.phone || '-'}\nPonuka: ${no}\nSpolu s DPH: ${eur(q.gross)}\nKusov: ${q.pieces}\n` }).catch(e => console.error('quote-demo: notify failed', e && e.message));
     await forwardHook({ type: 'quote', no, ...cust, gross: q.gross, net: q.net, pieces: q.pieces, material: q.material, at: new Date().toISOString() });
-    res.status(200).json({ ok: true, no, quote: q });
+    res.status(200).json({ ok: true, no, t: tok, quote: q });
   } catch (e) {
     console.error('quote-demo error', e && e.message);
     res.status(500).json({ ok: false, error: 'send_failed' });
@@ -196,3 +217,4 @@ module.exports = async function handler(req, res) {
 
 module.exports._buildPdf = buildPdf; // pre lokálny test
 module.exports._emailHtml = quoteEmailHtml;
+module.exports._seal = seal; module.exports._unseal = unseal;
