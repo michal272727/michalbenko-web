@@ -288,6 +288,17 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
 .modal{background:var(--paper);max-width:620px;max-height:85vh;overflow:auto;padding:26px;position:relative}
 .modal h3{font-size:1.3rem;margin-bottom:12px}
 .modal p{font-size:.88rem;margin-bottom:10px}
+.nx{max-width:520px;width:100%;padding:28px 24px 24px}
+.nx .kicker{color:var(--accent)}
+.nx h3{font-size:1.5rem;line-height:1.15;margin:8px 0 6px}
+.nx .stepbar{display:flex;gap:6px;margin:14px 0 18px}.nx .stepbar i{flex:1;height:4px;background:var(--line)}.nx .stepbar i.on{background:var(--accent)}
+.nx .f{margin-top:12px}.nx .chips{display:flex;flex-wrap:wrap;gap:8px}
+.nx .chips button{border:1px solid var(--line);background:#fff;padding:9px 13px;font-size:.88rem;border-radius:99px}
+.nx .chips button.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.nx .btn{width:100%;margin-top:18px}
+.nx .skip{display:block;margin:10px auto 0;background:none;border:0;font-size:.84rem;color:var(--ink-faint);text-decoration:underline}
+.nx .fin{display:none;text-align:left}
+.nx .fin ol{margin:14px 0 0;padding-left:20px;line-height:1.7;color:var(--ink)}
 .modal .x{position:absolute;top:12px;right:12px;background:none;border:0;font-size:22px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -484,6 +495,33 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   <div class="cookie-bar-inner">
     <p>Táto stránka používa Google Analytics a Meta pixel na meranie návštevnosti a reklám, len ak s tým súhlasíte. <button type="button" class="privacyOpen" style="color:inherit;background:none;border:0;padding:0;text-decoration:underline">Viac</button></p>
     <div class="cookie-bar-actions"><button type="button" id="cookieReject">Odmietnuť</button><button type="button" id="cookieAccept">Prijať</button></div>
+  </div>
+</div>
+
+<div class="modal-bd" id="nextStep" role="dialog" aria-modal="true" aria-labelledby="nxTitle">
+  <div class="modal nx">
+    <button class="x" type="button" id="nxClose" aria-label="Zavrieť">×</button>
+    <div id="nxForm">
+      <p class="kicker">Krok 2 z 2 · 20 sekúnd</p>
+      <h3 id="nxTitle">Mám to. Kde to máme nasadiť?</h3>
+      <p style="font-size:.92rem">Podľa toho vám pri hovore rovno ukážem, ako by kalkulačka vyzerala na vašom webe.</p>
+      <div class="stepbar"><i class="on"></i><i class="on"></i></div>
+      <div class="f"><label for="nxWeb">Váš web</label><input id="nxWeb" inputmode="url" placeholder="napr. oknavasafirma.sk" maxlength="160"></div>
+      <div class="f"><label for="nxCo">Názov firmy</label><input id="nxCo" autocomplete="organization" maxlength="120"></div>
+      <div class="f"><label>Koľko dopytov na ponuku mesačne?</label><div class="chips" data-k="volume"><button type="button" data-v="do 20">do 20</button><button type="button" data-v="20-50">20–50</button><button type="button" data-v="50-150">50–150</button><button type="button" data-v="150+">150+</button></div></div>
+      <div class="f"><label>Kedy vám môžem zavolať?</label><div class="chips" data-k="call"><button type="button" data-v="dnes">Dnes</button><button type="button" data-v="zajtra dopoludnia">Zajtra dopoludnia</button><button type="button" data-v="zajtra popoludní">Zajtra popoludní</button><button type="button" data-v="napíšte mi e-mail">Radšej e-mail</button></div></div>
+      <div class="f" id="nxPhoneWrap"><label for="nxPhone">Telefón</label><input id="nxPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40"></div>
+      <div class="err" id="nxErr" role="alert"></div>
+      <button type="button" class="btn" id="nxSend">Dokončiť</button>
+      <button type="button" class="skip" id="nxSkip">Teraz nie, ozvite sa mi</button>
+    </div>
+    <div class="fin" id="nxFin">
+      <p class="kicker" style="color:var(--ok)">Hotovo</p>
+      <h3>Ďakujem, vidíme sa pri hovore.</h3>
+      <p style="font-size:.92rem">Čo sa bude diať ďalej:</p>
+      <ol><li>Ozvem sa vám v termíne, ktorý ste vybrali.</li><li>Na 15-minútovom hovore prejdeme váš cenník a ukážem vám kalkulačku na vašom webe.</li><li>Po podkladoch máte do 48 hodín testovaciu verziu s vaším cenníkom a logom.</li></ol>
+      <button type="button" class="btn ghost" id="nxDone">Zavrieť</button>
+    </div>
   </div>
 </div>
 
@@ -739,14 +777,42 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     return fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) })
       .then(function(r){ return r.json(); }).catch(function(){ return { ok:false }; });
   }
-  function interestDone(ref){ track('interest_submit', { ref: ref || '' }); fb('SubmitApplication'); }
+  function interestDone(ref, ctx){ track('interest_submit', { ref: ref || '' }); fb('SubmitApplication'); openNext(ctx || {}); }
+  /* ---------- ďalší krok funnelu: doplnenie webu + termín hovoru ---------- */
+  var nx = { ctx:{}, volume:'', call:'' }, nxModal = $('#nextStep');
+  function openNext(ctx){
+    nx.ctx = ctx; nx.volume = ''; nx.call = '';
+    $('#nxForm').style.display = ''; $('#nxFin').style.display = 'none'; $('#nxErr').textContent = '';
+    $('#nxWeb').value = ctx.web || ''; $('#nxCo').value = ctx.company || ''; $('#nxPhone').value = ctx.phone || '';
+    $('#nxPhoneWrap').style.display = ctx.hasPhone ? 'none' : '';
+    $$('.nx .chips button').forEach(function(b){ b.classList.remove('on'); });
+    setTimeout(function(){ nxModal.classList.add('open'); if (!ctx.web) $('#nxWeb').focus(); }, 450);
+    track('next_step_open');
+  }
+  $$('.nx .chips').forEach(function(c){ c.addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; $$('button', c).forEach(function(x){ x.classList.toggle('on', x === b); }); nx[c.dataset.k] = b.dataset.v; }); });
+  function closeNext(){ nxModal.classList.remove('open'); }
+  $('#nxClose').addEventListener('click', closeNext); $('#nxDone').addEventListener('click', closeNext); $('#nxSkip').addEventListener('click', closeNext);
+  nxModal.addEventListener('click', function(e){ if (e.target === nxModal) closeNext(); });
+  $('#nxSend').addEventListener('click', function(){
+    var web = $('#nxWeb').value.trim(), co = $('#nxCo').value.trim(), ph = $('#nxPhone').value.trim();
+    if (!web && !co){ $('#nxErr').textContent = 'Doplňte prosím web alebo aspoň názov firmy.'; return; }
+    if (nx.call && nx.call !== 'napíšte mi e-mail' && !nx.ctx.hasPhone && !ph){ $('#nxErr').textContent = 'Na zavolanie potrebujem telefón.'; $('#nxPhone').focus(); return; }
+    var b = this; b.disabled = true; b.textContent = 'Odosielam…';
+    var c = nx.ctx, payload = { type:'details', web:web, company:co, phone:ph, volume:nx.volume, call:nx.call, ref:c.ref || '' };
+    if (c.t) payload.t = c.t; else { payload.name = c.name || ''; payload.contact = c.contact || ''; }
+    sendInterest(payload).then(function(r){
+      b.disabled = false; b.textContent = 'Dokončiť';
+      if (r && r.ok){ $('#nxForm').style.display = 'none'; $('#nxFin').style.display = 'block'; track('next_step_done', { volume:nx.volume, call:nx.call }); fb('Schedule'); }
+      else $('#nxErr').textContent = 'Nepodarilo sa odoslať. Skúste to prosím znova.';
+    });
+  });
   $('#rcta').addEventListener('click', function(){
     if (!last) { $('#chcem').scrollIntoView({ behavior:'smooth' }); return; }
     var b = this; b.disabled = true; b.textContent = 'Odosielam…';
     var payload = last.t ? { type:'interest', t:last.t, via:'result' } : { type:'interest', name:last.name, contact:last.contact, ref:last.ref, via:'result' };
     sendInterest(payload).then(function(r){
       b.disabled = false; b.textContent = 'Chcem tento systém pre svoju firmu';
-      if (r && r.ok){ b.style.display = 'none'; var ok = $('#rok'); ok.innerHTML = '<b>Hotovo, mám to.</b> Ozvem sa vám do 24 hodín na ' + esc(last.email) + '. Medzitým si pripravte cenník, aj keď je len v Exceli.'; ok.style.display = 'block'; interestDone(last.ref); }
+      if (r && r.ok){ b.style.display = 'none'; var ok = $('#rok'); ok.innerHTML = '<b>Hotovo, mám to.</b> Ozvem sa vám do 24 hodín na ' + esc(last.email) + '. Medzitým si pripravte cenník, aj keď je len v Exceli.'; ok.style.display = 'block'; interestDone(last.ref, { t:last.t, name:last.name, contact:last.contact, ref:last.ref, phone:last.phone, hasPhone:!!last.phone }); }
       else { $('#chcem').scrollIntoView({ behavior:'smooth' }); }
     });
   });
@@ -765,7 +831,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
       $('#rnote').textContent = 'E-mail sa teraz nepodarilo odoslať. Ponuku vidíte nižšie a ozvem sa vám aj osobne.';
     }
     $('#lform').dataset.ref = no;
-    last = { t: res && res.t, name: cust.name, contact: [cust.email, cust.phone].filter(Boolean).join(' · '), email: cust.email, ref: no };
+    last = { t: res && res.t, name: cust.name, contact: [cust.email, cust.phone].filter(Boolean).join(' · '), email: cust.email, phone: cust.phone, ref: no };
     $('#rcta').style.display = ''; $('#rok').style.display = 'none';
     $('#rdoc').innerHTML =
       '<div class="doc-h"><div><div class="logo-ph" style="width:72px;height:34px;margin-bottom:8px">VAŠE LOGO</div><strong>Cenová ponuka</strong>' + esc(cust.name) + '</div><div class="mono">Č. ' + esc(no) + '<br>platná ' + P.VALID_DAYS + ' dní</div></div>' +
@@ -787,7 +853,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     lf.style.display = 'none'; lok.style.display = 'block'; lok.innerHTML = 'Odosielam váš záujem…';
     setTimeout(function(){ $('#chcem').scrollIntoView(); }, 200);
     sendInterest({ type:'interest', t: params.get('t') }).then(function(r){
-      if (r && r.ok){ lok.innerHTML = '<b>Ďakujem, mám to.</b> Kontakt z ponuky už mám, ozvem sa vám do 24 hodín. Medzitým si pripravte cenník, aj keď je len v Exceli alebo na papieri.'; interestDone('email'); }
+      if (r && r.ok){ lok.innerHTML = '<b>Ďakujem, mám to.</b> Kontakt z ponuky už mám, ozvem sa vám do 24 hodín. Medzitým si pripravte cenník, aj keď je len v Exceli alebo na papieri.'; interestDone('email', { t: params.get('t'), hasPhone:false }); }
       else { lok.style.display = 'none'; lf.style.display = ''; }
       try { history.replaceState(null, '', location.pathname + '#chcem'); } catch(e){}
     });
@@ -798,7 +864,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     var d = { type:'interest', name:f.name.value.trim(), company:f.company.value.trim(), contact:f.contact.value.trim(), web:f.web.value.trim(), ref:f.dataset.ref || '', website:f.website.value };
     if (!d.name || !d.contact){ err.textContent = 'Doplňte prosím meno a telefón alebo e-mail.'; return; }
     err.textContent = ''; $('#lsend').disabled = true; $('#lsend').textContent = 'Odosielam…';
-    var done = function(){ f.style.display = 'none'; $('#lok').style.display = 'block'; track('interest_submit', { ref:d.ref }); fb('SubmitApplication'); };
+    var done = function(){ f.style.display = 'none'; $('#lok').style.display = 'block'; interestDone(d.ref, { name:d.name, contact:d.contact, ref:d.ref, company:d.company, web:d.web, hasPhone:/\d{6,}/.test(d.contact.replace(/\s/g,'')) }); };
     if (location.protocol === 'file:') { done(); return; }
     fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(d) })
       .then(function(r){ return r.json(); })
@@ -831,7 +897,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   $$('.privacyOpen').forEach(function(b){ b.addEventListener('click', function(){ modal.classList.add('open'); $('#pclose').focus(); }); });
   $('#pclose').addEventListener('click', function(){ modal.classList.remove('open'); });
   modal.addEventListener('click', function(e){ if (e.target === modal) modal.classList.remove('open'); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') modal.classList.remove('open'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ modal.classList.remove('open'); nxModal.classList.remove('open'); } });
 
   renderItems(); renderExtras(); updatePrice();
 })();
