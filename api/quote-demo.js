@@ -208,6 +208,7 @@ module.exports = async function handler(req, res) {
 
     // type: quote
     if (limited('q:' + ip, 3, 10 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
+    if (data.role && data.role !== 'firma') { res.status(200).json({ ok: true, skipped: true }); return; }
     const cust = { name: clean(data.name, 80), email: clean(data.email, 160), phone: clean(data.phone, 40) };
     if (!cust.name || !emailOk(cust.email) || data.consent !== true) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
     const q = PRICING.calculate(data.config || {});
