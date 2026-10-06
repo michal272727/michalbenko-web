@@ -1,5 +1,10 @@
 {
   "functions": {
-    "api/quote-demo.js": { "includeFiles": "api/_fonts/**" }
+    "api/quote-demo.js": {
+      "includeFiles": "api/_fonts/**"
+    },
+    "api/k-quote.js": {
+      "includeFiles": "api/_fonts/**"
+    }
   }
 }
