@@ -529,7 +529,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   <div class="modal">
     <button class="x" type="button" id="pclose" aria-label="Zavrieť">×</button>
     <h3 id="ptitle">Ochrana osobných údajov</h3>
-    <p><b>Prevádzkovateľ:</b> Michal Benko, IČO: 52760316, so sídlom Janka Kráľa 607, 972 45 Bystričany. Kontakt: info@michalbenko.sk.</p>
+    <p><b>Prevádzkovateľ:</b> Michal Benko, IČO: 52760316, so sídlom Janka Kráľa 607, 972 45 Bystričany. Kontakt: michalbenko3@gmail.com.</p>
     <p><b>Aké údaje:</b> meno, e-mail a telefón z kalkulačky; meno, firma, kontakt a web z formulára „Chcem tento systém“.</p>
     <p><b>Účel:</b> zaslanie ukážkovej cenovej ponuky a kontaktovanie ohľadom systému automatických ponúk (najviac 3 e-maily). Z e-mailov sa môžete kedykoľvek odhlásiť odpoveďou „odhlásiť“.</p>
     <p><b>Právny základ:</b> váš súhlas (čl. 6 ods. 1 písm. a) GDPR), ktorý môžete kedykoľvek odvolať.</p>
@@ -869,7 +869,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(d) })
       .then(function(r){ return r.json(); })
       .then(function(r){ if (r && r.ok) done(); else throw 0; })
-      .catch(function(){ $('#lsend').disabled = false; $('#lsend').textContent = 'Chcem tento systém'; err.textContent = 'Nepodarilo sa odoslať. Napíšte mi prosím na info@michalbenko.sk.'; });
+      .catch(function(){ $('#lsend').disabled = false; $('#lsend').textContent = 'Chcem tento systém'; err.textContent = 'Nepodarilo sa odoslať. Napíšte mi prosím na michalbenko3@gmail.com.'; });
   });
 
   /* ---------- mobilná výzva ---------- */
