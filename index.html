@@ -610,6 +610,56 @@
     letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
   }
   .about-copy{display:grid; gap:14px; max-width:60ch;}
+  /* ---- porovnanie, pre koho, audit (kompaktné sekcie) ---- */
+  .sec-lede{margin-top:12px; max-width:62ch; font-size:1rem;}
+  .cmp{margin-top:30px; border-top:1px solid var(--ink); max-width:1080px;}
+  .cmp-head,.cmp-row{display:grid; grid-template-columns:170px 1fr 1.35fr; gap:0;}
+  .cmp-head span{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); padding:14px 18px;}
+  .cmp-head .me{color:var(--accent); background:var(--accent-soft);}
+  .cmp-row{border-bottom:1px solid var(--line);}
+  .cmp-row > span{padding:18px; display:flex; gap:10px; align-items:flex-start; font-size:.95rem; line-height:1.45;}
+  .cmp-k{font-family:var(--serif); font-weight:700; font-size:1.06rem !important; color:var(--ink);}
+  .cmp-them{color:var(--ink-faint);}
+  .cmp-me{background:var(--accent-soft); color:var(--ink);}
+  .cmp-row svg,.fit svg{width:17px; height:17px; flex:none; margin-top:3px; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
+  .cmp-them svg{stroke:var(--accent2);}
+  .cmp-me svg{stroke:var(--accent);}
+  .cmp-note{margin-top:16px; font-family:var(--mono); font-size:.68rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
+  .fit{display:grid; grid-template-columns:1.3fr 1fr; gap:22px; margin-top:28px; max-width:1080px;}
+  .fit-col{border:1px solid var(--ink); background:var(--bg); padding:26px 26px 22px; position:relative; box-shadow:7px 7px 0 var(--line);}
+  .fit-col.yes{transform:rotate(-.6deg);}
+  .fit-col.no{transform:rotate(.7deg); border-style:dashed; box-shadow:none; background:transparent;}
+  .fit-tag{display:inline-block; font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; margin-bottom:16px; background:var(--accent); color:#fff;}
+  .fit-col.no .fit-tag{background:var(--accent2);}
+  .fit ul{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
+  .fit li{display:flex; gap:10px; font-size:.95rem; line-height:1.45;}
+  .fit .yes svg{stroke:var(--accent);} .fit .no svg{stroke:var(--accent2);}
+  .find-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:28px; max-width:1080px;}
+  .find{background:var(--bg-alt); padding:24px 22px 22px; display:grid; gap:8px; align-content:start; position:relative; transition:background .25s;}
+  section:not(.bg-alt) .find{background:var(--bg);}
+  .find:hover{background:var(--accent-soft);}
+  .find-n{font-family:var(--mono); font-size:.72rem; color:var(--accent2); letter-spacing:.06em;}
+  .find h3{font-size:1.02rem;}
+  .find p{font-size:.9rem; color:var(--ink-soft, var(--ink-faint)); line-height:1.5;}
+  .find.reveal:nth-child(2),.cmp-row.reveal:nth-child(3){transition-delay:.06s;}
+  .find.reveal:nth-child(3),.cmp-row.reveal:nth-child(4){transition-delay:.12s;}
+  .find.reveal:nth-child(4),.cmp-row.reveal:nth-child(5){transition-delay:.18s;}
+  .find.reveal:nth-child(5){transition-delay:.24s;}
+  .find.reveal:nth-child(6){transition-delay:.3s;}
+  @media (max-width:900px){
+    .find-grid{grid-template-columns:1fr 1fr;}
+    .fit{grid-template-columns:1fr;}
+    .fit-col.yes,.fit-col.no{transform:none;}
+  }
+  @media (max-width:640px){
+    .cmp-head{display:none;}
+    .cmp-row{grid-template-columns:1fr 1fr; padding:14px 0;}
+    .cmp-k{grid-column:1 / -1; padding:0 0 8px !important;}
+    .cmp-row > span:not(.cmp-k){padding:12px; font-size:.86rem;}
+    .find-grid{grid-template-columns:1fr;}
+    .find{padding:18px 18px 16px;}
+    .cmp-row > span:not(.cmp-k){padding:10px;}
+  }
   /* hero: ukážka video auditu namiesto fotky */
   .hero-audit{width:240px;}
   .hero-audit .widget-card{padding:22px 18px 18px;}
@@ -986,122 +1036,57 @@
 <div class="margin-mark reveal" style="top:58%; right:14px; width:34px; height:28px; transform:rotate(-6deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 32 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="3.2" stroke-linejoin="round" d="M5,15 L13,23 L27,4"/></svg></div>
   </section>
 
-  <section>
+  <section id="starostlivost">
     <div class="section-inner">
-    <h2>Prečo takto, a nie inak</h2>
-    <div class="usp-grid">
-      <div class="usp-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        <h3>Transparentnosť</h3>
-        <p>Vidíte presne, kam idú peniaze a prečo — dáta si viete kedykoľvek overiť sami.</p>
-      </div>
-      <div class="usp-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M21 12a9 9 0 11-3.5-7.1"/><path d="M21 3v6h-6"/></svg>
-        <h3>Automatizácia</h3>
-        <p>Účet mi každé ráno automaticky skontroluje systém a raz mesačne dostanete zrozumiteľný report — nie tabuľku bez komentára.</p>
-      </div>
-      <div class="usp-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg>
-        <h3>Špecializácia</h3>
-        <p>Google Ads je jediné, čomu sa venujem naplno — hĺbka namiesto povrchnej správy piatich kanálov naraz.</p>
-      </div>
+    <h2>Čím sa líšim od bežnej <span class="annot annot-underline">správy<svg class="annot-svg" viewBox="0 0 160 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,12 C40,6 90,15 157,8"/></svg></span></h2>
+    <div class="cmp">
+      <div class="cmp-head" aria-hidden="true"><span></span><span>Bežná správa</span><span class="me">U mňa</span></div>
+      <div class="cmp-row reveal"><span class="cmp-k">Kontrola účtu</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Typicky pri mesačnom reporte</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Každý pracovný deň ráno. Systém skontroluje výkon, výrazy, zamietnuté reklamy aj lokality.</span></div>
+      <div class="cmp-row reveal"><span class="cmp-k">Report</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Tabuľka čísel bez komentára</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Raz mesačne: čo sa stalo, prečo a čo robím ďalej.</span></div>
+      <div class="cmp-row reveal"><span class="cmp-k">Vaše dáta</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Prehľad má hlavne agentúra</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Prístup máte vždy aj vy. Všetko si viete overiť.</span></div>
+      <div class="cmp-row reveal"><span class="cmp-k">Zameranie</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Viac kanálov naraz</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Iba Google Ads, do hĺbky.</span></div>
     </div>
-    </div>
-    <div class="margin-mark reveal" style="top:20%; left:14px; width:26px; height:26px; transform:rotate(8deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 28 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.4" d="M14,2 L14,26 M4,7 L24,21 M24,7 L4,21"/></svg></div>
-  </section>
-
-  <section id="starostlivost" class="bg-alt">
-    <div class="section-inner">
-    <h2>Ako sa starám o váš účet</h2>
-    <div class="section-split">
-    <div class="section-text">
-    <ul class="info-list reveal">
-      <li>Každý pracovný deň ráno mi systém skontroluje váš účet: pokles výkonu oproti poslednému mesiacu, výrazy, za ktoré platíte zbytočne, zamietnuté reklamy, silu reklám, lokality a zariadenia. Problém tak nečaká na koniec mesiaca.</li>
-      <li>Raz mesačne dostanete report s vysvetlením — čo sa stalo, prečo a čo robím ďalej. Žiadna tabuľka bez komentára.</li>
-      <li>Mesačné reporty s komentárom robím pravidelne pre viac ako 20 klientov, formát je overený.</li>
-    </ul>
-    </div>
-    <div class="side-visual reveal" aria-hidden="true">
-      <div class="widget-card">
-        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <span class="widget-label">Denný monitoring</span>
-        <div class="widget-week">
-          <div class="widget-day"><span>Po</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <div class="widget-day"><span>Ut</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <div class="widget-day"><span>St</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <div class="widget-day alert"><span>Št</span><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
-          <div class="widget-day"><span>Pi</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <div class="widget-day"><span>So</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-          <div class="widget-day"><span>Ne</span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
-        </div>
-        <div class="widget-substat" style="margin-top:14px;">Štvrtok: pokles CTR o 14&nbsp;% → vyriešené do rána</div>
-      </div>
-    </div>
-    </div>
+    <p class="cmp-note">Mesačné reporty s komentárom pripravujem pravidelne pre viac ako 20 klientov.</p>
     </div>
   </section>
 
-  <section id="pre-koho">
+  <section id="pre-koho" class="bg-alt">
     <div class="section-inner">
     <h2>Pre koho to je / nie je</h2>
-    <div class="section-split">
-    <div class="section-text">
-    <p style="margin-top:10px;">Spolupráca dáva zmysel, ak:</p>
-    <ul class="info-list reveal">
-      <li>už máte Google Ads, alebo ste pripravení investovať aspoň 500 € mesačne do kreditu</li>
-      <li>máte funkčný web a službu či produkt, ktorý sa predáva</li>
-      <li>chcete vidieť, za čo platíte, a rozhodovať podľa čísel</li>
-    </ul>
-    <p style="margin-top:20px; max-width:60ch;">Ak zatiaľ hľadáte niekoho na jednorazové „nastavenie a zabudnutie“, pravdepodobne si nesadneme.</p>
-    </div>
-    <div class="side-visual reveal" aria-hidden="true">
-      <div class="widget-card">
-        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <span class="widget-label">Rýchly test</span>
-        <div class="widget-rows">
-          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Rozpočet 500+&nbsp;€/mes.</div>
-          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Funkčný web a ponuka</div>
-          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Rozhodovanie podľa čísel</div>
-          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>„Nastav a zabudni“</div>
-        </div>
+    <div class="fit">
+      <div class="fit-col yes reveal">
+        <span class="fit-tag">Sadneme si, ak</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>už máte Google Ads, alebo do nich chcete dať aspoň 500&nbsp;€ mesačne</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>máte funkčný web a službu či produkt, ktorý sa predáva</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>chcete vidieť, za čo platíte, a rozhodovať podľa čísel</li>
+        </ul>
       </div>
-    </div>
+      <div class="fit-col no reveal">
+        <span class="fit-tag">Skôr nie, ak</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>hľadáte jednorazové „nastav a zabudni“</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>chcete spustiť reklamu bez funkčného webu alebo ponuky</li>
+        </ul>
+      </div>
     </div>
     </div>
   </section>
 
-  <section id="pripady" class="bg-alt">
+  <section id="pripady">
     <div class="section-inner">
     <h2>Čo dostanete v audite</h2>
-    <div class="section-split">
-    <div class="section-text">
-    <p style="margin-top:10px; max-width:62ch;">Účet prejdem ručne a dostanete zoznam zistení zoradený podľa toho, koľko peňazí vás stojí. Pozerám najmä:</p>
-    <ul class="info-list reveal">
-      <li>Meranie konverzií — či účet optimalizuje na skutočné dopyty, alebo na kliky a zobrazenia stránky</li>
-      <li>Vyhľadávacie výrazy — za aké hľadania reálne platíte a koľko ide na nerelevantné</li>
-      <li>Štruktúru kampaní a stratégiu cenových ponúk — či zodpovedá cieľu a rozpočtu</li>
-      <li>Performance Max — kam míňa a či neberie konverzie, ktoré by prišli aj tak</li>
-      <li>Reklamy a vstupné stránky — či sľub v reklame sedí so stránkou</li>
-      <li>Nastavenia, ktoré sa ľahko prehliadnu — lokality, zariadenia, partnerské siete, obsah zobrazovaný v aplikáciách</li>
-    </ul>
-    <p style="margin-top:18px; max-width:62ch;">Ku každému zisteniu dostanete, čo s tým spraviť. Časť si viete opraviť aj sami.</p>
+    <p class="sec-lede">Účet prejdem ručne. Zistenia dostanete zoradené podľa toho, koľko vás stoja, a ku každému aj to, čo s ním spraviť. Časť si viete opraviť sami.</p>
+    <div class="find-grid">
+      <div class="find reveal"><span class="find-n">01</span><h3>Meranie konverzií</h3><p>Optimalizuje účet na dopyty, alebo len na kliky a návštevy stránky?</p></div>
+      <div class="find reveal"><span class="find-n">02</span><h3>Hľadané výrazy</h3><p>Za aké hľadania naozaj platíte a koľko ide na nerelevantné.</p></div>
+      <div class="find reveal"><span class="find-n">03</span><h3>Kampane a ponuky</h3><p>Zodpovedá štruktúra a stratégia cien vášmu cieľu a rozpočtu?</p></div>
+      <div class="find reveal"><span class="find-n">04</span><h3>Performance Max</h3><p>Kam míňa a či si neberie konverzie, ktoré by prišli aj tak.</p></div>
+      <div class="find reveal"><span class="find-n">05</span><h3>Reklamy a stránky</h3><p>Sedí sľub v reklame s tým, čo návštevník nájde na stránke?</p></div>
+      <div class="find reveal"><span class="find-n">06</span><h3>Skryté nastavenia</h3><p>Lokality, zariadenia, partnerské siete a reklamy v aplikáciách.</p></div>
+    </div>
     <p class="inline-cta reveal"><a href="#audit">Chcem tento audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
-        <div class="side-visual reveal" aria-hidden="true">
-      <div class="widget-card">
-        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <span class="widget-label">Výstup z auditu</span>
-        <div class="widget-tags">
-          <div class="widget-tag">Meranie konverzií<span class="lvl">Vysoká</span></div>
-          <div class="widget-tag">Performance Max<span class="lvl">Vysoká</span></div>
-          <div class="widget-tag">Štruktúra kampaní<span class="lvl mid">Stredná</span></div>
-          <div class="widget-tag">Vstupné stránky<span class="lvl mid">Stredná</span></div>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-<div class="margin-mark reveal" style="top:72%; right:14px; width:30px; height:26px; transform:rotate(-4deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 30 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" d="M4,14 C3,6 14,2 20,7 C27,12 25,22 16,23 C8,24 3,18 6,13 C9,9 15,8 17,12"/></svg></div>
   </section>
 
   <section id="faq">
