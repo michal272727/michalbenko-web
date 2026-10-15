@@ -905,6 +905,157 @@
     .cookie-bar-actions{width:100%;}
     .cookie-bar-actions button{flex:1;}
   }
+  /* ===== sekcie v rôznych formátoch (v4) ===== */
+  .eyebrow{display:inline-block; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 12px; margin-bottom:16px; background:var(--accent2); color:#fff; transform:rotate(var(--tilt-a));}
+  /* príznaky: tmavý pás s bublinami */
+  section.band-dark{background:var(--invert-bg); border-top-color:var(--invert-bg); color:var(--invert-ink); overflow:hidden;}
+  .band-dark h2{color:var(--invert-ink); font-size:clamp(1.9rem,4vw,2.8rem); max-width:18ch;}
+  .say-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px 40px; margin-top:44px; max-width:1080px;}
+  .say{position:relative; margin:0; background:var(--bg); color:var(--ink); padding:24px 26px 24px 70px; border-radius:22px 22px 22px 4px; box-shadow:8px 8px 0 rgba(0,0,0,.28); transition:transform .3s ease;}
+  .say::after{content:''; position:absolute; left:0; bottom:-14px; border-left:18px solid var(--bg); border-bottom:14px solid transparent;}
+  .say:nth-child(even){margin-top:46px; margin-bottom:-46px; border-radius:22px 22px 4px 22px;}
+  .say:nth-child(even)::after{left:auto; right:0; border-left:none; border-right:18px solid var(--bg);}
+  .say.reveal.is-visible{transform:rotate(-1.4deg);}
+  .say.reveal.is-visible:nth-child(even){transform:rotate(1.2deg);}
+  .say.reveal.is-visible:hover{transform:rotate(0) scale(1.02);}
+  .say.reveal:nth-child(2){transition-delay:.12s;} .say.reveal:nth-child(3){transition-delay:.24s;} .say.reveal:nth-child(4){transition-delay:.36s;}
+  .say blockquote{margin:0; font-family:var(--serif); font-style:italic; font-size:clamp(1.12rem,1.8vw,1.4rem); line-height:1.35; color:var(--ink);}
+  .say .annot-underline .annot-svg path{stroke:var(--accent2);}
+  .say-ic{position:absolute; left:20px; top:22px; width:34px; height:34px; border-radius:50%; background:var(--accent2); color:#fff; display:grid; place-items:center; font-family:var(--serif); font-weight:700; font-size:1.1rem;}
+  .band-foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px 40px; margin-top:96px; padding-top:28px; border-top:1px dashed rgba(245,239,223,.3); max-width:1080px;}
+  .band-foot p{flex:1 1 420px; max-width:62ch; color:rgba(245,239,223,.78); font-size:.98rem;}
+  .band-foot strong{color:var(--invert-ink);}
+  .band-btn{background:var(--invert-ink); color:var(--invert-bg); border-color:var(--invert-ink);}
+  .band-btn:hover{background:transparent; color:var(--invert-ink);}
+  /* proces: časová os */
+  .tl{list-style:none; margin:44px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:28px; position:relative; max-width:1180px;}
+  .tl::before,.tl::after{content:''; position:absolute; top:23px; left:24px; right:calc((100% - 84px) / 4 - 24px); height:2px; background:var(--line);}
+  .tl::after{background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 1.6s cubic-bezier(.5,0,.2,1) .2s;}
+  .tl.is-visible::after{transform:scaleX(1);}
+  .tl-step{position:relative; display:grid; gap:8px; align-content:start;}
+  .tl-dot{width:48px; height:48px; border-radius:50%; border:2px solid var(--ink); background:var(--bg); display:grid; place-items:center; font-family:var(--serif); font-style:italic; font-size:1.35rem; position:relative; z-index:1; margin-bottom:12px; transform:scale(.6); opacity:0; transition:transform .45s cubic-bezier(.3,1.6,.5,1), opacity .3s, background .3s, color .3s;}
+  .tl.is-visible .tl-dot{transform:scale(1); opacity:1;}
+  .tl-step:nth-child(1) .tl-dot{transition-delay:.15s;} .tl-step:nth-child(2) .tl-dot{transition-delay:.6s;}
+  .tl-step:nth-child(3) .tl-dot{transition-delay:1.05s;} .tl-step:nth-child(4) .tl-dot{transition-delay:1.5s;}
+  .tl-step:nth-child(-n+2) .tl-dot{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .tl-when{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); width:fit-content; padding:3px 8px; border:1px solid var(--line);}
+  .tl-when.free{color:var(--accent); border-color:var(--accent); background:var(--accent-soft);}
+  .tl-step h3{font-size:1.18rem; margin-top:4px;}
+  .tl-step p{font-size:.93rem;}
+  /* porovnanie: prepínač */
+  .sw{margin-top:30px; max-width:880px;}
+  .sw-top{display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px;}
+  .sw-ctrl{position:relative; display:inline-grid; grid-template-columns:1fr 1fr; border:1.5px solid var(--ink); border-radius:999px; padding:4px; background:var(--bg-alt);}
+  .sw-thumb{position:absolute; top:4px; bottom:4px; left:4px; width:calc(50% - 4px); border-radius:999px; background:var(--accent2); transition:transform .45s cubic-bezier(.5,0,.2,1), background .45s;}
+  .sw[data-mode="me"] .sw-thumb{transform:translateX(100%); background:var(--accent);}
+  .sw-btn{position:relative; z-index:1; padding:11px 26px; font-family:var(--mono); font-size:.78rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); border-radius:999px; transition:color .3s; white-space:nowrap;}
+  .sw-btn[aria-pressed="true"]{color:#fff;}
+  .sw-hint{font-family:var(--serif); font-style:italic; color:var(--ink-faint); font-size:.98rem;}
+  .sw-hint::before{content:'← '; font-style:normal;}
+  .sw-card{margin-top:22px; border:1.5px dashed var(--accent2); background:transparent; transition:border-color .45s, background .45s, box-shadow .45s, transform .45s;}
+  .sw[data-mode="me"] .sw-card{border:1.5px solid var(--accent); background:var(--bg); box-shadow:8px 8px 0 var(--accent-soft); transform:rotate(-.4deg);}
+  .sw-row{display:grid; grid-template-columns:170px 1fr; gap:18px; padding:20px 24px; border-bottom:1px solid var(--line);}
+  .sw-row:last-child{border-bottom:none;}
+  .sw-k{font-family:var(--serif); font-weight:700; font-size:1.06rem; color:var(--ink);}
+  .sw-v{display:grid;}
+  .sw-v > span{grid-area:1/1; display:flex; gap:10px; align-items:flex-start; font-size:.98rem; line-height:1.45; transition:opacity .35s, transform .35s;}
+  .sw-v svg{width:18px; height:18px; flex:none; margin-top:2px; fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;}
+  .v-them{color:var(--ink-faint);} .v-them svg{stroke:var(--accent2);}
+  .v-me{color:var(--ink);} .v-me svg{stroke:var(--accent);}
+  .sw[data-mode="me"] .v-them, .sw[data-mode="them"] .v-me{opacity:0; transform:translateY(8px); pointer-events:none;}
+  .sw-row:nth-child(2) .sw-v > span{transition-delay:.06s;} .sw-row:nth-child(3) .sw-v > span{transition-delay:.12s;} .sw-row:nth-child(4) .sw-v > span{transition-delay:.18s;}
+  /* pre koho: test */
+  .quiz{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:28px; margin-top:30px; max-width:1080px; align-items:start;}
+  .quiz-qs{display:grid; gap:14px;}
+  .quiz-q{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px; background:var(--bg); border:1px solid var(--ink); padding:18px 20px; transition:border-color .3s, box-shadow .3s;}
+  .quiz-q.reveal:nth-child(2){transition-delay:.08s;} .quiz-q.reveal:nth-child(3){transition-delay:.16s;}
+  .quiz-q.ans-yes{box-shadow:6px 6px 0 var(--accent-soft);} .quiz-q.ans-no{box-shadow:6px 6px 0 var(--accent2-soft);}
+  .quiz-n{font-family:var(--mono); font-size:.7rem; color:var(--ink-faint);}
+  .quiz-q p{color:var(--ink); font-size:.98rem; line-height:1.45;}
+  .quiz-a{display:flex; gap:6px;}
+  .quiz-a button{min-width:62px; padding:10px 14px; border:1px solid var(--ink); font-family:var(--mono); font-size:.76rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; transition:background .2s, color .2s, border-color .2s;}
+  .quiz-a button:hover{background:var(--bg-alt);}
+  .quiz-a button[data-a="yes"][aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .quiz-a button[data-a="no"][aria-pressed="true"]{background:var(--accent2); border-color:var(--accent2); color:#fff;}
+  .quiz-res{position:sticky; top:calc(var(--bar-h) + 24px); border:1px solid var(--ink); background:var(--invert-bg); color:var(--invert-ink); padding:26px 24px; display:grid; gap:12px; justify-items:start; transform:rotate(1deg); transition:background .4s;}
+  .quiz-meter{display:flex; gap:6px;}
+  .quiz-meter i{width:34px; height:6px; background:rgba(245,239,223,.2); transition:background .3s;}
+  .quiz-meter i.y{background:#7FA6F5;} .quiz-meter i.n{background:#E08A6A;}
+  .quiz-title{font-family:var(--serif); font-size:1.5rem; line-height:1.2;}
+  .quiz-msg{color:rgba(245,239,223,.8); font-size:.95rem;}
+  .quiz-cta{display:none; background:var(--invert-ink); color:var(--invert-bg); border-color:var(--invert-ink); margin-top:4px;}
+  .quiz-cta:hover{background:transparent; color:var(--invert-ink);}
+  .quiz-res[data-state="yes"]{background:var(--accent);}
+  .quiz-res[data-state="yes"] .quiz-cta{display:inline-flex;}
+  .quiz-res[data-state="no"]{background:#3a2a26;}
+  /* audit: dokument */
+  .rep{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:56px; align-items:center; max-width:1180px;}
+  .rep-gets{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:10px;}
+  .rep-gets li{font-size:.98rem; color:var(--ink-soft); padding-left:18px; position:relative;}
+  .rep-gets li::before{content:''; position:absolute; left:0; top:.55em; width:8px; height:8px; background:var(--accent2); transform:rotate(45deg);}
+  .rep-gets b{color:var(--ink);}
+  .doc{position:relative; background:#FFFDF8; border:1px solid var(--ink); padding:30px 30px 26px; box-shadow:10px 10px 0 var(--line), 0 24px 40px -24px rgba(14,26,48,.35);}
+  .doc.reveal.is-visible{transform:rotate(1.4deg);}
+  .doc-clip{position:absolute; top:-16px; left:42px; width:26px; height:38px; stroke:var(--ink); transform:rotate(var(--tilt-b));}
+  .doc-head{display:flex; justify-content:space-between; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); padding-bottom:12px; border-bottom:2px solid var(--ink);}
+  .doc-list{list-style:none; margin:0; padding:0;}
+  .doc-list li{display:grid; grid-template-columns:34px 1fr 26px; gap:12px; align-items:start; padding:14px 0; border-bottom:1px dotted var(--line);}
+  .doc-list li:last-child{border-bottom:none;}
+  .doc-n{font-family:var(--mono); font-size:.74rem; color:var(--accent2); padding-top:3px;}
+  .doc-list b{font-family:var(--serif); font-size:1.02rem; color:var(--ink);}
+  .doc-list p{font-size:.88rem; line-height:1.45; margin-top:3px;}
+  .doc-tick{width:24px; height:24px;}
+  .doc-tick path{fill:none; stroke:var(--accent); stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1;}
+  .doc.is-visible .doc-tick path{animation:drawMark .35s ease-out forwards;}
+  .doc-list li:nth-child(1) .doc-tick path{animation-delay:.5s;} .doc-list li:nth-child(2) .doc-tick path{animation-delay:.75s;}
+  .doc-list li:nth-child(3) .doc-tick path{animation-delay:1s;} .doc-list li:nth-child(4) .doc-tick path{animation-delay:1.25s;}
+  .doc-list li:nth-child(5) .doc-tick path{animation-delay:1.5s;} .doc-list li:nth-child(6) .doc-tick path{animation-delay:1.75s;}
+  .doc-stamp{position:absolute; right:-18px; bottom:-22px; border:2px solid var(--accent2); color:var(--accent2); background:rgba(255,253,248,.92); font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; text-align:center; line-height:1.4; padding:8px 12px; transform:rotate(-9deg); opacity:0; transition:opacity .2s 2.1s, transform .35s cubic-bezier(.3,1.6,.5,1) 2.1s;}
+  .doc.is-visible .doc-stamp{opacity:1; transform:rotate(-9deg) scale(1);}
+  .doc:not(.is-visible) .doc-stamp{transform:rotate(-9deg) scale(1.8);}
+  /* faq: dva stĺpce */
+  .faq-layout{display:grid; grid-template-columns:300px minmax(0,1fr); gap:56px; align-items:start; max-width:1180px;}
+  .faq-side{position:sticky; top:calc(var(--bar-h) + 32px); display:grid; gap:14px;}
+  .faq-layout .faq-list{margin-top:14px;}
+  .no-js .doc-tick path, .no-js .tl-dot{stroke-dashoffset:0; opacity:1; transform:none;}
+  .no-js .tl::after{transform:scaleX(1);}
+  .no-js .doc-stamp{opacity:1;}
+  @media (prefers-reduced-motion: reduce){
+    .tl::after,.tl-dot,.sw-thumb,.sw-v > span,.sw-card,.doc-stamp{transition:none !important;}
+    .doc-tick path{animation:none !important; stroke-dashoffset:0 !important;}
+  }
+  @media (max-width:900px){
+    .say-grid{grid-template-columns:1fr; gap:22px; margin-top:30px;}
+    .say:nth-child(even){margin:0 0 0 12%;}
+    .say:nth-child(odd){margin-right:12%;}
+    .band-foot{margin-top:44px;}
+    .tl{grid-template-columns:1fr; gap:0; margin-top:30px;}
+    .tl::before,.tl::after{top:24px; bottom:24px; left:23px; right:auto; width:2px; height:auto;}
+    .tl::after{transform:scaleY(0); transform-origin:top;}
+    .tl.is-visible::after{transform:scaleY(1);}
+    .tl-step{grid-template-columns:48px 1fr; column-gap:18px; row-gap:6px; padding-bottom:24px;}
+    .tl-dot{grid-row:1 / span 3; margin-bottom:0;}
+    .tl-step > :not(.tl-dot){grid-column:2;}
+    .quiz{grid-template-columns:1fr;}
+    .quiz-res{position:static; transform:none;}
+    .rep{grid-template-columns:1fr; gap:40px;}
+    .faq-layout{grid-template-columns:1fr; gap:10px;}
+    .faq-side{position:static;}
+  }
+  @media (max-width:640px){
+    .say{padding:20px 20px 20px 62px;}
+    .say-ic{left:16px; top:20px; width:30px; height:30px;}
+    .say:nth-child(even){margin-left:6%;} .say:nth-child(odd){margin-right:6%;}
+    .sw-btn{padding:10px 16px; font-size:.72rem;}
+    .sw-hint{display:none;}
+    .sw-row{grid-template-columns:1fr; gap:6px; padding:16px 16px;}
+    .quiz-q{grid-template-columns:1fr; gap:10px; padding:16px;}
+    .quiz-n{order:-1;}
+    .quiz-a button{flex:1; padding:12px;}
+    .doc{padding:24px 18px 22px;}
+    .doc.reveal.is-visible{transform:rotate(.6deg);}
+    .doc-stamp{right:-4px;}
+  }
 </style>
 </head>
 <body class="no-js" id="top">
@@ -973,101 +1124,86 @@
     </div>
   </div>
 
-  <section id="riesime">
+  <section id="riesime" class="band-dark">
     <div class="section-inner">
-    <h2>Poznáte niektorý z týchto príznakov?</h2>
-    <div class="section-split">
-    <div class="section-text">
-    <div style="margin-top:24px;">
-      <div class="exhibit reveal"><span class="tag">Príznak 1</span><p>Míňate mesačne rozpočet, ale kvalitných dopytov <span class="annot annot-circle annot-warn">chodí málo<svg class="annot-svg" viewBox="0 0 140 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 25,4 70,5 C118,3 137,11 135,25 C138,40 108,43 70,42 C28,44 5,38 7,25 Z"/></svg></span> — alebo vôbec.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Príznak 2</span><p>Nemáte prehľad, kam presne peniaze v účte idú a prečo sa tak rozhodlo.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Príznak 3</span><p>Kampane vám spravuje niekto iný, no reporty sú všeobecné a ťažko sa v nich hľadá zmysel.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
-      <div class="exhibit reveal"><span class="tag">Príznak 4</span><p>Zmeny v účte prichádzajú pomaly, bez vysvetlenia a bez merateľného dopadu.</p><svg class="exhibit-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg></div>
+    <span class="eyebrow">Príznaky</span>
+    <h2>Hovoríte si niektorú z týchto viet?</h2>
+    <div class="say-grid">
+      <figure class="say reveal"><span class="say-ic" aria-hidden="true">!</span><blockquote>„Míňame rozpočet, ale <span style="white-space:nowrap">dopyty <span class="annot annot-underline">nechodia<svg class="annot-svg" viewBox="0 0 160 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,12 C40,6 90,15 157,8"/></svg></span>.“</span></blockquote></figure>
+      <figure class="say reveal"><span class="say-ic" aria-hidden="true">?</span><blockquote>„Netuším, kam v účte idú peniaze a prečo.“</blockquote></figure>
+      <figure class="say reveal"><span class="say-ic" aria-hidden="true">?</span><blockquote>„Report dostanem, ale nič mi nepovie.“</blockquote></figure>
+      <figure class="say reveal"><span class="say-ic" aria-hidden="true">!</span><blockquote>„Zmeny prichádzajú pomaly a bez vysvetlenia.“</blockquote></figure>
     </div>
-    <div class="cost-callout reveal">
-      <span class="tag">Cena nečinnosti</span>
-      <p>Kým účet takto beží ďalej, minuté peniaze sa už <span class="annot annot-circle">nevracajú<svg class="annot-svg" viewBox="0 0 150 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M7,24 C4,10 27,4 75,5 C126,3 147,11 145,25 C148,40 120,43 75,42 C28,44 5,38 7,25 Z"/></svg></span>.</p>
-      <p>Z auditov, ktoré som doteraz robil, viem, že takto nastavené účty takmer vždy míňajú časť rozpočtu na zle zacielené kliky, rozbité meranie alebo kampane, ktoré si už roky nikto nevšimol. Každý mesiac čakania je mesiac, v ktorom sa to isté opakuje znova.</p>
-    </div>
-    <p class="inline-cta reveal"><a href="#audit">Poznávate sa v niektorom z nich? Chcem bezplatný audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
-    </div>
-        <div class="side-visual reveal" aria-hidden="true">
-      <div class="widget-card">
-        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <span class="widget-label">Typický účet pred auditom</span>
-        <div class="widget-stat warn">38&nbsp;%</div>
-        <div class="widget-substat">rozpočtu na nerelevantné kliky</div>
-        <svg class="widget-chart" viewBox="0 0 220 76" preserveAspectRatio="none" aria-hidden="true">
-          <path class="area" d="M0,22 L30,30 L60,20 L90,42 L120,36 L150,58 L180,50 L220,66 L220,76 L0,76 Z"/>
-          <path class="line" d="M0,22 L30,30 L60,20 L90,42 L120,36 L150,58 L180,50 L220,66"/>
-        </svg>
-      </div>
+    <div class="band-foot reveal">
+      <p><strong>Každý mesiac čakania stojí peniaze.</strong> Takéto účty takmer vždy míňajú časť rozpočtu na zle zacielené kliky, rozbité meranie alebo kampane, ktoré si roky nikto nevšimol.</p>
+      <a class="btn band-btn" href="#audit">Chcem bezplatný audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a>
     </div>
     </div>
-    </div>
-<div class="margin-mark mm-warn reveal" style="top:12%; right:14px; width:24px; height:170px; transform:rotate(2deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 20 160" preserveAspectRatio="none"><path pathLength="1" stroke-width="3" d="M4,4 C16,4 8,40 16,80 C8,120 16,150 4,156"/></svg></div>
   </section>
 
   <section id="proces" class="bg-alt">
     <div class="section-inner">
     <h2>Ako to funguje</h2>
-    <div class="section-split">
-    <div class="section-text">
-    <div class="stair">
-      <div class="stair-item reveal"><span class="n">01</span><div><h3>Bezplatný audit účtu</h3><p>Prejdem štruktúru kampaní, nastavenie konverzií a alokáciu rozpočtu.</p></div></div>
-      <div class="stair-item reveal"><span class="n">02</span><div><h3>Konkrétne zistenia</h3><p>Dostanete jasný prehľad, čo funguje, čo nefunguje a prečo — osobne, nie automaticky generovaný PDF.</p></div></div>
-      <div class="stair-item reveal"><span class="n">03</span><div><h3>Prevzatie správy</h3><p>Nastavím transparentný reporting a automatizácie okolo účtu ešte pred prvou optimalizáciou.</p></div></div>
-      <div class="stair-item reveal"><span class="n">04</span><div><h3>Priebežná optimalizácia</h3><p>Pravidelné úpravy podložené dátami — viete, kedy a prečo sa niečo zmenilo.</p></div></div>
+    <p class="sec-lede">Štyri kroky. Prvé dva sú zadarmo a k ničomu vás nezaväzujú.</p>
+    <ol class="tl reveal">
+      <li class="tl-step"><span class="tl-dot">1</span><span class="tl-when free">Zadarmo</span><h3>Audit účtu</h3><p>Prejdem štruktúru kampaní, meranie konverzií a rozpočet.</p></li>
+      <li class="tl-step"><span class="tl-dot">2</span><span class="tl-when free">Do pár dní</span><h3>Zistenia</h3><p>Video a zoznam chýb zoradený podľa ceny. Osobne, nie generované PDF.</p></li>
+      <li class="tl-step"><span class="tl-dot">3</span><span class="tl-when">Ak sa dohodneme</span><h3>Prevzatie správy</h3><p>Nastavím reporting a denné kontroly ešte pred prvou optimalizáciou.</p></li>
+      <li class="tl-step"><span class="tl-dot">4</span><span class="tl-when">Každý mesiac</span><h3>Optimalizácia</h3><p>Úpravy podložené dátami. Viete, kedy a prečo sa čo zmenilo.</p></li>
+    </ol>
     </div>
-    </div>
-        <div class="side-visual reveal" aria-hidden="true">
-      <div class="widget-card">
-        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <span class="widget-label">Mesačný report</span>
-        <div class="widget-rows">
-          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Konverzie<span class="val">+18&nbsp;%</span></div>
-          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Cena za dopyt<span class="val">-11&nbsp;%</span></div>
-          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>Premrhaný rozpočet<span class="val">-64&nbsp;%</span></div>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-<div class="margin-mark reveal" style="top:58%; right:14px; width:34px; height:28px; transform:rotate(-6deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 32 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="3.2" stroke-linejoin="round" d="M5,15 L13,23 L27,4"/></svg></div>
   </section>
 
   <section id="starostlivost">
     <div class="section-inner">
     <h2>Čím sa líšim od bežnej <span class="annot annot-underline">správy<svg class="annot-svg" viewBox="0 0 160 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3,12 C40,6 90,15 157,8"/></svg></span></h2>
-    <div class="cmp">
-      <div class="cmp-head" aria-hidden="true"><span></span><span>Bežná správa</span><span class="me">U mňa</span></div>
-      <div class="cmp-row reveal"><span class="cmp-k">Kontrola účtu</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Typicky pri mesačnom reporte</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Každý pracovný deň ráno. Systém skontroluje výkon, výrazy, zamietnuté reklamy aj lokality.</span></div>
-      <div class="cmp-row reveal"><span class="cmp-k">Report</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Tabuľka čísel bez komentára</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Raz mesačne: čo sa stalo, prečo a čo robím ďalej.</span></div>
-      <div class="cmp-row reveal"><span class="cmp-k">Vaše dáta</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Prehľad má hlavne agentúra</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Prístup máte vždy aj vy. Všetko si viete overiť.</span></div>
-      <div class="cmp-row reveal"><span class="cmp-k">Zameranie</span><span class="cmp-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Viac kanálov naraz</span><span class="cmp-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Iba Google Ads, do hĺbky.</span></div>
+    <div class="sw reveal" data-mode="me">
+      <div class="sw-top">
+        <div class="sw-ctrl" role="group" aria-label="Prepnúť porovnanie">
+          <span class="sw-thumb" aria-hidden="true"></span>
+          <button type="button" class="sw-btn" data-v="them" aria-pressed="false">Bežná správa</button>
+          <button type="button" class="sw-btn" data-v="me" aria-pressed="true">U mňa</button>
+        </div>
+        <span class="sw-hint" aria-hidden="true">Prepnite a porovnajte</span>
+      </div>
+      <div class="sw-card" aria-live="polite">
+        <div class="sw-row"><span class="sw-k">Kontrola účtu</span><span class="sw-v"><span class="v-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Typicky pri mesačnom reporte.</span><span class="v-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Každý pracovný deň ráno. Systém skontroluje výkon, výrazy, zamietnuté reklamy aj lokality.</span></span></div>
+        <div class="sw-row"><span class="sw-k">Report</span><span class="sw-v"><span class="v-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Tabuľka čísel bez komentára.</span><span class="v-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Raz mesačne: čo sa stalo, prečo a čo robím ďalej.</span></span></div>
+        <div class="sw-row"><span class="sw-k">Vaše dáta</span><span class="sw-v"><span class="v-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Prehľad má hlavne agentúra.</span><span class="v-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Prístup máte vždy aj vy. Všetko si viete overiť.</span></span></div>
+        <div class="sw-row"><span class="sw-k">Zameranie</span><span class="sw-v"><span class="v-them"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Viac kanálov naraz.</span><span class="v-me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Iba Google Ads, do hĺbky.</span></span></div>
+      </div>
+      <p class="cmp-note">Mesačné reporty s komentárom pripravujem pravidelne pre viac ako 20 klientov.</p>
     </div>
-    <p class="cmp-note">Mesačné reporty s komentárom pripravujem pravidelne pre viac ako 20 klientov.</p>
     </div>
   </section>
 
   <section id="pre-koho" class="bg-alt">
     <div class="section-inner">
-    <h2>Pre koho to je / nie je</h2>
-    <div class="fit">
-      <div class="fit-col yes reveal">
-        <span class="fit-tag">Sadneme si, ak</span>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>už máte Google Ads, alebo do nich chcete dať aspoň 500&nbsp;€ mesačne</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>máte funkčný web a službu či produkt, ktorý sa predáva</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>chcete vidieť, za čo platíte, a rozhodovať podľa čísel</li>
-        </ul>
+    <h2>Hodí sa to pre vás?</h2>
+    <p class="sec-lede">Tri otázky, desať sekúnd.</p>
+    <div class="quiz">
+      <div class="quiz-qs">
+        <div class="quiz-q reveal" data-no="Pri menšom rozpočte sa platená správa zatiaľ nevyplatí. Ozvite sa, keď budete pripravení.">
+          <span class="quiz-n">1/3</span>
+          <p>Máte Google Ads, alebo do nich chcete dať aspoň 500&nbsp;€ mesačne?</p>
+          <div class="quiz-a"><button type="button" data-a="yes" aria-pressed="false">Áno</button><button type="button" data-a="no" aria-pressed="false">Nie</button></div>
+        </div>
+        <div class="quiz-q reveal" data-no="Bez funkčného webu alebo ponuky reklama nepomôže. Najprv treba vyriešiť toto.">
+          <span class="quiz-n">2/3</span>
+          <p>Máte funkčný web a službu či produkt, ktorý sa predáva?</p>
+          <div class="quiz-a"><button type="button" data-a="yes" aria-pressed="false">Áno</button><button type="button" data-a="no" aria-pressed="false">Nie</button></div>
+        </div>
+        <div class="quiz-q reveal" data-no="Ak hľadáte jednorazové „nastav a zabudni“, nebudem pre vás ten pravý.">
+          <span class="quiz-n">3/3</span>
+          <p>Chcete vidieť, za čo platíte, a rozhodovať podľa čísel?</p>
+          <div class="quiz-a"><button type="button" data-a="yes" aria-pressed="false">Áno</button><button type="button" data-a="no" aria-pressed="false">Nie</button></div>
+        </div>
       </div>
-      <div class="fit-col no reveal">
-        <span class="fit-tag">Skôr nie, ak</span>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>hľadáte jednorazové „nastav a zabudni“</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>chcete spustiť reklamu bez funkčného webu alebo ponuky</li>
-        </ul>
+      <div class="quiz-res reveal" data-state="idle" aria-live="polite">
+        <span class="quiz-meter" aria-hidden="true"><i></i><i></i><i></i></span>
+        <strong class="quiz-title">Váš výsledok</strong>
+        <p class="quiz-msg">Odpovedzte na všetky tri otázky.</p>
+        <a class="btn quiz-cta" href="#audit">Chcem bezplatný audit</a>
       </div>
     </div>
     </div>
@@ -1075,23 +1211,42 @@
 
   <section id="pripady">
     <div class="section-inner">
-    <h2>Čo dostanete v audite</h2>
-    <p class="sec-lede">Účet prejdem ručne. Zistenia dostanete zoradené podľa toho, koľko vás stoja, a ku každému aj to, čo s ním spraviť. Časť si viete opraviť sami.</p>
-    <div class="find-grid">
-      <div class="find reveal"><span class="find-n">01</span><h3>Meranie konverzií</h3><p>Optimalizuje účet na dopyty, alebo len na kliky a návštevy stránky?</p></div>
-      <div class="find reveal"><span class="find-n">02</span><h3>Hľadané výrazy</h3><p>Za aké hľadania naozaj platíte a koľko ide na nerelevantné.</p></div>
-      <div class="find reveal"><span class="find-n">03</span><h3>Kampane a ponuky</h3><p>Zodpovedá štruktúra a stratégia cien vášmu cieľu a rozpočtu?</p></div>
-      <div class="find reveal"><span class="find-n">04</span><h3>Performance Max</h3><p>Kam míňa a či si neberie konverzie, ktoré by prišli aj tak.</p></div>
-      <div class="find reveal"><span class="find-n">05</span><h3>Reklamy a stránky</h3><p>Sedí sľub v reklame s tým, čo návštevník nájde na stránke?</p></div>
-      <div class="find reveal"><span class="find-n">06</span><h3>Skryté nastavenia</h3><p>Lokality, zariadenia, partnerské siete a reklamy v aplikáciách.</p></div>
+    <div class="rep">
+      <div class="rep-copy">
+        <h2>Čo dostanete v audite</h2>
+        <p class="sec-lede">Účet prejdem ručne. Zistenia dostanete zoradené podľa toho, koľko vás stoja, a ku každému aj to, čo s ním spraviť.</p>
+        <ul class="rep-gets">
+          <li><b>Video</b> s komentárom priamo vo vašom účte</li>
+          <li><b>Poradie</b> chýb podľa toho, koľko stoja</li>
+          <li><b>Návod</b> na to, čo si viete opraviť sami</li>
+        </ul>
+        <p class="inline-cta"><a href="#audit">Chcem tento audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
+      </div>
+      <div class="doc reveal">
+        <svg class="doc-clip" viewBox="0 0 24 36" fill="none" stroke-width="2" aria-hidden="true"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <div class="doc-head"><span>Audit Google Ads</span><span>Obsah</span></div>
+        <ol class="doc-list">
+          <li><span class="doc-n">01</span><div><b>Meranie konverzií</b><p>Optimalizuje účet na dopyty, alebo len na kliky a návštevy stránky?</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+          <li><span class="doc-n">02</span><div><b>Hľadané výrazy</b><p>Za aké hľadania naozaj platíte a koľko ide na nerelevantné.</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+          <li><span class="doc-n">03</span><div><b>Kampane a ponuky</b><p>Zodpovedá štruktúra a stratégia cien vášmu cieľu a rozpočtu?</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+          <li><span class="doc-n">04</span><div><b>Performance Max</b><p>Kam míňa a či si neberie konverzie, ktoré by prišli aj tak.</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+          <li><span class="doc-n">05</span><div><b>Reklamy a stránky</b><p>Sedí sľub v reklame s tým, čo návštevník nájde na stránke?</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+          <li><span class="doc-n">06</span><div><b>Skryté nastavenia</b><p>Lokality, zariadenia, partnerské siete a reklamy v aplikáciách.</p></div><svg class="doc-tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 13l5 5L20 6"/></svg></li>
+        </ol>
+        <span class="doc-stamp" aria-hidden="true">Ručne,<br>nie automat</span>
+      </div>
     </div>
-    <p class="inline-cta reveal"><a href="#audit">Chcem tento audit<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
   </section>
 
   <section id="faq">
     <div class="section-inner">
-    <h2>Časté otázky</h2>
+    <div class="faq-layout">
+      <div class="faq-side">
+        <h2>Časté otázky</h2>
+        <p>Nenašli ste odpoveď? Napíšte mi do formulára, odpoviem osobne.</p>
+        <p class="inline-cta"><a href="#audit">Napísať otázku<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
+      </div>
     <div class="faq-list">
       <details class="faq-item reveal" data-index="01">
         <summary>Koľko to stojí?<span class="plus">+</span></summary>
@@ -1114,9 +1269,8 @@
         <p>Pod vlastným menom pôsobím krátko, Google Ads účty ale spravujem už niekoľko rokov. Nemusíte veriť vopred — bezplatný audit vám ukáže kvalitu práce skôr, než sa čokoľvek rozhodnete.</p>
       </details>
     </div>
-    <p class="inline-cta reveal"><a href="#audit">Máte inú otázku? Napíšte mi rovno<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
     </div>
-    <div class="margin-mark reveal" style="top:26%; left:14px; width:34px; height:22px; transform:rotate(10deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 40 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" stroke-linejoin="round" d="M3,13 C14,13 24,13 33,13 M33,13 L25,5 M33,13 L25,21"/></svg></div>
+    </div>
   </section>
 
   <section id="o-mne" class="bg-alt">
@@ -1639,6 +1793,83 @@ function trackEvent(name, params){
       showConfirm(true);
     }
   });
+})();
+/* ===== v4: prepínač porovnania + rýchly test ===== */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function track(name, params){ try{ if (typeof trackEvent === 'function') trackEvent(name, params || {}); }catch(e){} }
+
+  // Prepínač „Bežná správa / U mňa“: po zobrazení najprv ukáže bežnú správu a sám sa prepne
+  var sw = document.querySelector('.sw');
+  if (sw){
+    var btns = sw.querySelectorAll('.sw-btn');
+    var touched = false;
+    function setMode(m){
+      sw.setAttribute('data-mode', m);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-v') === m ? 'true' : 'false'); });
+    }
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){ touched = true; setMode(b.getAttribute('data-v')); track('compare_toggle', {mode: b.getAttribute('data-v')}); });
+    });
+    if (!reduce && 'IntersectionObserver' in window){
+      setMode('them');
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){
+            io.disconnect();
+            setTimeout(function(){ if (!touched) setMode('me'); }, 1600);
+          }
+        });
+      }, {threshold: 0.55});
+      io.observe(sw.querySelector('.sw-card'));
+    }
+  }
+
+  // Rýchly test „Hodí sa to pre vás?“
+  var quiz = document.querySelector('.quiz');
+  if (quiz){
+    var qs = quiz.querySelectorAll('.quiz-q');
+    var res = quiz.querySelector('.quiz-res');
+    var bars = res.querySelectorAll('.quiz-meter i');
+    var title = res.querySelector('.quiz-title');
+    var msg = res.querySelector('.quiz-msg');
+    var answers = [];
+    var reported = false;
+    function render(){
+      var done = 0, firstNo = -1;
+      qs.forEach(function(q, i){
+        var a = answers[i];
+        bars[i].className = a === 'yes' ? 'y' : (a === 'no' ? 'n' : '');
+        if (a){ done++; }
+        if (a === 'no' && firstNo < 0) firstNo = i;
+      });
+      if (firstNo >= 0){
+        res.setAttribute('data-state', 'no');
+        title.textContent = 'Zatiaľ skôr nie';
+        msg.textContent = qs[firstNo].getAttribute('data-no');
+      } else if (done === qs.length){
+        res.setAttribute('data-state', 'yes');
+        title.textContent = 'Sadneme si.';
+        msg.textContent = 'Pošlite mi účet na bezplatný audit. Pozriem sa naň osobne.';
+      } else {
+        res.setAttribute('data-state', 'idle');
+        title.textContent = 'Váš výsledok';
+        msg.textContent = done ? 'Ešte ' + (qs.length - done) + (qs.length - done === 1 ? ' otázka.' : ' otázky.') : 'Odpovedzte na všetky tri otázky.';
+      }
+      if (done === qs.length && !reported){ reported = true; track('fit_quiz_done', {result: firstNo >= 0 ? 'no' : 'yes'}); }
+    }
+    qs.forEach(function(q, i){
+      q.querySelectorAll('button').forEach(function(b){
+        b.addEventListener('click', function(){
+          answers[i] = b.getAttribute('data-a');
+          q.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+          q.classList.toggle('ans-yes', answers[i] === 'yes');
+          q.classList.toggle('ans-no', answers[i] === 'no');
+          render();
+        });
+      });
+    });
+  }
 })();
 </script>
 </body>
