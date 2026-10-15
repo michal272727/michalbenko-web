@@ -1100,7 +1100,7 @@
   .ask-steps em{font-style:normal; font-size:.9rem; color:var(--ink-soft);}
   .ask-badge{margin-top:0;}
   .ask-me{display:flex; align-items:center; gap:14px; padding-top:18px; border-top:1px solid var(--line); width:100%; max-width:420px;}
-  .ask-me img{width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:50% 18%; border:2px solid var(--ink);}
+  .ask-me img{width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:50% 40%; border:2px solid var(--ink);}
   .ask-me b{display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.15rem; color:var(--ink);}
   .ask-me small{font-family:var(--mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
   .ask .intake-wrap{margin-top:30px;}
@@ -1132,6 +1132,97 @@
     .me-quote{padding-left:44px;}
     .me-quote svg{width:30px; height:24px;}
     footer{padding-bottom:90px;}
+  }
+  /* ===== v6: oprava šírky na mobile + kreslené ilustrácie ===== */
+  html,body{overflow-x:clip;}
+  .shell, section, footer{overflow-x:clip;}
+  .doc:not(.is-visible) .doc-stamp{transform:rotate(-9deg) scale(1.3);}
+  /* ilustrácie */
+  .dd-wrap{display:block; pointer-events:none;}
+  .dd{display:block; width:100%; height:auto; overflow:visible; fill:none; stroke:var(--ink); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round;}
+  .dd *{transform-box:fill-box; transform-origin:center;}
+  .dd text{stroke:none; fill:var(--ink); font-family:var(--serif); font-weight:700; font-size:15px; text-anchor:middle;}
+  .dd .dd-label{font-style:italic; font-weight:400; font-size:21px;}
+  .dd .f-w{fill:#FFFDF8;} .dd .f-k{fill:var(--ink);} .dd .f-a{fill:var(--accent);} .dd .f-s{fill:var(--accent-soft);}
+  .dd .f-r{fill:var(--accent2);} .dd .f-y{fill:#F5CB4E;} .dd .f-l{fill:var(--line);}
+  .dd-wrap.reveal{opacity:1; transform:none; transition:none;}
+  .dd-wrap.reveal .dd{opacity:0; transform:scale(.7) rotate(-8deg); transition:opacity .4s ease .15s, transform .7s cubic-bezier(.3,1.5,.5,1) .15s;}
+  .dd-wrap.reveal.is-visible .dd{opacity:1; transform:none;}
+  .no-js .dd-wrap .dd{opacity:1 !important; transform:none !important;}
+  @keyframes ddBob{0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-9px) rotate(2deg);}}
+  @keyframes ddDrip{0%{transform:translateY(-6px); opacity:0;} 20%{opacity:1;} 100%{transform:translateY(30px); opacity:0;}}
+  @keyframes ddFlapL{0%,100%{transform:rotate(6deg);} 50%{transform:rotate(-22deg);}}
+  @keyframes ddFlapR{0%,100%{transform:rotate(-6deg);} 50%{transform:rotate(22deg);}}
+  @keyframes ddWobble{0%,100%{transform:rotate(-6deg);} 50%{transform:rotate(7deg);}}
+  @keyframes ddPulse{0%,100%{opacity:.25;} 50%{opacity:1;}}
+  @keyframes ddTwinkle{0%,100%{opacity:0; transform:scale(.4);} 50%{opacity:1; transform:scale(1);}}
+  @keyframes ddDash{to{stroke-dashoffset:-44;}}
+  @keyframes ddBeat{0%,100%{transform:scale(1);} 50%{transform:scale(1.18);}}
+  @keyframes ddTurn{0%,60%,100%{transform:rotate(0);} 75%{transform:rotate(-14deg);} 90%{transform:rotate(6deg);}}
+  @keyframes ddDraw{from{stroke-dashoffset:1;} to{stroke-dashoffset:0;}}
+  @keyframes ddFloat{0%,100%{transform:translate(0,0) rotate(0);} 50%{transform:translate(6px,-8px) rotate(-4deg);}}
+  .dd-drip{animation:ddDrip 1.8s ease-in infinite;}
+  .dd-drip.d2{animation-delay:.6s;} .dd-drip.d3{animation-delay:1.2s;}
+  .dd-mag{animation:ddWobble 3.2s ease-in-out infinite; transform-origin:30% 30% !important;}
+  .dd-spark{animation:ddTwinkle 2.4s ease-in-out infinite;} .dd-spark.s2{animation-delay:1.2s;}
+  .dd-coins{animation:ddBob 3s ease-in-out infinite;}
+  .dd-fly{animation:ddBob 2.6s ease-in-out infinite;}
+  .dd-wing.wl{transform-origin:100% 75% !important; animation:ddFlapL .55s ease-in-out infinite;}
+  .dd-wing.wr{transform-origin:0% 75% !important; animation:ddFlapR .55s ease-in-out infinite;}
+  .dd-trail{animation:ddDash 1.6s linear infinite;}
+  .dd-beat{animation:ddBeat 1.4s ease-in-out infinite;}
+  .dd-turn{animation:ddTurn 3.4s ease-in-out infinite; transform-origin:20% 50% !important;}
+  .dd-draw{stroke-dasharray:1; stroke-dashoffset:1;}
+  .is-visible .dd-draw{animation:ddDraw 1s ease-out .6s forwards;}
+  .dd-plane{animation:ddFloat 3s ease-in-out infinite;}
+  .dd-rays{animation:ddPulse 1.8s ease-in-out infinite;}
+  /* umiestnenie: hero */
+  .hero-doodle{width:min(210px,54vw); margin:22px auto 0;}
+  @media (min-width:901px){
+    .hero-text{position:relative;}
+    .hero-doodle{position:absolute; right:3%; bottom:24px; margin:0; width:200px;}
+  }
+  @media (min-width:1150px){ .hero-doodle{right:4%; width:190px;} }
+  /* tmavý pás */
+  .band-dark .section-inner{position:relative;}
+  .band-doodle{position:absolute; top:-8px; right:2%; width:240px;}
+  .band-dark .dd{stroke:var(--ink);}
+  .band-dark .dd-trail{stroke:var(--invert-ink); opacity:.6;}
+  /* časová os */
+  .tl-ill{width:76px; height:60px; margin-bottom:10px;}
+  .tl::before,.tl::after{top:93px;}
+  /* test */
+  .quiz-doodle{position:absolute; top:16px; right:14px; width:104px;}
+  .quiz-meter,.quiz-title{margin-right:104px;}
+  .quiz-res .dd{stroke:var(--invert-ink);}
+  .quiz-res .dd .f-k{fill:var(--ink); stroke:var(--ink);}
+  .dd-arrow{opacity:0; transform:translate(46px,-40px); transition:transform .5s cubic-bezier(.5,0,.3,1.4), opacity .2s;}
+  .quiz-res[data-state="yes"] .dd-arrow{opacity:1; transform:none;}
+  .quiz-res[data-state="no"] .dd-arrow{opacity:1; transform:translate(40px,-16px);}
+  .quiz-res[data-state="yes"] .dd-tg{animation:ddBeat .4s ease-out .45s 1;}
+  /* formulár */
+  .ask .intake-wrap{position:relative;}
+  .plane-doodle{position:absolute; top:-74px; right:-6px; width:150px; z-index:2;}
+  /* faq */
+  .faq-side{position:sticky;}
+  .faq-doodle{width:84px; margin-top:6px;}
+  @media (max-width:900px){
+    .band-doodle{position:static; float:right; width:140px; margin:-18px -8px 4px 6px;}
+    .tl-ill{grid-column:2; grid-row:1; width:64px; height:50px; margin-bottom:2px;}
+    .tl-dot{grid-row:1 / span 4 !important;}
+    .tl::before,.tl::after{top:24px;}
+    .faq-side{position:relative; top:auto; padding-right:70px;}
+    .faq-doodle{position:absolute; top:-6px; right:0; width:62px; margin:0;}
+  }
+  @media (max-width:640px){
+    .plane-doodle{top:-58px; width:116px; right:-4px;}
+    .quiz-doodle{width:86px; top:14px; right:10px;}
+    .quiz-meter,.quiz-title{margin-right:90px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dd *, .dd-wrap .dd{animation:none !important; transition:none !important;}
+    .dd-wrap.reveal .dd{opacity:1; transform:none;}
+    .dd-draw{stroke-dashoffset:0;}
   }
 </style>
 </head>
@@ -1172,6 +1263,22 @@
       <div class="hero-stat"><span class="hero-stat-num">500 – 10k&nbsp;€</span><span class="hero-stat-label">mesačné rozpočty<br>klientov</span></div>
       <div class="hero-stat"><span class="hero-stat-num">24&nbsp;h</span><span class="hero-stat-label">do prvej<br>odpovede</span></div>
     </div>
+    <span class="dd-wrap reveal hero-doodle" aria-hidden="true"><svg class="dd" viewBox="0 0 260 230">
+<ellipse class="f-l" cx="122" cy="212" rx="82" ry="8" stroke="none"/>
+<path d="M54 70 C 60 6, 184 6, 190 70"/>
+<path class="f-w" d="M52 70 L192 70 L178 190 C 152 201, 92 201, 66 190 Z"/>
+<path d="M68 104 C 110 111, 150 108, 186 101" opacity=".3"/>
+<ellipse class="f-k" cx="122" cy="70" rx="70" ry="13"/>
+<g class="dd-coins"><circle class="f-y" cx="100" cy="60" r="13"/><text x="100" y="66">€</text><circle class="f-y" cx="146" cy="62" r="13"/><text x="146" y="68">€</text><circle class="f-y" cx="124" cy="52" r="13"/><text x="124" y="58">€</text></g>
+<path d="M52 70 C 56 89, 188 89, 192 70"/>
+<text class="dd-label" x="122" y="144">rozpočet</text>
+<ellipse class="f-k" cx="96" cy="166" rx="5" ry="3.5"/><ellipse class="f-k" cx="150" cy="176" rx="5" ry="3.5"/><ellipse class="f-k" cx="174" cy="128" rx="3.5" ry="4.5"/>
+<g class="dd-drip d1"><circle class="f-y" cx="96" cy="180" r="6"/></g>
+<g class="dd-drip d2"><circle class="f-y" cx="150" cy="190" r="6"/></g>
+<g class="dd-drip d3"><circle class="f-y" cx="178" cy="142" r="5"/></g>
+<g class="dd-mag"><path d="M218 180 L238 206" stroke-width="7"/><circle class="f-s" cx="206" cy="162" r="22"/><path d="M194 154 C 196 148, 200 145, 206 144" opacity=".6"/></g>
+<path class="dd-spark" d="M30 34 v14 M23 41 h14"/><path class="dd-spark s2" d="M226 30 v12 M220 36 h12"/>
+</svg></span>
     <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
     </div>
     <div class="hero-photo hero-audit" aria-hidden="true">
@@ -1205,6 +1312,16 @@
 
   <section id="riesime" class="band-dark">
     <div class="section-inner">
+    <span class="dd-wrap reveal band-doodle" aria-hidden="true"><svg class="dd" viewBox="0 0 220 150">
+<path class="dd-trail" d="M2 128 C 26 116, 40 140, 66 126" stroke-dasharray="2 9"/>
+<g class="dd-fly">
+<path class="dd-wing wl f-w" d="M62 66 C 40 28, 12 28, 8 42 C 20 45, 26 51, 22 59 C 32 59, 38 64, 34 72 C 44 72, 54 76, 62 82 Z"/>
+<path class="dd-wing wr f-w" d="M158 66 C 180 28, 208 28, 212 42 C 200 45, 194 51, 198 59 C 188 59, 182 64, 186 72 C 176 72, 166 76, 158 82 Z"/>
+<rect class="f-s" x="56" y="56" width="108" height="60" rx="5"/>
+<rect x="64" y="64" width="92" height="44" rx="3" stroke-dasharray="3 5" opacity=".45"/>
+<circle class="f-y" cx="110" cy="86" r="15"/><text x="110" y="93">€</text>
+</g>
+</svg></span>
     <span class="eyebrow">Príznaky</span>
     <h2>Hovoríte si niektorú z týchto viet?</h2>
     <div class="say-grid">
@@ -1225,10 +1342,10 @@
     <h2>Ako to funguje</h2>
     <p class="sec-lede">Štyri kroky. Prvé dva sú zadarmo a k ničomu vás nezaväzujú.</p>
     <ol class="tl reveal">
-      <li class="tl-step"><span class="tl-dot">1</span><span class="tl-when free">Zadarmo</span><h3>Audit účtu</h3><p>Prejdem štruktúru kampaní, meranie konverzií a rozpočet.</p></li>
-      <li class="tl-step"><span class="tl-dot">2</span><span class="tl-when free">Do pár dní</span><h3>Zistenia</h3><p>Video a zoznam chýb zoradený podľa ceny. Osobne, nie generované PDF.</p></li>
-      <li class="tl-step"><span class="tl-dot">3</span><span class="tl-when">Ak sa dohodneme</span><h3>Prevzatie správy</h3><p>Nastavím reporting a denné kontroly ešte pred prvou optimalizáciou.</p></li>
-      <li class="tl-step"><span class="tl-dot">4</span><span class="tl-when">Každý mesiac</span><h3>Optimalizácia</h3><p>Úpravy podložené dátami. Viete, kedy a prečo sa čo zmenilo.</p></li>
+      <li class="tl-step"><span class="dd-wrap reveal tl-ill" aria-hidden="true"><svg class="dd" viewBox="0 0 80 64"><rect class="f-w" x="8" y="5" width="40" height="52" rx="3"/><path d="M16 17h24M16 25h24M16 33h14"/><g class="dd-mag"><path d="M57 47 L70 60" stroke-width="5"/><circle class="f-s" cx="48" cy="38" r="13"/></g></svg></span><span class="tl-dot">1</span><span class="tl-when free">Zadarmo</span><h3>Audit účtu</h3><p>Prejdem štruktúru kampaní, meranie konverzií a rozpočet.</p></li>
+      <li class="tl-step"><span class="dd-wrap reveal tl-ill" aria-hidden="true"><svg class="dd" viewBox="0 0 80 64"><rect class="f-w" x="6" y="8" width="62" height="44" rx="5"/><path class="f-a dd-beat" d="M30 19 L48 30 L30 41 Z"/><path d="M12 46 h22" stroke="#A03F22" stroke-width="3"/><path class="dd-spark" d="M73 3 v9 M68.5 7.5 h9"/></svg></span><span class="tl-dot">2</span><span class="tl-when free">Do pár dní</span><h3>Zistenia</h3><p>Video a zoznam chýb zoradený podľa ceny. Osobne, nie generované PDF.</p></li>
+      <li class="tl-step"><span class="dd-wrap reveal tl-ill" aria-hidden="true"><svg class="dd" viewBox="0 0 80 64"><g class="dd-turn"><circle class="f-y" cx="22" cy="32" r="15"/><circle class="f-w" cx="18" cy="32" r="4.5"/><path d="M37 32 H72 M60 32 v10 M69 32 v8"/></g></svg></span><span class="tl-dot">3</span><span class="tl-when">Ak sa dohodneme</span><h3>Prevzatie správy</h3><p>Nastavím reporting a denné kontroly ešte pred prvou optimalizáciou.</p></li>
+      <li class="tl-step"><span class="dd-wrap reveal tl-ill" aria-hidden="true"><svg class="dd" viewBox="0 0 80 64"><path d="M8 6 V56 H76"/><rect class="f-s" x="16" y="38" width="10" height="18"/><rect class="f-s" x="32" y="28" width="10" height="28"/><rect class="f-a" x="48" y="16" width="10" height="40"/><path class="dd-draw" pathLength="1" d="M14 30 L34 21 L48 25 L70 6 M61 6 H70 V15" stroke="#A03F22"/></svg></span><span class="tl-dot">4</span><span class="tl-when">Každý mesiac</span><h3>Optimalizácia</h3><p>Úpravy podložené dátami. Viete, kedy a prečo sa čo zmenilo.</p></li>
     </ol>
     </div>
   </section>
@@ -1279,6 +1396,10 @@
         </div>
       </div>
       <div class="quiz-res reveal" data-state="idle" aria-live="polite">
+        <span class="dd-wrap reveal quiz-doodle" aria-hidden="true"><svg class="dd" viewBox="0 0 120 100">
+<g class="dd-tg"><circle class="f-w" cx="46" cy="56" r="34"/><circle class="f-r" cx="46" cy="56" r="22"/><circle class="f-w" cx="46" cy="56" r="11"/><circle class="f-k" cx="46" cy="56" r="3" stroke="none"/></g>
+<g class="dd-arrow"><path d="M50 52 L106 6"/><path d="M106 6 l-12 0 M106 6 l0 12 M100 11 l-11 0 M100 11 l0 11" /><path class="f-k" d="M46 56 L58 52 L50 44 Z" stroke-width="2"/></g>
+</svg></span>
         <span class="quiz-meter" aria-hidden="true"><i></i><i></i><i></i></span>
         <strong class="quiz-title">Váš výsledok</strong>
         <p class="quiz-msg">Odpovedzte na všetky tri otázky.</p>
@@ -1325,6 +1446,12 @@
         <h2>Časté otázky</h2>
         <p>Nenašli ste odpoveď? Napíšte mi do formulára, odpoviem osobne.</p>
         <p class="inline-cta"><a href="#audit">Napísať otázku<svg class="btn-arrow" viewBox="0 0 30 20" width="18" height="13" aria-hidden="true"><path pathLength="1" d="M2,10 H24 M24,10 L17,4 M24,10 L17,16"/></svg></a></p>
+        <span class="dd-wrap reveal faq-doodle" aria-hidden="true"><svg class="dd" viewBox="0 0 90 110">
+<g class="dd-rays"><path d="M45 3 v10 M15 15 l7 7 M75 15 l-7 7 M4 46 h10 M86 46 h-10"/></g>
+<path class="f-y" d="M45 22 C 28 22, 18 34, 18 48 C 18 60, 28 66, 32 76 H58 C 62 66, 72 60, 72 48 C 72 34, 62 22, 45 22 Z"/>
+<path d="M37 60 L41 50 L45 60 L49 50 L53 60" opacity=".7"/>
+<path class="f-w" d="M33 78 H57 V88 C 57 95, 33 95, 33 88 Z"/><path d="M33 84 H57"/><path d="M40 99 H50"/>
+</svg></span>
       </div>
     <div class="faq-list">
       <details class="faq-item reveal" data-index="01">
@@ -1398,9 +1525,13 @@
         <li><span class="ask-n">3</span><div><b>Dostanete zistenia</b><em>video a chyby zoradené podľa ceny</em></div></li>
       </ol>
       <p class="guarantee-badge ask-badge reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Garancia: žiadna viazanosť, kedykoľvek zrušíte</p>
-      <div class="ask-me"><img src="/michal-benko-konferencia.jpg" alt="" width="52" height="52" loading="lazy" decoding="async"><span><b>Odpovedám osobne</b><small>Michal Benko · Google Ads</small></span></div>
+      <div class="ask-me"><img src="/michal-benko-avatar.jpg" alt="Michal Benko" width="52" height="52" loading="lazy" decoding="async"><span><b>Odpovedám osobne</b><small>Michal Benko · Google Ads</small></span></div>
     </div>
     <div class="intake-wrap reveal">
+      <span class="dd-wrap reveal plane-doodle" aria-hidden="true"><svg class="dd" viewBox="0 0 160 90">
+<path class="dd-trail" d="M4 80 C 36 90, 58 50, 92 58" stroke-dasharray="3 8"/>
+<g class="dd-plane"><path class="f-w" d="M96 50 L152 14 L112 56 Z"/><path class="f-s" d="M112 56 L152 14 L122 72 Z"/><path d="M112 56 L116 66"/></g>
+</svg></span>
       <div class="intake-tab">Bezplatný audit</div>
       <form class="intake" id="auditForm" novalidate>
         <div class="field hp-field" aria-hidden="true">
