@@ -610,6 +610,25 @@
     letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
   }
   .about-copy{display:grid; gap:14px; max-width:60ch;}
+  /* hero: ukážka video auditu namiesto fotky */
+  .hero-audit{width:240px;}
+  .hero-audit .widget-card{padding:22px 18px 18px;}
+  .va-thumb{position:relative; aspect-ratio:16/10; background:var(--ink); overflow:hidden; margin-bottom:16px;}
+  .va-rows{position:absolute; inset:0; width:100%; height:100%;}
+  .va-rows rect{fill:rgba(247,241,230,.22);}
+  .va-rows rect.hot{fill:rgba(160,63,34,.75);}
+  .va-thumb .va-circle{left:3%; top:34%; width:94%; height:24%;}
+  .va-thumb .va-circle path{stroke:var(--accent2); stroke-width:2.6; filter:drop-shadow(0 0 1px #fff);}
+  .va-play{position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; background:var(--bg); display:grid; place-items:center; animation:vaPulse 2.4s ease-out 1.6s infinite;}
+  .va-play svg{width:14px; height:16px; margin-left:3px; fill:var(--ink);}
+  .va-time{position:absolute; right:7px; bottom:10px; font-family:var(--mono); font-size:.58rem; color:#fff; background:rgba(0,0,0,.5); padding:2px 5px;}
+  .va-prog{position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.18);}
+  .va-prog b{display:block; height:100%; width:0; background:var(--accent2); animation:vaProg 16s linear 1.2s infinite;}
+  .va-chapters .widget-row{font-size:.8rem;}
+  .va-cap{display:block; text-align:center; margin-top:16px; font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+  @keyframes vaProg{ to{width:100%;} }
+  @keyframes vaPulse{ 0%{box-shadow:0 0 0 0 rgba(247,241,230,.55);} 70%{box-shadow:0 0 0 14px rgba(247,241,230,0);} 100%{box-shadow:0 0 0 0 rgba(247,241,230,0);} }
+  @media (prefers-reduced-motion: reduce){ .va-play{animation:none !important;} .va-prog b{animation:none !important; width:38%;} }
   /* fotka z konferencie + ručne kreslená šípka „Michal“ */
   .about{grid-template-columns:260px 1fr;}
   .about-photo{width:260px;}
@@ -875,13 +894,31 @@
     </div>
     <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
     </div>
-    <div class="hero-photo photo-tag">
-      <span class="file-label">Google Ads špecialista</span>
-      <div class="frame">
-        <svg class="clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <img src="/michal-benko-2026.jpg" alt="Michal Benko, Google Ads špecialista" width="240" height="240" decoding="async">
+    <div class="hero-photo hero-audit" aria-hidden="true">
+      <div class="widget-card">
+        <svg class="widget-clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
+        <span class="widget-label">Ukážka · video audit</span>
+        <div class="va-thumb">
+          <svg class="va-rows" viewBox="0 0 200 125" preserveAspectRatio="none">
+            <rect x="12" y="14" width="80" height="7" rx="2"/><rect x="150" y="14" width="38" height="7" rx="2"/>
+            <rect x="12" y="34" width="110" height="7" rx="2"/><rect x="150" y="34" width="38" height="7" rx="2"/>
+            <rect class="hot" x="12" y="54" width="96" height="7" rx="2"/><rect class="hot" x="150" y="54" width="38" height="7" rx="2"/>
+            <rect x="12" y="74" width="70" height="7" rx="2"/><rect x="150" y="74" width="38" height="7" rx="2"/>
+            <rect x="12" y="94" width="88" height="7" rx="2"/><rect x="150" y="94" width="38" height="7" rx="2"/>
+          </svg>
+          <svg class="annot-svg va-circle" viewBox="0 0 200 40" preserveAspectRatio="none"><path pathLength="1" d="M8,22 C5,9 40,4 100,5 C160,3 196,10 194,22 C197,35 150,38 100,37 C45,39 6,34 8,23 Z"/></svg>
+          <span class="va-play"><svg viewBox="0 0 16 18"><path d="M1 1.5v15L15 9z"/></svg></span>
+          <span class="va-time">12:40</span>
+          <i class="va-prog"><b></b></i>
+        </div>
+        <div class="widget-rows va-chapters">
+          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>Meranie konverzií<span class="val">0:00</span></div>
+          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>Hľadané výrazy<span class="val">3:12</span></div>
+          <div class="widget-row bad"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>Rozpočet a ponuky<span class="val">6:40</span></div>
+          <div class="widget-row"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Čo opraviť ako prvé<span class="val">9:55</span></div>
+        </div>
       </div>
-      <small>Michal Benko</small>
+      <small class="va-cap">Takto vyzerá audit, ktorý dostanete</small>
     </div>
     </div>
   </div>
