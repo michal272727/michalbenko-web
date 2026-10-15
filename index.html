@@ -1056,6 +1056,83 @@
     .doc.reveal.is-visible{transform:rotate(.6deg);}
     .doc-stamp{right:-4px;}
   }
+  /* ===== v5: hero dôkazy, o mne, formulár, pätička ===== */
+  @media (min-width:901px){
+    .hero-stats{gap:0; max-width:620px;}
+    .hero-stat{padding:2px 28px; border-left:1px solid var(--line);}
+    .hero-stat:first-child{padding-left:0; border-left:none;}
+    .hero-stat-num{font-size:1.7rem; line-height:1.1;}
+    .hero-stat:nth-child(3) .hero-stat-num{color:var(--ink);}
+  }
+  @media (max-width:900px){
+    .hero-stats{grid-template-columns:repeat(3,auto); justify-content:start; gap:0;}
+    .hero-stat{padding:0 14px; border-left:1px solid var(--line);}
+    .hero-stat:first-child{padding-left:0; border-left:none;}
+    .hero-stat-num{font-size:1.1rem;}
+    .hero-stat-label{font-size:.6rem;}
+  }
+  /* o mne */
+  .me{grid-template-columns:260px minmax(0,1fr); gap:clamp(36px,5vw,72px); align-items:center; max-width:1180px; margin-top:0 !important;}
+  .me-body{display:grid; gap:18px; justify-items:start;}
+  .me-body .eyebrow{margin-bottom:0;}
+  .me-body h2{font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.05;}
+  .me-intro{font-size:1.04rem; max-width:58ch;}
+  .me-intro strong{color:var(--ink);}
+  .me-facts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; border-block:1px solid var(--ink); margin-top:4px;}
+  .me-fact{display:grid; gap:6px; align-content:start; padding:18px 16px 18px 0;}
+  .me-fact + .me-fact{padding-left:16px; border-left:1px solid var(--line);}
+  .me-fact b{font-family:var(--serif); font-size:1.18rem; line-height:1.2; color:var(--accent2);}
+  .me-fact:nth-child(even) b{color:var(--accent);}
+  .me-fact span{font-family:var(--mono); font-size:.64rem; letter-spacing:.04em; text-transform:uppercase; line-height:1.45; color:var(--ink-faint);}
+  .me-quote{position:relative; margin:6px 0 0; padding:4px 0 4px 56px; font-family:var(--serif); font-style:italic; font-size:clamp(1.1rem,1.7vw,1.32rem); line-height:1.45; color:var(--ink); max-width:60ch;}
+  .me-quote svg{position:absolute; left:0; top:4px; width:38px; height:30px; fill:var(--accent2); opacity:.85;}
+  /* formulár */
+  .ask{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(36px,5vw,72px); align-items:start; max-width:1240px;}
+  .ask-side{display:grid; gap:20px; justify-items:start; position:sticky; top:calc(var(--bar-h) + 32px);}
+  .ask-side h2{font-size:clamp(1.9rem,3.6vw,2.6rem); line-height:1.12;}
+  .ask-lede{max-width:46ch;}
+  .ask-steps{list-style:none; margin:6px 0 0; padding:0; display:grid; gap:0; position:relative;}
+  .ask-steps::before{content:''; position:absolute; left:17px; top:18px; bottom:18px; width:2px; background:repeating-linear-gradient(var(--line) 0 6px, transparent 6px 11px);}
+  .ask-steps li{display:grid; grid-template-columns:36px 1fr; gap:16px; align-items:start; padding:9px 0; position:relative;}
+  .ask-n{width:36px; height:36px; border-radius:50%; background:var(--bg); border:1.5px solid var(--ink); display:grid; place-items:center; font-family:var(--serif); font-style:italic; font-size:1.05rem;}
+  .ask-steps li:first-child .ask-n{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .ask-steps b{display:block; font-family:var(--sans); font-weight:600; font-size:1rem; color:var(--ink); padding-top:6px;}
+  .ask-steps em{font-style:normal; font-size:.9rem; color:var(--ink-soft);}
+  .ask-badge{margin-top:0;}
+  .ask-me{display:flex; align-items:center; gap:14px; padding-top:18px; border-top:1px solid var(--line); width:100%; max-width:420px;}
+  .ask-me img{width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:50% 18%; border:2px solid var(--ink);}
+  .ask-me b{display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.15rem; color:var(--ink);}
+  .ask-me small{font-family:var(--mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+  .ask .intake-wrap{margin-top:30px;}
+  .ask .intake{box-shadow:12px 12px 0 var(--accent-soft);}
+  .ask .row2{grid-template-columns:1fr 1fr;}
+  /* pätička */
+  footer{background:var(--invert-bg); color:var(--invert-ink); border-top:none; padding-block:56px 40px; align-items:end;}
+  footer p{color:rgba(245,239,223,.62);}
+  footer .foot-big{flex:1 1 100%; font-family:var(--serif); font-weight:700; font-size:clamp(1.6rem,4vw,2.8rem); line-height:1.1; color:var(--invert-ink); max-width:20ch; margin-bottom:22px;}
+  footer .foot-big em{color:#9DBBF8;}
+  footer .fcols, footer .fcols a, footer .fcols button{color:rgba(245,239,223,.8);}
+  footer a:hover, footer a:focus-visible, footer .fcols button:hover{color:#fff;}
+  @media (max-width:1100px){
+    .ask{grid-template-columns:1fr; gap:22px;}
+    .ask-side{display:contents;}
+    .ask-side h2{order:1;} .ask-lede{order:2;} .ask .intake-wrap{order:3; margin-top:24px;}
+    .ask-steps{order:4; margin-top:18px;} .ask-badge{order:5; justify-self:start;} .ask-me{order:6;}
+  }
+  @media (max-width:900px){
+    .me{grid-template-columns:1fr; justify-items:center; text-align:left;}
+    .me-body{justify-items:start; width:100%;}
+    .me-facts{grid-template-columns:1fr 1fr;}
+    .me-fact:nth-child(3){padding-left:0; border-left:none;}
+    .me-fact:nth-child(n+3){border-top:1px solid var(--line);}
+  }
+  @media (max-width:640px){
+    .ask .row2{grid-template-columns:1fr;}
+    .ask .intake{transform:none; box-shadow:none;}
+    .me-quote{padding-left:44px;}
+    .me-quote svg{width:30px; height:24px;}
+    footer{padding-bottom:90px;}
+  }
 </style>
 </head>
 <body class="no-js" id="top">
@@ -1091,7 +1168,9 @@
     <p class="micro-trust">Bez záväzkov · Odpoviem do 24 hodín</p>
     <p class="guarantee-badge hero-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Žiadna viazanosť · kedykoľvek zrušíte</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-num">24&nbsp;h</span><span class="hero-stat-label">do prvej odpovede</span></div>
+      <div class="hero-stat"><span class="hero-stat-num"><span data-count="20">20</span>+</span><span class="hero-stat-label">účtov Google Ads<br>spravujem denne</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">500 – 10k&nbsp;€</span><span class="hero-stat-label">mesačné rozpočty<br>klientov</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">24&nbsp;h</span><span class="hero-stat-label">do prvej<br>odpovede</span></div>
     </div>
     <a href="#riesime" class="hero-scroll-cue"><span>Zistite viac</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
     </div>
@@ -1275,8 +1354,7 @@
 
   <section id="o-mne" class="bg-alt">
     <div class="section-inner">
-    <h2>Kto sa bude pozerať na váš účet</h2>
-    <div class="about reveal" style="margin-top:24px;">
+    <div class="about me reveal">
       <div class="photo-tag about-photo">
         <span class="file-label">Kto som</span>
         <div class="frame">
@@ -1292,22 +1370,36 @@
         <span class="me-label" aria-hidden="true">Michal</span>
         <small>Trnavská business konferencia</small>
       </div>
-      <div class="about-copy">
-        <p>Volám sa <strong style="color:var(--ink)">Michal Benko</strong>. Google Ads spravujem už niekoľko rokov. Denne pracujem s viac ako 20 účtami Google Ads — od e-shopov po firmy, ktoré zbierajú dopyty — s mesačnými rozpočtami od 500 € do 10 000 €.</p>
-        <p>Pod vlastným menom beriem len toľko klientov, koľkým sa viem venovať osobne. Na váš účet sa pozerám ja, komunikujete priamo so mnou.</p>
-        <p>Za tie roky som si všimol opakujúci sa vzorec: väčšina účtov, ktoré prevezmem, má zle nastavené meranie, minutý rozpočet bez zodpovedajúceho výkonu a málo skutočnej aktivity v samotnej správe kampaní. Presne preto každú spoluprácu začínam auditom, nie predajnou prezentáciou — a pozerám sa nielen na kampane, ale aj na to, či stránka, kam vedú, vôbec dokáže návštevníka premeniť na dopyt.</p>
-        <p>Namiesto ručnej práce na všetkom staviam na automatizácii — reporting, notifikácie aj časť optimalizácie bežia bez toho, aby som musel sedieť pri účte 24 hodín denne.</p>
+      <div class="me-body">
+        <span class="eyebrow">Kto sa bude pozerať na váš účet</span>
+        <h2>Ja, osobne.</h2>
+        <p class="me-intro">Volám sa <strong>Michal Benko</strong>. Google Ads spravujem už niekoľko rokov. Pod vlastným menom beriem len toľko klientov, koľkým sa viem venovať osobne, a komunikujete priamo so mnou.</p>
+        <div class="me-facts">
+          <div class="me-fact"><b>20+</b><span>účtov Google Ads spravujem denne</span></div>
+          <div class="me-fact"><b>500 – 10 000&nbsp;€</b><span>mesačné rozpočty mojich klientov</span></div>
+          <div class="me-fact"><b>E-shopy aj B2B</b><span>od predaja po zber dopytov</span></div>
+          <div class="me-fact"><b>Automatizácia</b><span>reporting a kontroly bežia každý deň</span></div>
+        </div>
+        <blockquote class="me-quote"><svg viewBox="0 0 40 30" aria-hidden="true"><path d="M3 28V17C3 8 8 3 16 2v6c-4 1-6 4-6 8h6v12zM24 28V17c0-9 5-14 13-15v6c-4 1-6 4-6 8h6v12z"/></svg>Väčšina účtov, ktoré prevezmem, má zle nastavené meranie a rozpočet bez výkonu. Preto začínam auditom, nie predajnou prezentáciou, a pozerám sa aj na stránku, kam reklamy vedú.</blockquote>
       </div>
     </div>
     </div>
-    <div class="margin-mark reveal" style="top:64%; right:14px; width:30px; height:24px; transform:rotate(5deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 32 28" preserveAspectRatio="none"><path pathLength="1" stroke-width="3.2" stroke-linejoin="round" d="M5,15 L13,23 L27,4"/></svg></div>
   </section>
 
   <section id="audit">
     <div class="section-inner">
-    <h2>Chcete vedieť, prečo vám nechodia <span class="annot annot-circle">dopyty<svg class="annot-svg" viewBox="0 0 110 44" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6,23 C3,10 24,4 55,5 C90,3 106,11 104,24 C107,38 82,41 55,40 C25,42 4,36 6,24 Z"/></svg></span>?</h2>
-    <p style="margin-top:10px; max-width:52ch;">Vyplňte krátky formulár. Účet prejdem osobne a pošlem vám kompletné zistenia — aj to, čo si viete opraviť sami, nielen náznak problému.</p>
-    <p class="guarantee-badge reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Garancia: žiadna viazanosť, kedykoľvek zrušíte</p>
+    <div class="ask">
+    <div class="ask-side">
+      <h2>Chcete vedieť, prečo vám nechodia <span class="annot annot-circle">dopyty<svg class="annot-svg" viewBox="0 0 110 44" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6,23 C3,10 24,4 55,5 C90,3 106,11 104,24 C107,38 82,41 55,40 C25,42 4,36 6,24 Z"/></svg></span>?</h2>
+      <p class="ask-lede">Vyplňte krátky formulár. Účet prejdem osobne a pošlem vám kompletné zistenia — aj to, čo si viete opraviť sami, nielen náznak problému.</p>
+      <ol class="ask-steps reveal">
+        <li><span class="ask-n">1</span><div><b>Vyplníte formulár</b><em>zaberie to asi minútu</em></div></li>
+        <li><span class="ask-n">2</span><div><b>Ozvem sa do 24 hodín</b><em>dohodneme náhľad do účtu, bez hesiel</em></div></li>
+        <li><span class="ask-n">3</span><div><b>Dostanete zistenia</b><em>video a chyby zoradené podľa ceny</em></div></li>
+      </ol>
+      <p class="guarantee-badge ask-badge reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Garancia: žiadna viazanosť, kedykoľvek zrušíte</p>
+      <div class="ask-me"><img src="/michal-benko-konferencia.jpg" alt="" width="52" height="52" loading="lazy" decoding="async"><span><b>Odpovedám osobne</b><small>Michal Benko · Google Ads</small></span></div>
+    </div>
     <div class="intake-wrap reveal">
       <div class="intake-tab">Bezplatný audit</div>
       <form class="intake" id="auditForm" novalidate>
@@ -1374,11 +1466,12 @@
       </div>
     </div>
     </div>
-    <div class="margin-mark reveal" style="top:18%; left:14px; width:36px; height:24px; transform:rotate(-10deg);" aria-hidden="true"><svg class="annot-svg" viewBox="0 0 40 26" preserveAspectRatio="none"><path pathLength="1" stroke-width="2.6" stroke-linejoin="round" d="M3,13 C14,13 24,13 33,13 M33,13 L25,5 M33,13 L25,21"/></svg></div>
+    </div>
   </section>
 </div>
 
 <footer>
+  <p class="foot-big">Google Ads, ktoré prinášajú <em>reálne dopyty</em>.</p>
   <p>Michal Benko — transparentná správa Google Ads pre firmy na SK/CZ trhu.<br>© 2026 Michal Benko</p>
   <div class="fcols">
     <a href="#riesime">Riešime</a>
@@ -1870,6 +1963,22 @@ function trackEvent(name, params){
       });
     });
   }
+})();
+/* ===== v5: počítadlo v hero ===== */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var end = parseInt(el.getAttribute('data-count'), 10), t0 = null;
+    el.textContent = '0';
+    function step(ts){
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / 1200);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    }
+    setTimeout(function(){ requestAnimationFrame(step); }, 500);
+  });
 })();
 </script>
 </body>
