@@ -610,6 +610,21 @@
     letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
   }
   .about-copy{display:grid; gap:14px; max-width:60ch;}
+  /* fotka z konferencie + ručne kreslená šípka „Michal“ */
+  .about{grid-template-columns:260px 1fr;}
+  .about-photo{width:260px;}
+  .about-photo .frame{width:260px; height:325px;}
+  .about-photo .frame img{filter:none;}
+  .me-arrow{top:14px; right:40px; width:110px; height:90px; z-index:2;}
+  .me-arrow path{fill:none; stroke:var(--accent2); stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round;}
+  .me-arrow path.halo{stroke:#fff; stroke-width:8; opacity:.85;}
+  .reveal.is-visible .me-arrow path{animation:drawMark .7s ease-out .8s forwards;}
+  .reveal.is-visible .me-arrow path.tip{animation:drawMark .25s ease-out 1.45s forwards;}
+  .me-label{position:absolute; top:-12px; right:-6px; z-index:2; font-family:var(--serif); font-style:italic; font-size:1.7rem; line-height:1; color:var(--accent2); transform:rotate(-6deg); opacity:0;}
+  .reveal.is-visible .me-label{animation:meLabelIn .45s ease-out .45s forwards;}
+  @keyframes meLabelIn{ from{opacity:0; transform:rotate(-6deg) translateY(8px);} to{opacity:1; transform:rotate(-6deg) translateY(0);} }
+  .no-js .me-label{opacity:1;}
+  @media (prefers-reduced-motion: reduce){ .me-label{animation:none !important; opacity:1 !important;} }
   .about-copy p{font-size:.98rem;}
   .partner-mark{
     font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
@@ -864,7 +879,7 @@
       <span class="file-label">Google Ads špecialista</span>
       <div class="frame">
         <svg class="clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-        <img src="/michal-benko.jpg" alt="Michal Benko, Google Ads špecialista" width="240" height="240" decoding="async">
+        <img src="/michal-benko-2026.jpg" alt="Michal Benko, Google Ads špecialista" width="240" height="240" decoding="async">
       </div>
       <small>Michal Benko</small>
     </div>
@@ -1086,13 +1101,20 @@
     <div class="section-inner">
     <h2>Kto sa bude pozerať na váš účet</h2>
     <div class="about reveal" style="margin-top:24px;">
-      <div class="photo-tag">
+      <div class="photo-tag about-photo">
         <span class="file-label">Kto som</span>
         <div class="frame">
           <svg class="clip" viewBox="0 0 24 36" fill="none" stroke-width="2"><path d="M6 4v20a6 6 0 0012 0V8a4 4 0 00-8 0v16a2 2 0 004 0V10"/></svg>
-          <img src="/michal-benko.jpg" alt="Michal Benko" width="190" height="190" loading="lazy" decoding="async">
+          <img src="/michal-benko-konferencia.jpg" alt="Michal Benko na Trnavskej business konferencii" width="260" height="325" loading="lazy" decoding="async">
         </div>
-        <small>Michal Benko</small>
+        <svg class="annot-svg me-arrow" viewBox="0 0 110 90" aria-hidden="true">
+          <path class="halo" pathLength="1" d="M100,6 C97,34 66,28 44,44 C30,54 18,58 10,64"/>
+          <path class="halo tip" pathLength="1" d="M23,55 L10,64 L24,69"/>
+          <path pathLength="1" d="M100,6 C97,34 66,28 44,44 C30,54 18,58 10,64"/>
+          <path class="tip" pathLength="1" d="M23,55 L10,64 L24,69"/>
+        </svg>
+        <span class="me-label" aria-hidden="true">Michal</span>
+        <small>Trnavská business konferencia</small>
       </div>
       <div class="about-copy">
         <p>Volám sa <strong style="color:var(--ink)">Michal Benko</strong>. Google Ads spravujem už niekoľko rokov. Denne pracujem s viac ako 20 účtami Google Ads — od e-shopov po firmy, ktoré zbierajú dopyty — s mesačnými rozpočtami od 500 € do 10 000 €.</p>
