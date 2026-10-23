@@ -109,18 +109,7 @@
   .fact .tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--ivory);padding:2px 16px;border:1px solid var(--line);border-radius:99px;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-1);white-space:nowrap}
   .fact .txt{font-size:clamp(21px,3.4vw,28px);line-height:1.35;font-style:italic}
   .fact .txt b{font-style:normal;color:var(--gold-1);font-variant-numeric:lining-nums}
-  .fact button{margin-top:16px;font-family:var(--serif);font-size:16px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:99px;padding:6px 16px;cursor:pointer;transition:background .2s}
-  .fact button:hover{background:rgba(216,184,120,.15)}
 
-  /* ---- štatistiky ---- */
-  .stats-h{text-align:center;font-family:var(--script);font-weight:400;font-size:clamp(36px,6vw,52px);margin:clamp(40px,7vh,64px) 0 4px}
-  .stats-sub{text-align:center;color:var(--ink-2);font-style:italic;font-size:17px}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:14px;margin-top:22px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;display:flex;gap:14px;align-items:flex-start;opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease}
-  .stat.in{opacity:1;transform:none}
-  .stat .ic{font-size:26px;line-height:1;flex:none;margin-top:2px}
-  .stat .sv{font-size:28px;font-weight:600;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;line-height:1.05}
-  .stat .sl{font-size:16px;color:var(--ink-2);margin-top:3px;line-height:1.25}
 
   .done{display:none;text-align:center;margin-top:40px}
   .done .big{font-size:clamp(70px,16vw,160px)}
@@ -139,14 +128,9 @@
     .card{border-radius:16px;padding:18px 4px 14px}
     .card::after{inset:4px;border-radius:12px}
     .clock .l{font-size:11px;letter-spacing:.12em}
-    .stats{grid-template-columns:1fr 1fr;gap:10px}
-    .stat{flex-direction:column;gap:8px;padding:14px}
-    .stat .sv{font-size:23px}
-    .stat .sl{font-size:15px}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
-    .stat{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -199,14 +183,10 @@
     </div>
 
     <div class="fact">
-      <div class="tag">Fakt dňa</div>
+      <div class="tag">Vtipný fakt dňa</div>
       <p class="txt" id="fact">…</p>
-      <button type="button" id="nextFact">Ďalší fakt ✦</button>
     </div>
 
-    <h2 class="stats-h">Do veľkého dňa ešte…</h2>
-    <p class="stats-sub">štatistiky sa prepočítavajú každú sekundu</p>
-    <div class="stats" id="stats"></div>
   </section>
 
   <section class="done" id="done">
@@ -277,32 +257,6 @@
     };
   }
 
-  /* ===== štatistiky (bez servera, rátané v prehliadači) ===== */
-  var STATS = [
-    ["🌙", function(c){return nf(c.calDays);}, function(c){return pl(c.calDays,"noc na vyspanie","noci na vyspanie","nocí na vyspanie");}],
-    ["☕", function(c){return nf(c.calDays*2);}, function(){return "šálok kávy (pri dvoch denne)";}],
-    ["💓", function(c){return nf(c.sec*72/60);}, function(){return "úderov srdca (72 za minútu)";}],
-    ["🌬️", function(c){return nf(c.sec*15/60);}, function(){return "nádychov – posledný pred „áno“";}],
-    ["🌍", function(c){return nf(c.sec/3600*107226);}, function(){return "km preletí Zem okolo Slnka";}],
-    ["🥂", function(c){return nf(c.sat);}, function(c){return pl(c.sat,"víkend na plánovanie","víkendy na plánovanie","víkendov na plánovanie");}],
-    ["😩", function(c){return nf(c.mon);}, function(c){return pl(c.mon,"pondelok na prežitie","pondelky na prežitie","pondelkov na prežitie");}],
-    ["🍕", function(c){return nf(c.fri);}, function(c){return pl(c.fri,"pizza piatok","pizza piatky","pizza piatkov");}],
-    ["🍽️", function(c){return nf(c.sun);}, function(c){return pl(c.sun,"nedeľný obed","nedeľné obedy","nedeľných obedov");}],
-    ["🌕", function(c){return nf(c.moons);}, function(c){return pl(c.moons,"spln mesiaca","splny mesiaca","splnov mesiaca");}],
-    ["💇", function(c){return nf(c.calDays*0.035,1)+" cm";}, function(){return "narastú vlasy do účesu";}],
-    ["⏳", function(c){return nf(c.sec);}, function(){return "sekúnd trpezlivosti";}]
-  ];
-  var statsEl = $("stats"), statVals = [];
-  STATS.forEach(function(s){
-    var el=document.createElement("div"); el.className="stat";
-    el.innerHTML='<div class="ic">'+s[0]+'</div><div><div class="sv">–</div><div class="sl"></div></div>';
-    statsEl.appendChild(el); statVals.push([el.querySelector(".sv"), el.querySelector(".sl")]);
-  });
-  if ("IntersectionObserver" in window && !reduce){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){e.target.classList.add("in");}, 60*i); io.unobserve(e.target);} });},{threshold:.2});
-    statsEl.querySelectorAll(".stat").forEach(function(el){io.observe(el);});
-  } else statsEl.querySelectorAll(".stat").forEach(function(el){el.classList.add("in");});
-
   /* ===== fakt dňa – mení sa každý deň ===== */
   var FACTS = [
     function(c){return "Do veľkého dňa stihneš ešte <b>"+nf(c.calDays*2)+"</b> káv. Odporúčame neprekračovať.";},
@@ -326,9 +280,8 @@
     function(c){return "Do svadby zje priemerný Slovák ešte asi <b>"+nf(c.calDays*0.3)+"</b> rožkov. Do šiat sa to zmestí.";},
     function(c){return "<b>"+nf(c.calDays)+"</b> rán, keď sa dá povedať „už len "+nf(c.calDays)+" dní“. Dnes je jedno z nich.";}
   ];
-  var dayIdx = 0, extra = 0;
-  function renderFact(c){ var i=(dayIdx+extra)%FACTS.length; $("fact").innerHTML = FACTS[i](c); }
-  $("nextFact").addEventListener("click", function(){ extra++; var c=calc(); if(c) renderFact(c); burst(innerWidth/2, $("fact").getBoundingClientRect().top+40, 40); });
+  var dayIdx = 0;
+  function renderFact(c){ var i=dayIdx%FACTS.length; $("fact").innerHTML = FACTS[i](c); }
 
   /* ===== render ===== */
   var last = {};
@@ -347,7 +300,6 @@
     setTxt("w", String(c.weeks));  setTxt("wl", pl(c.weeks,"týždeň","týždne","týždňov"));
     setTxt("d", String(c.wdays));  setTxt("dl", pl(c.wdays,"deň","dni","dní"));
     $("fill").style.width = c.pct.toFixed(2)+"%"; setTxt("pct", nf(c.pct,1)+" %");
-    STATS.forEach(function(s,i){ statVals[i][0].textContent=s[1](c); statVals[i][1].textContent=s[2](c); });
     var di = Math.floor(c.now/DAY); if (di !== render.day){ render.day = di; dayIdx = di % FACTS.length; renderFact(c); }
   }
   render();
