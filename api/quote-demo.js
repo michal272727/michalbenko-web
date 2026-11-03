@@ -207,6 +207,8 @@ module.exports = async function handler(req, res) {
     }
 
     // type: quote
+    const lid = clean(data.lid, 60).replace(/[^\w.-]/g, '');
+    if (lid && limited('lid:' + lid, 3, 24 * 60 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; } // ukážka max. 3x za deň na ID leadu
     if (limited('q:' + ip, 3, 10 * 60e3)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
     if (data.role && data.role !== 'firma') { res.status(200).json({ ok: true, skipped: true }); return; }
     const cust = { name: clean(data.name, 80), email: clean(data.email, 160), phone: clean(data.phone, 40) };
@@ -227,7 +229,7 @@ module.exports = async function handler(req, res) {
     tx.sendMail({ from: '"michalbenko.sk" <' + gmailUser + '>', to: TO_EMAIL, replyTo: cust.email,
       subject: 'Nová ukážka ponuky — ' + cust.name + ' (' + eur(q.gross) + ')',
       text: `Meno: ${cust.name}\nE-mail: ${cust.email}\nTelefón: ${cust.phone || '-'}\nPonuka: ${no}\nSpolu s DPH: ${eur(q.gross)}\nKusov: ${q.pieces}\n` }).catch(e => console.error('quote-demo: notify failed', e && e.message));
-    await forwardHook({ type: 'quote', no, ...cust, gross: q.gross, net: q.net, pieces: q.pieces, material: q.material, at: new Date().toISOString() });
+    await forwardHook({ type: 'quote', lid, no, ...cust, gross: q.gross, net: q.net, pieces: q.pieces, material: q.material, at: new Date().toISOString() });
     res.status(200).json({ ok: true, no, t: tok, quote: q });
   } catch (e) {
     console.error('quote-demo error', e && e.message);

@@ -661,6 +661,19 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     window.fbq('init', META_PIXEL_ID); window.fbq('track', 'PageView');
   }
 
+  /* ---------- lead z funnelu: /ponuky/?id=...&n=...&e=... ---------- */
+  var LQ = new URLSearchParams(location.search);
+  var LID = (LQ.get('id') || '').replace(/[^\w.-]/g, '').slice(0, 60);
+  if (LID && location.protocol !== 'file:') {
+    try { fetch('/api/lead-event', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ event:'ukazka', id:LID }), keepalive:true }).catch(function(){}); } catch(e){}
+  }
+  (function(){
+    var n = (LQ.get('n') || '').slice(0, 80), e = (LQ.get('e') || '').slice(0, 160);
+    var qn = document.getElementById('qn'), qe = document.getElementById('qe');
+    if (qn && n && !qn.value) qn.value = n;
+    if (qe && e && !qe.value) qe.value = e;
+  })();
+
   /* ---------- stav kalkulačky ---------- */
   var state = { material:'pvc', glass:'troj', color:'biela',
     items:[{type:'okno', w:120, h:150, n:4, opening:'so'}, {type:'balk', w:90, h:220, n:1, opening:'so'}],
@@ -752,7 +765,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     var offline = location.protocol === 'file:';
     var req = offline ? Promise.resolve({ ok:true, demo:true, no:'P' + String(Date.now()).slice(-6) }) :
       fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ type:'quote', name:data.name, email:data.email, phone:data.phone, consent:true, website:f.website.value, config:state }) })
+        body: JSON.stringify({ type:'quote', name:data.name, email:data.email, phone:data.phone, consent:true, website:f.website.value, lid:LID, config:state }) })
       .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
       .catch(function(){ return { ok:false }; });
 

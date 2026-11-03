@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief na jednostránkový web | Michal Benko</title>
+<meta name="description" content="Krátky brief na jednostránkový web: tri minúty, odpoveď písomne do 24 hodín.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0E2247">
+<link rel="icon" href="/favicon.ico">
+<style>
+  :root{
+    --bg:#F7F1E6; --paper:#FFFDF8; --ink:#0E1A30; --ink-soft:#48556E; --ink-faint:#6B7489; --line:#DED0B0; --accent:#2F6FED; --accent-soft:#E3EBFC; --err:#A03F22; --ok:#1E8E5A;
+    --serif:'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+    --sans:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6}
+  main{max-width:640px;margin:0 auto;padding:40px 16px 80px}
+  .kicker{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.2;margin:8px 0 10px;text-wrap:balance}
+  .lead{color:var(--ink-soft);margin:0 0 28px}
+  form{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px 18px}
+  .f{margin-bottom:20px}
+  label,.lbl{display:block;font-weight:600;margin-bottom:4px}
+  .hint{display:block;font-weight:400;color:var(--ink-faint);font-size:.88rem;margin-top:1px}
+  input[type=text],input[type=url],input[type=email],select,textarea{width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:11px 12px;min-width:0}
+  textarea{min-height:92px;resize:vertical}
+  .opts{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .opts label{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:0;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
+  .opts input{margin-top:4px}
+  button{font:inherit;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:8px;padding:13px 22px;cursor:pointer;width:100%}
+  button[disabled]{opacity:.6;cursor:default}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .err{color:var(--err);min-height:1.4em;margin:0 0 10px;font-size:.95rem}
+  .fine{color:var(--ink-faint);font-size:.85rem;margin-top:14px}
+  .fine a{color:var(--accent)}
+  .done{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px 20px}
+  .done h2{font-family:var(--serif);margin:0 0 8px}
+  .hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Jednostránkový web · 350 €</div>
+  <h1>Krátky brief na váš web</h1>
+  <p class="lead">Zaberie to asi 3 minúty. Z odpovedí pripravím cenu, rozsah a reálny termín a pošlem ich písomne do 24 hodín. Telefonovať nemusíme.</p>
+  <form id="f" novalidate>
+    <div class="f" id="emailWrap" hidden>
+      <label for="em">Váš e-mail<span class="hint">Sem pošlem odpoveď.</span></label>
+      <input id="em" type="email" autocomplete="email" maxlength="160">
+    </div>
+    <div class="f">
+      <label for="vzor">Odkaz na web, ktorý sa vám páči<span class="hint">Môže byť aj od konkurencie.</span></label>
+      <input id="vzor" name="vzor" type="url" maxlength="300">
+    </div>
+    <div class="f">
+      <label for="ciel">Čo má návštevník na webe spraviť?</label>
+      <select id="ciel" name="ciel"><option value="">Vyberte</option><option>Zavolať</option><option>Vyplniť formulár</option><option>Kúpiť</option><option>Napísať e-mail</option><option>Niečo iné</option></select>
+    </div>
+    <div class="f" role="group" aria-labelledby="podklady-l">
+      <span class="lbl" id="podklady-l">Čo už máte pripravené?</span>
+      <div class="opts"><label><input type="checkbox" name="podklady" value="Texty">Texty</label><label><input type="checkbox" name="podklady" value="Logo">Logo</label><label><input type="checkbox" name="podklady" value="Fotky">Fotky</label><label><input type="checkbox" name="podklady" value="Zatiaľ nič z toho">Zatiaľ nič z toho</label></div>
+    </div>
+    <div class="f">
+      <label for="poznamka">Niečo, čo mám vedieť<span class="hint">Napríklad čím sa odlišujete alebo na čo web nesmie zabudnúť.</span></label>
+      <textarea id="poznamka" name="poznamka" maxlength="1000"></textarea>
+    </div>
+
+    <div class="hp" aria-hidden="true"><label>Web<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <p class="err" id="err" role="alert"></p>
+    <button id="go" type="submit">Odoslať</button>
+    <p class="fine">Údaje použijem len na odpoveď na vašu požiadavku. <a href="/ochrana-osobnych-udajov/">Ochrana osobných údajov</a></p>
+  </form>
+  <div class="done" id="done" hidden>
+    <h2>Ďakujem.</h2>
+    <p>Brief mám. Odpoviem vám písomne do 24 hodín.</p>
+  </div>
+</main>
+<script>
+(function(){
+  'use strict';
+  var FUNNEL = 'B';
+  var q = new URLSearchParams(location.search);
+  var id = (q.get('id') || '').replace(/[^\w.-]/g, '').slice(0, 60);
+  var preEmail = (q.get('e') || '').slice(0, 160);
+  var f = document.getElementById('f'), err = document.getElementById('err'), go = document.getElementById('go');
+  var em = document.getElementById('em');
+  if (!id) { document.getElementById('emailWrap').hidden = false; }
+  if (preEmail) em.value = preEmail;
+  function val(name){ var el = f.elements[name]; return el ? el.value.trim() : ''; }
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var answers = {};
+    answers['Web, ktorý sa páči'] = val('vzor');
+    answers['Čo má návštevník spraviť'] = val('ciel');
+    answers['Pripravené podklady'] = Array.prototype.map.call(f.querySelectorAll('input[name=podklady]:checked'), function(c){ return c.value; }).join(', ');
+    answers['Poznámka'] = val('poznamka');
+    var has = Object.keys(answers).some(function(k){ return answers[k]; });
+    if (!has) { err.textContent = 'Vyplňte prosím aspoň jedno pole.'; return; }
+    var email = em.value.trim();
+    if (!id && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Doplňte prosím e-mail, sem pošlem odpoveď.'; em.focus(); return; }
+    err.textContent = ''; go.disabled = true; go.textContent = 'Odosielam…';
+    fetch('/api/lead-event', { method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ event:'brief', funnel:FUNNEL, id:id, email:email, answers:answers, website:val('website') }) })
+    .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
+    .then(function(r){
+      if (r && r.ok) { f.hidden = true; document.getElementById('done').hidden = false; window.scrollTo(0, 0); }
+      else { err.textContent = 'Odoslanie sa nepodarilo. Skúste to prosím znova alebo odpovedzte na môj e-mail.'; go.disabled = false; go.textContent = 'Odoslať'; }
+    })
+    .catch(function(){ err.textContent = 'Odoslanie sa nepodarilo. Skúste to prosím znova alebo odpovedzte na môj e-mail.'; go.disabled = false; go.textContent = 'Odoslať'; });
+  });
+})();
+</script>
+</body>
+</html>
