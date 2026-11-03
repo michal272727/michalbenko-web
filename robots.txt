@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://michalbenko.sk/sitemap.xml
+Sitemap: https://www.michalbenko.sk/sitemap.xml
