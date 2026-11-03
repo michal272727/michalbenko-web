@@ -195,14 +195,14 @@ module.exports = async function handler(req, res) {
       const email = tk ? clean(tk.e, 160) : '';
       const phone = clean(data.phone, 40) || (tk ? clean(tk.p, 40) : '');
       const contact = tk ? [email, phone].filter(Boolean).join(' · ') : [clean(data.contact, 120), clean(data.phone, 40)].filter(Boolean).join(' · ');
-      const web = clean(data.web, 160), company = clean(data.company, 120), volume = clean(data.volume, 20), call = clean(data.call, 40);
+      const web = clean(data.web, 160), company = clean(data.company, 120), volume = clean(data.volume, 20);
       const ref = tk ? clean(tk.no, 30) : clean(data.ref, 30);
       if (!name && !contact) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
       if (!web && !company) { res.status(400).json({ ok: false, error: 'invalid_input' }); return; }
-      const text = `Meno: ${name || '-'}\nKontakt: ${contact || '-'}\nFirma: ${company || '-'}\nWeb: ${web || '-'}\nDopytov mesačne: ${volume || '-'}\nZavolať: ${call || '-'}\nUkážková ponuka: ${ref || '-'}\n`;
+      const text = `Meno: ${name || '-'}\nKontakt: ${contact || '-'}\nFirma: ${company || '-'}\nWeb: ${web || '-'}\nDopytov mesačne: ${volume || '-'}\nUkážková ponuka: ${ref || '-'}\n`;
       await tx.sendMail({ from: '"michalbenko.sk" <' + gmailUser + '>', to: TO_EMAIL, replyTo: emailOk(email) ? email : undefined,
-        subject: '📞 Zavolať: ' + (company || web || name) + (call ? ' — ' + call : ''), text });
-      await forwardHook({ type: 'details', name, contact, company, web, volume, call, ref, at: new Date().toISOString() });
+        subject: '📝 Doplnené údaje: ' + (company || web || name), text });
+      await forwardHook({ type: 'details', name, contact, company, web, volume, ref, at: new Date().toISOString() });
       res.status(200).json({ ok: true }); return;
     }
 

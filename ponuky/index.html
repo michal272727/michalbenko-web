@@ -360,7 +360,6 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
           <form id="qform" novalidate>
             <div class="f"><label for="qn">Meno a priezvisko</label><input id="qn" name="name" autocomplete="name" required maxlength="80"></div>
             <div class="f" style="margin-top:10px"><label for="qe">E-mail (sem príde ponuka)</label><input id="qe" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160"></div>
-            <div class="f" style="margin-top:10px"><label for="qp">Telefón (nepovinné)</label><input id="qp" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40"></div>
             <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <label class="consent"><input type="checkbox" id="qc"> <span>Súhlasím so spracovaním údajov na zaslanie ponuky a s tým, že ma Michal Benko môže kontaktovať ohľadom tohto systému (najviac 3 e-maily). <button type="button" class="privacyOpen">Ochrana údajov</button></span></label>
             <div class="err" id="qerr" role="alert"></div>
@@ -421,9 +420,9 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     <p class="kicker">Prečo to funguje</p>
     <h2>Zákazník, ktorý čaká na cenu, si zatiaľ pýta ponuky aj od ostatných.</h2>
     <div class="why">
-      <div><h3>Ste prví</h3><p>Ponuka príde do minúty, aj večer a cez víkend. Kto dá cenu prvý, ten sa dostane k telefonátu.</p></div>
+      <div><h3>Ste prví</h3><p>Ponuka príde do minúty, aj večer a cez víkend. Kto dá cenu prvý, ten väčšinou získa zákazku.</p></div>
       <div><h3>Ušetríte hodiny</h3><p>Žiadne ručné počítanie a posielanie. Vy riešite len zákazníkov, ktorí chcú zameranie.</p></div>
-      <div><h3>Máte prehľad</h3><p>Každý dopyt s cenou, kontaktom a dátumom v tabuľke. Viete, komu zavolať ako prvému.</p></div>
+      <div><h3>Máte prehľad</h3><p>Každý dopyt s cenou, kontaktom a dátumom v tabuľke. Viete, komu napísať ako prvému.</p></div>
     </div>
   </div>
 </section>
@@ -431,10 +430,10 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
 <section>
   <div class="wrap">
     <p class="kicker">Ponuka</p>
-    <h2>Nastavím vám to celé. Vy len pošlete cenník a logo.</h2>
+    <h2>Nastavím vám to celé. Vy len schválite výsledok.</h2>
     <div class="offer">
       <ul class="inc">
-        <li>Kalkulačka na váš web vrátane WordPressu, s vašimi službami a cenníkom</li>
+        <li>Kalkulačka na váš web vrátane WordPressu, s vašimi službami a cenami</li>
         <li>PDF ponuka s vaším logom, údajmi firmy a platnosťou</li>
         <li>Automatický e-mail zákazníkovi a SMS alebo WhatsApp upozornenie vám</li>
         <li>Všetky dopyty v Google tabuľke, ceny upravujete sami</li>
@@ -453,18 +452,18 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
 
 <section class="lead" id="chcem">
   <div class="wrap">
-    <p class="kicker" style="color:#AFC0E6">15 minút, bez záväzkov</p>
+    <p class="kicker" style="color:#AFC0E6">Bez záväzkov</p>
     <h2>Chcete, aby takto dostávali ponuky aj vaši zákazníci?</h2>
-    <p class="sub">Nechajte kontakt. Ozvem sa do 24 hodín, pozrieme sa na váš cenník a poviem vám, ako by to u vás fungovalo.</p>
+    <p class="sub">Nechajte kontakt. Ozvem sa vám písomne do 24 hodín a poviem, ako by to u vás fungovalo.</p>
     <form class="lf" id="lform" novalidate>
       <div><label for="ln">Meno</label><input id="ln" name="name" autocomplete="name" required maxlength="80"></div>
       <div><label for="lc">Firma</label><input id="lc" name="company" autocomplete="organization" maxlength="120"></div>
-      <div><label for="lk">Telefón alebo e-mail</label><input id="lk" name="contact" required maxlength="120"></div>
+      <div><label for="lk">E-mail</label><input id="lk" name="contact" required maxlength="120"></div>
       <div><label for="lw">Web (nepovinné)</label><input id="lw" name="web" inputmode="url" maxlength="160"></div>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="full"><button class="btn" type="submit" id="lsend">Chcem tento systém</button><div class="err" id="lerr" style="color:#FFB4A8"></div></div>
     </form>
-    <div class="lf-ok" id="lok"><b>Ďakujem, mám to.</b> Ozvem sa do 24 hodín. Medzitým si pripravte cenník, aj keď je len v Exceli alebo na papieri.</div>
+    <div class="lf-ok" id="lok"><b>Ďakujem, mám to.</b> Ozvem sa do 24 hodín. Napíšem vám sám, nič teraz posielať nemusíte.</div>
   </div>
 </section>
 
@@ -504,22 +503,20 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     <div id="nxForm">
       <p class="kicker">Krok 2 z 2 · 20 sekúnd</p>
       <h3 id="nxTitle">Mám to. Kde to máme nasadiť?</h3>
-      <p style="font-size:.92rem">Podľa toho vám pri hovore rovno ukážem, ako by kalkulačka vyzerala na vašom webe.</p>
+      <p style="font-size:.92rem">Podľa toho vám v e-maile rovno ukážem, ako by kalkulačka vyzerala na vašom webe.</p>
       <div class="stepbar"><i class="on"></i><i class="on"></i></div>
       <div class="f"><label for="nxWeb">Váš web</label><input id="nxWeb" inputmode="url" placeholder="napr. oknavasafirma.sk" maxlength="160"></div>
       <div class="f"><label for="nxCo">Názov firmy</label><input id="nxCo" autocomplete="organization" maxlength="120"></div>
       <div class="f"><label>Koľko dopytov na ponuku mesačne?</label><div class="chips" data-k="volume"><button type="button" data-v="do 20">do 20</button><button type="button" data-v="20-50">20–50</button><button type="button" data-v="50-150">50–150</button><button type="button" data-v="150+">150+</button></div></div>
-      <div class="f"><label>Kedy vám môžem zavolať?</label><div class="chips" data-k="call"><button type="button" data-v="dnes">Dnes</button><button type="button" data-v="zajtra dopoludnia">Zajtra dopoludnia</button><button type="button" data-v="zajtra popoludní">Zajtra popoludní</button><button type="button" data-v="napíšte mi e-mail">Radšej e-mail</button></div></div>
-      <div class="f" id="nxPhoneWrap"><label for="nxPhone">Telefón</label><input id="nxPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40"></div>
       <div class="err" id="nxErr" role="alert"></div>
       <button type="button" class="btn" id="nxSend">Dokončiť</button>
       <button type="button" class="skip" id="nxSkip">Teraz nie, ozvite sa mi</button>
     </div>
     <div class="fin" id="nxFin">
       <p class="kicker" style="color:var(--ok)">Hotovo</p>
-      <h3>Ďakujem, vidíme sa pri hovore.</h3>
+      <h3>Ďakujem, mám to.</h3>
       <p style="font-size:.92rem">Čo sa bude diať ďalej:</p>
-      <ol><li>Ozvem sa vám v termíne, ktorý ste vybrali.</li><li>Na 15-minútovom hovore prejdeme váš cenník a ukážem vám kalkulačku na vašom webe.</li><li>Po podkladoch máte do 48 hodín testovaciu verziu s vaším cenníkom a logom.</li></ol>
+      <ol><li>Ozvem sa vám písomne, do 24 hodín.</li><li>V e-maile vám ukážem, ako by kalkulačka vyzerala na vašom webe.</li><li>Cenník ani logo teraz posielať nemusíte. Napíšem vám, keď ich budem potrebovať.</li></ol>
       <button type="button" class="btn ghost" id="nxDone">Zavrieť</button>
     </div>
   </div>
@@ -530,7 +527,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     <button class="x" type="button" id="pclose" aria-label="Zavrieť">×</button>
     <h3 id="ptitle">Ochrana osobných údajov</h3>
     <p><b>Prevádzkovateľ:</b> Michal Benko, IČO: 52760316, so sídlom Janka Kráľa 607, 972 45 Bystričany. Kontakt: michalbenko3@gmail.com.</p>
-    <p><b>Aké údaje:</b> meno, e-mail a telefón z kalkulačky; meno, firma, kontakt a web z formulára „Chcem tento systém“.</p>
+    <p><b>Aké údaje:</b> meno a e-mail z kalkulačky; meno, firma, kontakt a web z formulára „Chcem tento systém“.</p>
     <p><b>Účel:</b> zaslanie ukážkovej cenovej ponuky a kontaktovanie ohľadom systému automatických ponúk (najviac 3 e-maily). Z e-mailov sa môžete kedykoľvek odhlásiť odpoveďou „odhlásiť“.</p>
     <p><b>Právny základ:</b> váš súhlas (čl. 6 ods. 1 písm. a) GDPR), ktorý môžete kedykoľvek odvolať.</p>
     <p><b>Doba uchovania:</b> najviac 12 mesiacov, potom údaje vymažem.</p>
@@ -753,7 +750,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
   function submitQuote(){
     var f = $('#qform'), err = $('#qerr');
-    var data = { name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim() };
+    var data = { name: f.name.value.trim(), email: f.email.value.trim() };
     if (!data.name){ err.textContent = 'Doplňte prosím meno.'; f.name.focus(); return; }
     if (!validEmail(data.email)){ err.textContent = 'Skontrolujte prosím e-mail, sem príde ponuka.'; f.email.focus(); return; }
     if (!$('#qc').checked){ err.textContent = 'Potvrďte prosím súhlas so zaslaním ponuky.'; return; }
@@ -765,7 +762,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     var offline = location.protocol === 'file:';
     var req = offline ? Promise.resolve({ ok:true, demo:true, no:'P' + String(Date.now()).slice(-6) }) :
       fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ type:'quote', name:data.name, email:data.email, phone:data.phone, consent:true, website:f.website.value, lid:LID, config:state }) })
+        body: JSON.stringify({ type:'quote', name:data.name, email:data.email, consent:true, website:f.website.value, lid:LID, config:state }) })
       .then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
       .catch(function(){ return { ok:false }; });
 
@@ -791,13 +788,12 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
       .then(function(r){ return r.json(); }).catch(function(){ return { ok:false }; });
   }
   function interestDone(ref, ctx){ track('interest_submit', { ref: ref || '' }); fb('SubmitApplication'); openNext(ctx || {}); }
-  /* ---------- ďalší krok funnelu: doplnenie webu + termín hovoru ---------- */
-  var nx = { ctx:{}, volume:'', call:'' }, nxModal = $('#nextStep');
+  /* ---------- ďalší krok funnelu: doplnenie webu a firmy ---------- */
+  var nx = { ctx:{}, volume:'' }, nxModal = $('#nextStep');
   function openNext(ctx){
-    nx.ctx = ctx; nx.volume = ''; nx.call = '';
+    nx.ctx = ctx; nx.volume = '';
     $('#nxForm').style.display = ''; $('#nxFin').style.display = 'none'; $('#nxErr').textContent = '';
-    $('#nxWeb').value = ctx.web || ''; $('#nxCo').value = ctx.company || ''; $('#nxPhone').value = ctx.phone || '';
-    $('#nxPhoneWrap').style.display = ctx.hasPhone ? 'none' : '';
+    $('#nxWeb').value = ctx.web || ''; $('#nxCo').value = ctx.company || '';
     $$('.nx .chips button').forEach(function(b){ b.classList.remove('on'); });
     setTimeout(function(){ nxModal.classList.add('open'); if (!ctx.web) $('#nxWeb').focus(); }, 450);
     track('next_step_open');
@@ -807,15 +803,14 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
   $('#nxClose').addEventListener('click', closeNext); $('#nxDone').addEventListener('click', closeNext); $('#nxSkip').addEventListener('click', closeNext);
   nxModal.addEventListener('click', function(e){ if (e.target === nxModal) closeNext(); });
   $('#nxSend').addEventListener('click', function(){
-    var web = $('#nxWeb').value.trim(), co = $('#nxCo').value.trim(), ph = $('#nxPhone').value.trim();
+    var web = $('#nxWeb').value.trim(), co = $('#nxCo').value.trim();
     if (!web && !co){ $('#nxErr').textContent = 'Doplňte prosím web alebo aspoň názov firmy.'; return; }
-    if (nx.call && nx.call !== 'napíšte mi e-mail' && !nx.ctx.hasPhone && !ph){ $('#nxErr').textContent = 'Na zavolanie potrebujem telefón.'; $('#nxPhone').focus(); return; }
     var b = this; b.disabled = true; b.textContent = 'Odosielam…';
-    var c = nx.ctx, payload = { type:'details', web:web, company:co, phone:ph, volume:nx.volume, call:nx.call, ref:c.ref || '' };
+    var c = nx.ctx, payload = { type:'details', web:web, company:co, volume:nx.volume, ref:c.ref || '' };
     if (c.t) payload.t = c.t; else { payload.name = c.name || ''; payload.contact = c.contact || ''; }
     sendInterest(payload).then(function(r){
       b.disabled = false; b.textContent = 'Dokončiť';
-      if (r && r.ok){ $('#nxForm').style.display = 'none'; $('#nxFin').style.display = 'block'; track('next_step_done', { volume:nx.volume, call:nx.call }); fb('Schedule'); }
+      if (r && r.ok){ $('#nxForm').style.display = 'none'; $('#nxFin').style.display = 'block'; track('next_step_done', { volume:nx.volume }); fb('Schedule'); }
       else $('#nxErr').textContent = 'Nepodarilo sa odoslať. Skúste to prosím znova.';
     });
   });
@@ -825,7 +820,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     var payload = last.t ? { type:'interest', t:last.t, via:'result' } : { type:'interest', name:last.name, contact:last.contact, ref:last.ref, via:'result' };
     sendInterest(payload).then(function(r){
       b.disabled = false; b.textContent = 'Chcem tento systém pre svoju firmu';
-      if (r && r.ok){ b.style.display = 'none'; var ok = $('#rok'); ok.innerHTML = '<b>Hotovo, mám to.</b> Ozvem sa vám do 24 hodín na ' + esc(last.email) + '. Medzitým si pripravte cenník, aj keď je len v Exceli.'; ok.style.display = 'block'; interestDone(last.ref, { t:last.t, name:last.name, contact:last.contact, ref:last.ref, phone:last.phone, hasPhone:!!last.phone }); }
+      if (r && r.ok){ b.style.display = 'none'; var ok = $('#rok'); ok.innerHTML = '<b>Hotovo, mám to.</b> Ozvem sa vám do 24 hodín na ' + esc(last.email) + '. Napíšem vám sám, nič teraz posielať nemusíte.'; ok.style.display = 'block'; interestDone(last.ref, { t:last.t, name:last.name, contact:last.contact, ref:last.ref, phone:last.phone, hasPhone:!!last.phone }); }
       else { $('#chcem').scrollIntoView({ behavior:'smooth' }); }
     });
   });
@@ -866,7 +861,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     lf.style.display = 'none'; lok.style.display = 'block'; lok.innerHTML = 'Odosielam váš záujem…';
     setTimeout(function(){ $('#chcem').scrollIntoView(); }, 200);
     sendInterest({ type:'interest', t: params.get('t') }).then(function(r){
-      if (r && r.ok){ lok.innerHTML = '<b>Ďakujem, mám to.</b> Kontakt z ponuky už mám, ozvem sa vám do 24 hodín. Medzitým si pripravte cenník, aj keď je len v Exceli alebo na papieri.'; interestDone('email', { t: params.get('t'), hasPhone:false }); }
+      if (r && r.ok){ lok.innerHTML = '<b>Ďakujem, mám to.</b> Kontakt z ponuky už mám, ozvem sa vám do 24 hodín. Napíšem vám sám, nič teraz posielať nemusíte.'; interestDone('email', { t: params.get('t'), hasPhone:false }); }
       else { lok.style.display = 'none'; lf.style.display = ''; }
       try { history.replaceState(null, '', location.pathname + '#chcem'); } catch(e){}
     });
@@ -875,7 +870,7 @@ footer button{background:none;border:0;padding:0;text-decoration:underline;font-
     e.preventDefault();
     var f = e.target, err = $('#lerr');
     var d = { type:'interest', name:f.name.value.trim(), company:f.company.value.trim(), contact:f.contact.value.trim(), web:f.web.value.trim(), ref:f.dataset.ref || '', website:f.website.value };
-    if (!d.name || !d.contact){ err.textContent = 'Doplňte prosím meno a telefón alebo e-mail.'; return; }
+    if (!d.name || !d.contact){ err.textContent = 'Doplňte prosím meno a e-mail.'; return; }
     err.textContent = ''; $('#lsend').disabled = true; $('#lsend').textContent = 'Odosielam…';
     var done = function(){ f.style.display = 'none'; $('#lok').style.display = 'block'; interestDone(d.ref, { name:d.name, contact:d.contact, ref:d.ref, company:d.company, web:d.web, hasPhone:/\d{6,}/.test(d.contact.replace(/\s/g,'')) }); };
     if (location.protocol === 'file:') { done(); return; }
