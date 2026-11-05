@@ -54,8 +54,8 @@ function handleLead_(f, lead) {
   if (ids.indexOf(id) >= 0) return { ok: true, skipped: 'duplicate' };
 
   var q1 = pick_(lead, ['ako dnes', 'aky web', 'co chcete', 'ktory proces', 'proces']);
-  var q2 = pick_(lead, ['kolko', 'rozsah', 'frekvenc', 'ako casto']);
-  var q3 = pick_(lead, ['web alebo', 'socialn', 'nastroj', 'pouzivate']);
+  var q2 = pick_(lead, ['kolko', 'kedy', 'rozsah', 'frekvenc', 'ako casto']);
+  var q3 = pick_(lead, ['web alebo', 'zaobera', 'socialn', 'nastroj', 'pouzivate']);
   var vetva = f === 'A' ? vetvaA_(q2) : f;
 
   var row = [];
