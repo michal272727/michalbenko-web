@@ -62,7 +62,7 @@ function handleLead_(f, lead) {
   for (var i = 0; i < 21; i++) row.push('');
   row[C.id - 1] = id; row[C.recv - 1] = new Date(); row[C.funnel - 1] = f; row[C.vetva - 1] = vetva || '';
   row[C.name - 1] = name; row[C.email - 1] = email; row[C.firma - 1] = firma;
-  row[C.web - 1] = q3; row[C.q1 - 1] = q1; row[C.q2 - 1] = q2; row[C.stav - 1] = STAV.novy;
+  row[C.web - 1] = f === 'A' ? q3 : ''; row[C.q1 - 1] = q1; row[C.q2 - 1] = q2; row[C.q3 - 1] = q3; row[C.stav - 1] = STAV.novy;
   sh.appendRow(row);
   var r = sh.getLastRow();
 
