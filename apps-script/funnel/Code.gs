@@ -2,7 +2,7 @@
  * Meta funnel A/B/C: Apps Script (bez Zapieru okrem vstupu).
  * Zapier (spúšťač Facebook Lead Ads) -> 1 akcia Webhooks POST na <exec URL>?key=SECRET&f=A|B|C
  * Telo: JSON so všetkými poľami leadu (id, full_name, email, company_name + otázky z formulára).
- * Script robí: duplicitu, zápis do Sheetu, e-mail 1, detekciu odpovede, follow-upy (4. a 10. deň), uzavretie, upozornenia.
+ * Script robí: duplicitu, zápis do Sheetu, jeden e-mail po vyplnení, detekciu odpovede, uzavretie po 14 dňoch, upozornenia.
  * Mail ide z Gmailu michalbenko3. Žiadne telefonáty ani SMS.
  */
 var SHEET_ID = '1CmysWFwAFk91DocRa5OAMqEsUrtQEHUeB7GTz4F4S18';
@@ -71,7 +71,7 @@ function handleLead_(f, lead) {
     MailApp.sendEmail(NOTIFY, 'Lead bez e-mailu 1: ' + name, 'Pozri Sheet: https://docs.google.com/spreadsheets/d/' + SHEET_ID);
     return { ok: true, sent: false };
   }
-  var m = email1_(f, vetva, firma, name, id, email);
+  var m = email1_(f, vetva, firma, name, id, email, q1, q2, q3);
   GmailApp.sendEmail(email, m.subject, m.body, { name: FROM_NAME });
   sh.getRange(r, C.stav).setValue(STAV.e1);
   sh.getRange(r, C.e1).setValue(new Date());
@@ -88,26 +88,33 @@ function vetvaA_(q2) {
   return null;
 }
 
-/* ---------- e-mail 1 ---------- */
-function email1_(f, vetva, firma, name, id, email) {
+/* ---------- e-mail 1 (jediný e-mail po vyplnení formulára) ---------- */
+function q_(v) { return v ? '„' + v + '“' : ''; }
+function email1_(f, vetva, firma, name, id, email, q1, q2, q3) {
   var fi = firma || 'vašu firmu';
   var sign = '\n\nMichal Benko\nmichalbenko.sk';
+  var L = ['Dobrý deň,', '', 'ďakujem, že ste vyplnili formulár.'];
   if (f === 'A') {
     var demo = demoLink_(id, name, email);
-    if (vetva === 'A1') return { subject: 'Ukážka cenovej ponuky pre ' + fi, body: ['Dobrý deň,', '', 'ďakujem za záujem. Pri 50 a viac ponukách mesačne sa automatizácia ponúk oplatí. Každý dopyt, na ktorý odpoviete rýchlejšie, má vyššiu šancu skončiť zákazkou.', '', 'Vyskúšajte si ukážku (zaberie 2 minúty): ' + demo, '', 'Zadáte parametre, systém vypočíta cenu a pošle vzorovú ponuku na váš e-mail.', '', 'Ak to chcete pre ' + fi + ', odpovedzte na tento e-mail troma údajmi:', '1. Jedna typická služba alebo produkt, ktorý ponúkate', '2. Od čoho závisí cena (rozmer, množstvo, materiál…)', '3. Na akú e-mailovú adresu majú chodiť dopyty', '', 'Odpoviem písomne do 24 hodín a navrhnem ďalší postup. Systém stojí 390 € jednorazovo. Telefonovať nemusíme.'].join('\n') + sign };
-    if (vetva === 'A2') return { subject: 'Ukážka cenovej ponuky pre ' + fi, body: ['Dobrý deň,', '', 'ďakujem za záujem. Pri 20–50 ponukách mesačne sa vám automatizácia ponúk môže oplatiť, záleží na tom, koľko času dnes ponukám venujete. Pozrite si ukážku, nech vidíte, či to dáva zmysel: ' + demo, '', 'Ak chcete, odpovedzte jedným slovom „ďalej“ a pošlem vám, čo by to pre vašu firmu stálo a čo by ste získali.'].join('\n') + sign };
-    return { subject: 'Ukážka cenovej ponuky', body: ['Dobrý deň,', '', 'ďakujem za záujem. Pri menej než 20 ponukách mesačne sa vám automatizácia ponúk zatiaľ pravdepodobne neoplatí. Ukážku si môžete pozrieť tu: ' + demo, '', 'Ak sa počet dopytov zvýši, ozvite sa.'].join('\n') + sign };
+    if (q1) L.push('Píšete, že ponuky dnes vytvárate takto: ' + q_(q1) + (q2 ? ' a mesačne ich je ' + q_(q2) : '') + '.');
+    if (vetva === 'A3') {
+      L.push('', 'Pri takom počte sa vám automatizácia zatiaľ pravdepodobne neoplatí, nechcem vám predávať zbytočnosť. Ukážku si môžete pozrieť tu: ' + demo, '', 'Ak sa počet dopytov zvýši, odpovedzte na tento e-mail a nadviažeme.');
+      return { subject: 'Ďakujem za formulár: ukážka ponuky', body: L.join('\n') + sign };
+    }
+    L.push('', vetva === 'A1' ? 'Pri takom objeme sa automatizácia ponúk oplatí najviac: zákazník dostane cenu hneď a vy ušetríte hodiny ručného počítania.' : 'Pri takom objeme sa vám automatizácia môže oplatiť, záleží na tom, koľko času ponukám dnes venujete.');
+    L.push('', 'Vyskúšajte si ukážku (zaberie 2 minúty): ' + demo, '', 'Ak to chcete pre ' + fi + ', odpovedzte na tento e-mail troma údajmi:', '1. Jedna typická služba alebo produkt, ktorý ponúkate', '2. Od čoho závisí cena (rozmer, množstvo, materiál…)', '3. Na akú e-mailovú adresu majú chodiť dopyty', '', 'Systém stojí 390 € jednorazovo. Odpoviem písomne do 24 hodín, telefonovať nemusíme.');
+    return { subject: 'Ďakujem za formulár: ukážka ponuky pre ' + fi, body: L.join('\n') + sign };
   }
-  if (f === 'B') return { subject: 'Jednostránkový web pre ' + fi, body: ['Dobrý deň,', '', 'ďakujem za záujem o jednostránkový web. Dostanete jednu prehľadnú stránku s jasnou ponukou a formulárom, ktorá funguje na mobile aj počítači. Cena je 350 € jednorazovo a sú v nej 2 kolá úprav.', '', 'Aby som vám vedel navrhnúť ďalší postup, odpovedzte na tento e-mail dvoma vetami: čo ponúkate a komu.', '', 'Komunikujeme písomne, telefonovať nemusíme. Odpoviem do 24 hodín.'].join('\n') + sign };
-  return { subject: 'Automatizácia pre ' + fi, body: ['Dobrý deň,', '', 'ďakujem za záujem o automatizáciu. Nastavím, aby sa opakované úkony (dopyt do tabuľky, odpoveď zákazníkovi, pripomienka) diali samy. Cena je od 39 € mesačne podľa rozsahu.', '', 'Odpovedzte na tento e-mail jednou vetou: ktorú činnosť robíte ručne najčastejšie.', '', 'Komunikujeme písomne, telefonovať nemusíme. Odpoviem do 24 hodín.'].join('\n') + sign };
-}
-
-/* ---------- follow-upy ---------- */
-function followUp_(n, f, firma) {
-  var sign = '\n\nMichal Benko\nmichalbenko.sk';
-  var what = f === 'A' ? 'ukážku automatických cenových ponúk' : f === 'B' ? 'jednostránkový web' : 'automatizáciu';
-  if (n === 1) return { subject: 'Ešte k tomu, čo som vám posielal', body: ['Dobrý deň,', '', 'len sa krátko pripomínam k téme: ' + what + '. Ak vás to stále zaujíma, stačí odpovedať na tento e-mail jednou vetou a pošlem vám ďalší krok.'].join('\n') + sign };
-  return { subject: 'Posledná správa k ' + what, body: ['Dobrý deň,', '', 'nechcem vás zahlcovať, preto je to moja posledná správa. Ak sa téma ' + what + ' vráti, napíšte mi kedykoľvek a nadviažeme.'].join('\n') + sign };
+  if (f === 'B') {
+    if (q1) L.push('Píšete, že web dnes máte takto: ' + q_(q1) + (q2 ? ' a potrebovali by ste ho ' + q_(q2).toLowerCase() : '') + '.');
+    if (q3) L.push('Ste firma, ktorá sa zaoberá: ' + q_(q3) + '.');
+    L.push('', 'Navrhnem vám jednu prehľadnú stránku s jasnou ponukou a formulárom, ktorá funguje na mobile aj počítači. Cena je 350 € jednorazovo a sú v nej 2 kolá úprav.', '', 'Ak chcete pokračovať, odpovedzte na tento e-mail dvoma vetami: čo ponúkate a komu. Do 24 hodín vám napíšem ďalší krok. Komunikujeme písomne, telefonovať nemusíme.');
+    return { subject: 'Ďakujem za formulár: jednostránkový web pre ' + fi, body: L.join('\n') + sign };
+  }
+  if (q1) L.push('Najčastejšie ručne robíte: ' + q_(q1) + (q2 ? ' a opakuje sa to ' + q_(q2).toLowerCase() + ' mesačne' : '') + '.');
+  if (q3) L.push('Dnes používate: ' + q_(q3) + '.');
+  L.push('', 'Presne takéto opakované úkony viem nastaviť tak, aby bežali samy, bez toho, aby ste na ne mysleli. Cena je od 39 € mesačne podľa rozsahu.', '', 'Ak chcete pokračovať, odpovedzte na tento e-mail jednou vetou: kedy sa to dnes stane a čo sa má potom urobiť. Do 24 hodín vám napíšem, ako by to fungovalo. Komunikujeme písomne, telefonovať nemusíme.');
+  return { subject: 'Ďakujem za formulár: automatizácia pre ' + fi, body: L.join('\n') + sign };
 }
 
 /* ---------- hodinový časovač ---------- */
@@ -137,13 +144,7 @@ function tick() {
       continue;
     }
     var age = now - new Date(e1).getTime();
-    if (stav === STAV.e1 && age >= 4 * DAY) {
-      var m1 = followUp_(1, f, row[C.firma - 1]); GmailApp.sendEmail(email, m1.subject, m1.body, { name: FROM_NAME });
-      sh.getRange(r, C.stav).setValue(STAV.fu1); sh.getRange(r, C.fu1).setValue(new Date());
-    } else if (stav === STAV.fu1 && age >= 10 * DAY) {
-      var m2 = followUp_(2, f, row[C.firma - 1]); GmailApp.sendEmail(email, m2.subject, m2.body, { name: FROM_NAME });
-      sh.getRange(r, C.stav).setValue(STAV.fu2); sh.getRange(r, C.fu2).setValue(new Date());
-    } else if (stav === STAV.fu2 && age >= 14 * DAY) {
+    if (stav === STAV.e1 && age >= 14 * DAY) {
       sh.getRange(r, C.stav).setValue(STAV.closed); sh.getRange(r, C.closed).setValue(new Date());
     }
   }
