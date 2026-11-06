@@ -2,7 +2,7 @@
  * Meta funnel A/B/C: Apps Script (bez Zapieru okrem vstupu).
  * Zapier (spúšťač Facebook Lead Ads) -> 1 akcia Webhooks POST na <exec URL>?key=SECRET&f=A|B|C
  * Telo: JSON so všetkými poľami leadu (id, full_name, email, company_name + otázky z formulára).
- * Script robí: duplicitu, zápis do Sheetu, jeden e-mail po vyplnení, detekciu odpovede, uzavretie po 14 dňoch, upozornenia.
+ * Script robí: duplicitu, zápis do Sheetu, krátke poďakovanie leadovi, upozornenie Michalovi s odpoveďami, detekciu odpovede, uzavretie po 14 dňoch.
  * Mail ide z Gmailu michalbenko3. Žiadne telefonáty ani SMS.
  */
 var SHEET_ID = '1CmysWFwAFk91DocRa5OAMqEsUrtQEHUeB7GTz4F4S18';
@@ -66,16 +66,16 @@ function handleLead_(f, lead) {
   sh.appendRow(row);
   var r = sh.getLastRow();
 
-  if (!email || !vetva) {
-    sh.getRange(r, C.note).setValue(!email ? 'Chýba e-mail, e-mail 1 sa neposlal.' : 'Vetva sa nerozpoznala podľa Q2, e-mail 1 sa neposlal.');
+  if (!email) {
+    sh.getRange(r, C.note).setValue('Chýba e-mail, e-mail 1 sa neposlal.');
     MailApp.sendEmail(NOTIFY, 'Lead bez e-mailu 1: ' + name, 'Pozri Sheet: https://docs.google.com/spreadsheets/d/' + SHEET_ID);
     return { ok: true, sent: false };
   }
-  var m = email1_(f, vetva, firma, name, id, email, q1, q2, q3);
+  var m = email1_(f, vetva, firma, name, id, email);
   GmailApp.sendEmail(email, m.subject, m.body, { name: FROM_NAME });
   sh.getRange(r, C.stav).setValue(STAV.e1);
   sh.getRange(r, C.e1).setValue(new Date());
-  MailApp.sendEmail(NOTIFY, 'Nový lead ' + f + ': ' + (firma || name), 'Vetva ' + vetva + '\nE-mail 1 odoslaný.\nSheet: https://docs.google.com/spreadsheets/d/' + SHEET_ID);
+  MailApp.sendEmail(NOTIFY, 'Nový lead ' + f + ': ' + (firma || name), 'Meno: ' + name + '\nE-mail: ' + email + '\nFirma: ' + firma + '\n\nQ1: ' + q1 + '\nQ2: ' + q2 + '\nQ3: ' + q3 + '\n\nOdoslal som poďakovanie. Teraz mu napíš ty.\nSheet: https://docs.google.com/spreadsheets/d/' + SHEET_ID);
   return { ok: true, sent: true, vetva: vetva };
 }
 
@@ -88,33 +88,16 @@ function vetvaA_(q2) {
   return null;
 }
 
-/* ---------- e-mail 1 (jediný e-mail po vyplnení formulára) ---------- */
-function q_(v) { return v ? '„' + v + '“' : ''; }
-function email1_(f, vetva, firma, name, id, email, q1, q2, q3) {
-  var fi = firma || 'vašu firmu';
+/* ---------- e-mail 1 (krátke poďakovanie + krok, ktorý môže lead spraviť hneď) ---------- */
+function email1_(f, vetva, firma, name, id, email) {
   var sign = '\n\nMichal Benko\nmichalbenko.sk';
-  var L = ['Dobrý deň,', '', 'ďakujem, že ste vyplnili formulár.'];
   if (f === 'A') {
-    var demo = demoLink_(id, name, email);
-    if (q1) L.push('Píšete, že ponuky dnes vytvárate takto: ' + q_(q1) + (q2 ? ' a mesačne ich je ' + q_(q2) : '') + '.');
-    if (vetva === 'A3') {
-      L.push('', 'Pri takom počte sa vám automatizácia zatiaľ pravdepodobne neoplatí, nechcem vám predávať zbytočnosť. Ukážku si môžete pozrieť tu: ' + demo, '', 'Ak sa počet dopytov zvýši, odpovedzte na tento e-mail a nadviažeme.');
-      return { subject: 'Ďakujem za formulár: ukážka ponuky', body: L.join('\n') + sign };
-    }
-    L.push('', vetva === 'A1' ? 'Pri takom objeme sa automatizácia ponúk oplatí najviac: zákazník dostane cenu hneď a vy ušetríte hodiny ručného počítania.' : 'Pri takom objeme sa vám automatizácia môže oplatiť, záleží na tom, koľko času ponukám dnes venujete.');
-    L.push('', 'Vyskúšajte si ukážku (zaberie 2 minúty): ' + demo, '', 'Ak to chcete pre ' + fi + ', odpovedzte na tento e-mail troma údajmi:', '1. Jedna typická služba alebo produkt, ktorý ponúkate', '2. Od čoho závisí cena (rozmer, množstvo, materiál…)', '3. Na akú e-mailovú adresu majú chodiť dopyty', '', 'Systém stojí 390 € jednorazovo. Odpoviem písomne do 24 hodín, telefonovať nemusíme.');
-    return { subject: 'Ďakujem za formulár: ukážka ponuky pre ' + fi, body: L.join('\n') + sign };
+    return { subject: 'Ďakujem, ukážku ponuky máte tu', body: ['Dobrý deň,', '', 'ďakujem za vyplnený formulár. Ozvem sa vám písomne do 24 hodín.', '', 'Ak si chcete systém vyskúšať hneď, zaberie to 2 minúty: zadáte parametre a do minúty vám príde cena aj ponuka na e-mail:', demoLink_(id, name, email)].join('\n') + sign };
   }
   if (f === 'B') {
-    if (q1) L.push('Píšete, že web dnes máte takto: ' + q_(q1) + (q2 ? ' a potrebovali by ste ho ' + q_(q2).toLowerCase() : '') + '.');
-    if (q3) L.push('Ste firma, ktorá sa zaoberá: ' + q_(q3) + '.');
-    L.push('', 'Navrhnem vám jednu prehľadnú stránku s jasnou ponukou a formulárom, ktorá funguje na mobile aj počítači. Cena je 350 € jednorazovo a sú v nej 2 kolá úprav.', '', 'Ak chcete pokračovať, odpovedzte na tento e-mail dvoma vetami: čo ponúkate a komu. Do 24 hodín vám napíšem ďalší krok. Komunikujeme písomne, telefonovať nemusíme.');
-    return { subject: 'Ďakujem za formulár: jednostránkový web pre ' + fi, body: L.join('\n') + sign };
+    return { subject: 'Ďakujem, ozvem sa do 24 hodín', body: ['Dobrý deň,', '', 'ďakujem za vyplnený formulár. Ozvem sa vám písomne do 24 hodín.', '', 'Ak chcete urýchliť, odpovedzte na tento e-mail dvoma vetami: čo ponúkate a komu. Podľa toho vám hneď navrhnem, ako by stránka vyzerala.'].join('\n') + sign };
   }
-  if (q1) L.push('Najčastejšie ručne robíte: ' + q_(q1) + (q2 ? ' a opakuje sa to ' + q_(q2).toLowerCase() + ' mesačne' : '') + '.');
-  if (q3) L.push('Dnes používate: ' + q_(q3) + '.');
-  L.push('', 'Presne takéto opakované úkony viem nastaviť tak, aby bežali samy, bez toho, aby ste na ne mysleli. Cena je od 39 € mesačne podľa rozsahu.', '', 'Ak chcete pokračovať, odpovedzte na tento e-mail jednou vetou: kedy sa to dnes stane a čo sa má potom urobiť. Do 24 hodín vám napíšem, ako by to fungovalo. Komunikujeme písomne, telefonovať nemusíme.');
-  return { subject: 'Ďakujem za formulár: automatizácia pre ' + fi, body: L.join('\n') + sign };
+  return { subject: 'Ďakujem, ozvem sa do 24 hodín', body: ['Dobrý deň,', '', 'ďakujem za vyplnený formulár. Ozvem sa vám písomne do 24 hodín.', '', 'Ak chcete urýchliť, odpovedzte na tento e-mail jednou vetou: kedy sa daný úkon u vás dnes deje a čo sa má potom urobiť. Podľa toho vám hneď napíšem, ako by to fungovalo.'].join('\n') + sign };
 }
 
 /* ---------- hodinový časovač ---------- */
