@@ -189,7 +189,13 @@ section{padding-block:clamp(64px,9vw,120px); border-top:1px solid var(--line);}
 .ref-cap p{font-size:.9rem; margin-top:4px;}
 .ref-cap .go{font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; color:var(--ink-soft); border-bottom:1px solid currentColor; padding-bottom:2px;}
 .ref:hover .ref-cap .go{color:var(--accent);}
-.ref.rv:nth-child(2){transition-delay:.12s;} .ref.rv:nth-child(4){transition-delay:.12s;}
+.ref.rv:nth-child(3){transition-delay:.12s;} .ref.rv:nth-child(5){transition-delay:.12s;}
+.ref-feat{grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:clamp(24px,4vw,56px); align-items:center;}
+.ref-feat .ref-cap{flex-direction:column; align-items:flex-start; gap:20px; margin-top:0;}
+.ref-feat .ref-cap h3{font-size:clamp(1.5rem,2.4vw,2rem); margin-top:12px;}
+.ref-feat .ref-cap p{font-size:1rem; max-width:32ch;}
+.ref-badge{display:inline-block; font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent2); background:var(--accent2-soft); padding:5px 9px;}
+@media (max-width:700px){ .ref-feat{display:block;} .ref-feat .ref-cap{margin-top:18px; gap:10px;} .ref-feat .ref-cap h3{font-size:1.25rem;} }
 /* fit */
 .fit{display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(32px,5vw,72px); align-items:start;}
 .fit h2{font-size:clamp(1.9rem,3.6vw,2.9rem); line-height:1.08; margin-top:14px;}
@@ -384,6 +390,10 @@ footer a:hover{color:#fff;}
       <p>Každý vyzerá inak, lebo každý vychádza z toho, čo chcel klient. Kliknutím otvoríte web naživo.</p>
     </div>
     <div class="ref-grid">
+      <a class="ref ref-feat rv" href="https://carettapodvtacnikom.sk" target="_blank" rel="noopener">
+        <div class="ref-shot"><div class="bar"><i></i><i></i><i></i><span>carettapodvtacnikom.sk</span></div><img src="/weby/ref-caretta.webp" alt="Náhľad webu prenájmu karavanu Caretta pod Vtáčnikom" width="1200" height="750" loading="lazy" decoding="async"></div>
+        <div class="ref-cap"><div><span class="ref-badge">Najnovší web</span><h3>Caretta pod Vtáčnikom</h3><p>Prenájom karavanu s kalendárom voľných termínov a online rezerváciou</p></div><span class="go">Pozrieť web ↗</span></div>
+      </a>
       <a class="ref rv" href="https://bryndziaren.sk" target="_blank" rel="noopener">
         <div class="ref-shot"><div class="bar"><i></i><i></i><i></i><span>bryndziaren.sk</span></div><img src="/weby/ref-bryndziaren.webp" alt="Náhľad webu Bryndziareň a syráreň Zvolenská Slatina" width="1200" height="750" loading="lazy" decoding="async"></div>
         <div class="ref-cap"><div><h3>Bryndziareň Zvolenská Slatina</h3><p>Príbeh značky a produkty</p></div><span class="go">Pozrieť web ↗</span></div>
